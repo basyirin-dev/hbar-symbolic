@@ -324,3 +324,28 @@ return jax.vmap(swap_token)(token_ids)
 - If the baseline achieves high OOD accuracy (>70%), the Add-Jump split may be incorrectly implemented
 - The baseline results establish the "floor" that H-Bar signal modulation must exceed
 - All H-Bar experiments (Additive, Multiplicative conditions) will be compared against this Adam baseline
+
+### Decision 15: Baseline Results - Illusion of Mastery Pattern Confirmed
+**Date:** 2026-04-07
+**Status:** Accepted
+
+**Context:** What were the actual baseline results from the Kaggle run?
+
+**Decision:** Document the actual baseline results for comparison with future H-Bar experiments.
+
+**Results (Kaggle GPU T4, 5000 steps):**
+- **ID Accuracy:** 91.9%
+- **OOD Accuracy:** 63.0%
+- **σ̂_A:** 0.685
+- **Training Time:** 15.8 minutes
+- **Generalization Gap:** 28.9%
+
+**Interpretation:**
+- The model achieved decent ID accuracy (>90%) confirming it learned the training distribution
+- The ~29% ID-OOD gap confirms the "Illusion of Mastery" pattern
+- OOD accuracy (63%) was higher than the original paper's ~44%, suggesting our implementation may have some compositional leakage or the model architecture provides some inductive bias
+- The results establish a solid baseline for H-Bar experiments to improve upon
+
+**Files:**
+- `baseline_metrics.csv`: Step-by-step training metrics (available from Kaggle)
+- `model_params.msgpack`: Final model parameters for Phase 2 analysis
