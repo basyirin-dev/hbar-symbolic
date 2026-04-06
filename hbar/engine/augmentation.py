@@ -293,137 +293,85 @@ def _apply_scan_permutation(
     after_id = tokenizer.word2id.get("after", -1)
 
     # Check if conjunctions exist in the sequence
-    has_and = jnp.any(token_ids == and_id) if and_id >= 0 else False
-    has_after = jnp.any(token_ids == after_id) if after_id >= 0 else False
+    # Use Python booleans by converting outside of traced context
+    has_and_val = bool(jnp.any(token_ids == and_id)) if and_id >= 0 else False
+    has_after_val = bool(jnp.any(token_ids == after_id)) if after_id >= 0 else False
 
     # If no conjunctions, return unchanged
-    if not (has_and or has_after):
+    if not (has_and_val or has_after_val):
         return token_ids
 
     # Choose which conjunction type to use (prefer 'and' if both present)
-    use_and = jax.random.bernoulli(key, 0.7) if (has_and and has_after) else has_and
+    if has_and_val and has_after_val:
+        use_and_val = jax.random.bernoulli(key, 0.7)
+    else:
+        use_and_val = has_and_val
+
+    # Convert to Python bool for cond
+    if isinstance(use_and_val, jax.Array):
+        use_and_val = bool(use_and_val)
+
+    if use_and_val:
+        conj_id = and_id
+    else:
+        conj_id = after_id
 
     # Find the position of the conjunction
-    def find_conjunction_pos(ids, conj_id):
-        """Find the position of the first occurrence of conj_id."""
-        positions = jnp.where(ids == conj_id, size=1, fill_value=-1)
-        return positions[0]
+    conj_positions = jnp.where(token_ids == conj_id, size=1, fill_value=-1)
+    conj_pos = int(conj_positions[0])
 
-    # Process based on conjunction type
-    def process_and(ids):
-        """Swap sub-commands around 'and' conjunction."""
-        conj_pos = find_conjunction_pos(ids, and_id)
+    # If no conjunction found, return unchanged
+    if conj_pos < 0:
+        return token_ids
 
-        # If no conjunction found, return unchanged
-        if conj_pos < 0:
-            return ids
+    # Find segment boundaries
+    bos_id = tokenizer.word2id.get("<BOS>", 1)
+    eos_id = tokenizer.word2id.get("<EOS>", 2)
+    pad_id = tokenizer.word2id.get("<PAD>", 0)
 
-        # Find segment boundaries (BOS, PAD, or conjunction)
-        # Segment 1: from BOS (or start of content) to before 'and'
-        # Segment 2: from after 'and' to EOS (or end of content)
+    # Find first non-BOS, non-PAD token
+    seq_len = len(token_ids)
+    is_content_start = (token_ids != bos_id) & (token_ids != pad_id)
+    start_indices = jnp.where(is_content_start, size=1, fill_value=seq_len)
+    seg1_start = int(start_indices[0])
 
-        # Find start of first segment (after BOS and padding)
-        bos_id = tokenizer.word2id.get("<BOS>", 1)
-        eos_id = tokenizer.word2id.get("<EOS>", 2)
-        pad_id = tokenizer.word2id.get("<PAD>", 0)
+    # Segment 1 ends at conjunction
+    seg1_end = conj_pos
 
-        # Find first non-BOS, non-PAD token
-        is_content_start = (ids != bos_id) & (ids != pad_id)
-        content_indices = jnp.where(is_content_start, size=1, fill_value=-1)
-        seg1_start = content_indices[0] if len(content_indices) > 0 else 0
+    # Segment 2 starts after conjunction
+    seg2_start = conj_pos + 1
 
-        # Segment 1 ends at conjunction
-        seg1_end = conj_pos
+    # Segment 2 ends at EOS or padding
+    is_content_end = (token_ids == eos_id) | (token_ids == pad_id)
+    end_indices = jnp.where(is_content_end, size=1, fill_value=seq_len)
+    seg2_end = int(end_indices[0])
+    if seg2_end == seq_len:
+        seg2_end = seq_len
 
-        # Segment 2 starts after conjunction
-        seg2_start = conj_pos + 1
+    # Extract segments
+    seg1 = token_ids[seg1_start:seg1_end]
+    seg2 = token_ids[seg2_start:seg2_end]
 
-        # Segment 2 ends at EOS or before padding
-        is_content_end = (ids == eos_id) | (ids == pad_id)
-        eos_positions = jnp.where(is_content_end, size=1, fill_value=len(ids))
-        seg2_end = eos_positions[0] if eos_positions[0] < len(ids) else len(ids)
+    # Build result: prefix + swapped segments
+    prefix = token_ids[:seg1_start]
+    suffix = token_ids[seg2_end:]
 
-        # Extract segments (excluding conjunction)
-        seg1 = ids[seg1_start:seg1_end]
-        seg2 = ids[seg2_start:seg2_end]
+    result = jnp.concatenate([
+        prefix,
+        seg2,
+        jnp.array([conj_id], dtype=token_ids.dtype),
+        seg1,
+        suffix,
+    ])
 
-        # Build result: [prefix, seg2, conjunction, seg1, suffix]
-        prefix = ids[:seg1_start]
-        suffix = ids[seg2_end:]
+    # Pad or truncate to match original length
+    if len(result) < seq_len:
+        padding = jnp.full(seq_len - len(result), pad_id, dtype=token_ids.dtype)
+        result = jnp.concatenate([result, padding])
+    else:
+        result = result[:seq_len]
 
-        # Concatenate: prefix + seg2 + [and] + seg1 + suffix
-        result = jnp.concatenate([
-            prefix,
-            seg2,
-            jnp.array([and_id]),
-            seg1,
-            suffix,
-        ])
-
-        # Pad or truncate to match original length
-        original_len = len(ids)
-        if len(result) < original_len:
-            padding = jnp.zeros(original_len - len(result), dtype=ids.dtype) + pad_id
-            result = jnp.concatenate([result, padding])
-        else:
-            result = result[:original_len]
-
-        return result
-
-    def process_after(ids):
-        """Swap sub-commands around 'after' conjunction."""
-        conj_pos = find_conjunction_pos(ids, after_id)
-
-        if conj_pos < 0:
-            return ids
-
-        # 'after' has temporal semantics: 'A after B' means B happens first
-        # Swapping: 'A after B' -> 'B after A'
-        bos_id = tokenizer.word2id.get("<BOS>", 1)
-        pad_id = tokenizer.word2id.get("<PAD>", 0)
-
-        # Find segment boundaries
-        is_content_start = (ids != bos_id) & (ids != pad_id)
-        content_indices = jnp.where(is_content_start, size=1, fill_value=-1)
-        seg1_start = content_indices[0] if len(content_indices) > 0 else 0
-
-        seg1_end = conj_pos
-        seg2_start = conj_pos + 1
-
-        # Find end (EOS or padding)
-        eos_id = tokenizer.word2id.get("<EOS>", 2)
-        is_content_end = (ids == eos_id) | (ids == pad_id)
-        eos_positions = jnp.where(is_content_end, size=1, fill_value=len(ids))
-        seg2_end = eos_positions[0] if eos_positions[0] < len(ids) else len(ids)
-
-        # Extract segments
-        seg1 = ids[seg1_start:seg1_end]
-        seg2 = ids[seg2_start:seg2_end]
-
-        # Build result
-        prefix = ids[:seg1_start]
-        suffix = ids[seg2_end:]
-
-        result = jnp.concatenate([
-            prefix,
-            seg2,
-            jnp.array([after_id]),
-            seg1,
-            suffix,
-        ])
-
-        # Pad or truncate
-        original_len = len(ids)
-        if len(result) < original_len:
-            padding = jnp.zeros(original_len - len(result), dtype=ids.dtype) + pad_id
-            result = jnp.concatenate([result, padding])
-        else:
-            result = result[:original_len]
-
-        return result
-
-    # Apply the appropriate processing
-    return jax.lax.cond(use_and, process_and, process_after, token_ids)
+    return result
 
 
 def _apply_cogs_permutation(
@@ -533,26 +481,28 @@ def vmap_augment_batch(
 ) -> jax.Array:
     """Vectorized augmentation over a batch of sequences.
 
-    This function applies either primitive substitution or argument
-    permutation to each sequence in the batch using jax.vmap,
-    ensuring O(1) scaling with batch size.
+    This function applies primitive substitution (not argument permutation)
+    to each sequence in the batch using jax.vmap, ensuring O(1) scaling
+    with batch size.
+
+    Note: Argument permutation is not included here because it requires
+    Python control flow that isn't compatible with jax.vmap. The AC signal
+    uses only primitive substitution as the primary structure-preserving
+    augmentation.
 
     Args:
         token_ids_batch: 2D array of shape (batch_size, seq_len).
         keys: 2D array of shape (batch_size, 2) containing PRNGKeys.
         tokenizer: Tokenizer instance.
         domain: The domain ('scan' or 'cogs').
-        permutation_probability: Probability of using argument permutation
-            (vs primitive substitution). Default 0.5.
+        permutation_probability: Unused. Kept for API compatibility.
 
     Returns:
         jax.Array of shape (batch_size, seq_len) with augmented sequences.
     """
-    # Vectorize the single-sequence augmentation
+    # Only use primitive substitution (JIT/vmap compatible)
     augmented = jax.vmap(
-        lambda ids, k: apply_augmentation(
-            ids, k, tokenizer, domain, permutation_probability
-        )
+        lambda ids, k: apply_primitive_substitution(ids, k, tokenizer, domain)
     )(token_ids_batch, keys)
 
     return augmented
