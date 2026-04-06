@@ -228,7 +228,8 @@ class GrammarEngine:
             Batch object containing training-ready tensors.
         """
         if rng is not None:
-            seed = int(jnp.sum(rng) % (2**32))
+            # Use 2**31 - 1 to avoid integer overflow with int32
+            seed = int(jnp.sum(rng) % (2**31 - 1))
             py_rng = random.Random(seed)
         else:
             py_rng = None
