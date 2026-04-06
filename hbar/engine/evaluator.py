@@ -14,6 +14,7 @@ The evaluator loads frozen evaluation sets from the data/ directory
 to ensure reproducibility across all training runs.
 """
 
+from functools import partial
 import json
 import os
 from dataclasses import dataclass
@@ -170,27 +171,26 @@ class Evaluator:
 
         return id_batches, ood_batches
 
-    @staticmethod
-    def create_eval_step() -> Callable:
+    def create_eval_step(self, model: Any) -> Callable:
         """Create a JIT-compiled evaluation step function.
 
+        Args:
+            model: The model to evaluate (captured via closure, not traced).
+
         Returns:
-            A callable that takes (params, batch, model) and returns
-            (loss, accuracy).
+            A callable that takes (params, batch) and returns (loss, accuracy).
         """
 
         @jax.jit
         def eval_step(
             params: Any,
             batch: Batch,
-            model: Any,
-        ) -> Tuple[float, float]:
+        ) -> Tuple[jax.Array, jax.Array]:
             """Evaluate model on a single batch.
 
             Args:
                 params: Model parameters.
                 batch: Batch of evaluation data.
-                model: The model to evaluate.
 
             Returns:
                 Tuple of (loss, accuracy).
@@ -234,14 +234,14 @@ class Evaluator:
         Returns:
             EvaluationResult with all metrics.
         """
-        eval_step = self.create_eval_step()
+        eval_step = self.create_eval_step(model)
         id_batches, ood_batches = self.prepare_evaluation_batches(batch_size)
 
         # Evaluate on ID set
         id_losses = []
         id_accs = []
         for batch in id_batches:
-            loss, acc = eval_step(params, batch, model)
+            loss, acc = eval_step(params, batch)
             id_losses.append(float(loss))
             id_accs.append(float(acc))
 
@@ -252,7 +252,7 @@ class Evaluator:
         ood_losses = []
         ood_accs = []
         for batch in ood_batches:
-            loss, acc = eval_step(params, batch, model)
+            loss, acc = eval_step(params, batch)
             ood_losses.append(float(loss))
             ood_accs.append(float(acc))
 
