@@ -195,7 +195,8 @@ def create_train_step() -> Callable:
         # Update parameters
         new_state = state.apply_gradients(grads=grads)
 
-        return new_state, float(loss), float(accuracy)
+        # Return JAX arrays directly (cannot use float() inside JIT)
+        return new_state, loss, accuracy
 
     return train_step
 
