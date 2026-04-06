@@ -206,14 +206,16 @@ class Evaluator:
             # Compute cross-entropy loss
             one_hot = jax.nn.one_hot(batch.labels, logits.shape[-1])
             log_probs = jax.nn.log_softmax(logits)
-            # Create padding mask from labels with shape (batch, seq_len, 1) for broadcasting
-            mask = (batch.labels != 0).astype(jnp.float32)[:, :, jnp.newaxis]
-            loss = -jnp.sum(one_hot * log_probs * mask) / jnp.sum(mask)
+            # Create padding mask from labels (batch, seq_len)
+            mask_2d = (batch.labels != 0).astype(jnp.float32)
+            # Expand to (batch, seq_len, 1) for broadcasting with logits
+            mask_3d = mask_2d[:, :, jnp.newaxis]
+            loss = -jnp.sum(one_hot * log_probs * mask_3d) / jnp.sum(mask_2d)
 
-            # Compute accuracy
+            # Compute accuracy (use 2D mask for broadcasting with predictions)
             predictions = jnp.argmax(logits, axis=-1)
-            correct = (predictions == batch.labels) * mask.astype(jnp.int32)
-            accuracy = jnp.sum(correct) / jnp.sum(mask)
+            correct = (predictions == batch.labels) * mask_2d.astype(jnp.int32)
+            accuracy = jnp.sum(correct) / jnp.sum(mask_2d)
 
             return loss, accuracy
 
