@@ -206,7 +206,8 @@ class Evaluator:
             # Compute cross-entropy loss
             one_hot = jax.nn.one_hot(batch.labels, logits.shape[-1])
             log_probs = jax.nn.log_softmax(logits)
-            mask = batch.tgt_mask.squeeze((1, 2))
+            # Create padding mask from labels (simpler than using tgt_mask)
+            mask = (batch.labels != 0).astype(jnp.float32)
             loss = -jnp.sum(one_hot * log_probs * mask) / jnp.sum(mask)
 
             # Compute accuracy

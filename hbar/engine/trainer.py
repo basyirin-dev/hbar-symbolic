@@ -246,6 +246,7 @@ def run_baseline_training(
     learning_rate: float = 1e-3,
     log_dir: str = ".",
     log_filename: str = "baseline_metrics.csv",
+    eval_batch_size: int = 256,
 ) -> TrainingResults:
     """Run the baseline training loop.
 
@@ -319,12 +320,16 @@ def run_baseline_training(
         # Execute training step
         state, train_loss, train_acc = train_step(state, train_batch, train_rng)
 
+        # Print progress every 100 steps
+        if step % 100 == 0:
+            print(f"  Step {step}/{total_steps} - Loss: {train_loss:.4f}, Acc: {train_acc:.4f}")
+
         # Periodic evaluation
         if step % eval_interval == 0 or step == total_steps:
             print(f"\nStep {step}/{total_steps} - Train Loss: {train_loss:.4f}")
 
             # Evaluate on ID and OOD splits
-            eval_result = evaluator.evaluate(state.params, model)
+            eval_result = evaluator.evaluate(state.params, model, batch_size=eval_batch_size)
 
             print(f"  ID Accuracy:  {eval_result.acc_id:.4f}")
             print(f"  OOD Accuracy: {eval_result.acc_ood:.4f}")
