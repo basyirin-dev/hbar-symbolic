@@ -174,11 +174,19 @@ The baseline confirmed the "Illusion of Mastery" pattern with a clear ~29% gener
 - [x] Implement `get_gca_signal` helper in `hbar/engine/trainer.py`
 - [x] Create `scripts/analyze_gca_baseline.py` analysis script
 - [x] Document GCA signal in `memory-bank/activeContext.md`
+- [x] Run baseline GCA analysis on Kaggle
 
 **Completed Deliverables:**
 - `hbar/engine/signals.py`: `compute_gca(grad_id, grad_ood)` with ε=1e-8 stability
 - `hbar/engine/trainer.py`: Dual gradient extraction with `jax.flatten_util.ravel_pytree`
 - `scripts/analyze_gca_baseline.py`: 100-batch GCA analysis with mean ± SEM reporting
+
+**Baseline GCA Results (Kaggle GPU T4, 100 batches, batch_size=32):**
+- **Mean GCA (g_A):** -0.0235 ± 0.0075 (SEM)
+- **Std Deviation:** 0.0753
+- **Min GCA:** -0.1753
+- **Max GCA:** 0.1727
+- **Interpretation:** NEGATIVE GCA confirms σ-trap — learning ID patterns actively harms OOD performance
 
 ### Subtask 2.2: ODE Integration
 **Status:** Pending

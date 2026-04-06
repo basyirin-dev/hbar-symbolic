@@ -301,12 +301,18 @@ g_A = Σ(x_i - x̄)(y_i - ȳ) / √(Σ(x_i - x̄)² Σ(y_i - ȳ)² + ε)
 | 0.0 < g_A < 0.3 | Model in σ-trap (gradient misalignment) |
 | g_A < 0.0 | Learning ID actively harms OOD performance |
 
-### Baseline Expectation
+### Baseline Results (Kaggle GPU T4, 100 batches, batch_size=32)
 
-Given the baseline OOD accuracy of ~63%:
-- **Expected GCA: 0.1 to 0.3** — Transformer has self-attention bias but not
-  sufficient for full compositional crystallization
-- This GCA baseline serves as the "noise floor" to beat in Phase 3
+| Metric | Value |
+|--------|-------|
+| **Mean GCA (g_A)** | **-0.0235 ± 0.0075 (SEM)** |
+| Std Deviation | 0.0753 |
+| Min GCA | -0.1753 |
+| Max GCA | 0.1727 |
+
+**Interpretation: NEGATIVE GCA confirms σ-trap** — learning ID patterns actively harms OOD performance. The gradients for memorizing in-distribution data are misaligned with the gradients needed for compositional generalization.
+
+This is the baseline noise floor to beat in Phase 3. The GCA regularizer should push g_A from -0.02 toward +0.7+.
 
 ### Analysis Script
 
