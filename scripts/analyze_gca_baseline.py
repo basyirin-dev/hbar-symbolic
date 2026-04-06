@@ -225,14 +225,14 @@ def main():
     tokenizer = create_scan_tokenizer()
     config = TransformerConfig(
         vocab_size=tokenizer.vocab_size,
-        num_layers=2,
-        num_heads=4,
+        n_layers=2,
+        n_heads=4,
         d_model=128,
         d_ff=512,
         max_seq_len=50,
         dropout_rate=0.1,
     )
-    print(f"Model: {config.num_layers} layers, {config.num_heads} heads, d_model={config.d_model}")
+    print(f"Model: {config.n_layers} layers, {config.n_heads} heads, d_model={config.d_model}")
 
     # Initialize RNG
     rng = jax.random.PRNGKey(args.seed)
