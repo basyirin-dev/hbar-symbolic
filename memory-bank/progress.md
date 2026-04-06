@@ -151,13 +151,34 @@ The baseline confirmed the "Illusion of Mastery" pattern with a clear ~29% gener
 ## Phase 2: Core H-Bar Engine (Weeks 5-8)
 
 ### Subtask 2.1: Multi-Signal Proxy Extraction
-**Status:** Pending
+**Status:** Partially Complete (1/4 signals implemented)
 
 **Objectives:**
-- [ ] Implement GCA (Gradient-Composition Alignment)
+- [x] Implement GCA (Gradient-Composition Alignment) — Complete
 - [ ] Implement RGA (Representational-Geometry Alignment)
 - [ ] Implement AC (Augmentation Consistency)
 - [ ] Build multi-signal fusion: sigma_tilde_A = w_g*g_A + w_r*r_A + w_c*c_A
+
+**Completed Deliverables (GCA):**
+- `hbar/engine/signals.py`: Added `compute_gca()` — Pearson correlation between flattened gradient vectors
+- `hbar/engine/trainer.py`: Added `compute_dual_gradients()` and `get_gca_signal()` — JIT-compatible gradient extraction
+- `scripts/analyze_gca_baseline.py`: Analysis script for computing GCA over 100 batches
+- Expected baseline GCA: 0.1-0.3 (σ-trap noise floor)
+
+### Subtask 5.1: GCA Signal Implementation
+**Status:** Complete ✓
+
+**Objectives:**
+- [x] Implement `compute_gca` in `hbar/engine/signals.py`
+- [x] Implement `compute_dual_gradients` in `hbar/engine/trainer.py`
+- [x] Implement `get_gca_signal` helper in `hbar/engine/trainer.py`
+- [x] Create `scripts/analyze_gca_baseline.py` analysis script
+- [x] Document GCA signal in `memory-bank/activeContext.md`
+
+**Completed Deliverables:**
+- `hbar/engine/signals.py`: `compute_gca(grad_id, grad_ood)` with ε=1e-8 stability
+- `hbar/engine/trainer.py`: Dual gradient extraction with `jax.flatten_util.ravel_pytree`
+- `scripts/analyze_gca_baseline.py`: 100-batch GCA analysis with mean ± SEM reporting
 
 ### Subtask 2.2: ODE Integration
 **Status:** Pending

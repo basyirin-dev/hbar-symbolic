@@ -349,3 +349,39 @@ return jax.vmap(swap_token)(token_ids)
 **Files:**
 - `baseline_metrics.csv`: Step-by-step training metrics (available from Kaggle)
 - `model_params.msgpack`: Final model parameters for Phase 2 analysis
+
+### Decision 16: Pearson Correlation for GCA Signal (g_A)
+**Date:** 2026-04-07
+**Status:** Accepted
+
+**Context:** How to compute the Gradient-Composition Alignment (GCA) signal that measures whether the model is learning rules that generalize from ID to OOD samples.
+
+**Decision:** Use the **Pearson correlation coefficient** between the flattened gradient vectors of ID loss (∇_θ L_train) and OOD compositional loss (∇_θ L_comp) as the GCA signal g_A.
+
+**Rationale:**
+- **Scale Invariance:** Pearson correlation is invariant to the magnitude of gradients, focusing purely on the *directional alignment* between ID and OOD learning signals. This is crucial because ID gradients may be larger (lower loss) than OOD gradients, but the alignment direction is what matters for generalization.
+- **Interpretable Range:** The output range [-1, 1] provides clear interpretation:
+  - g_A ≈ 1.0: Learning ID perfectly aligns with learning OOD (crystallized schema)
+  - g_A ≈ 0.0: ID and OOD learning are orthogonal (σ-trap — memorization without composition)
+  - g_A < 0.0: Learning ID actively harms OOD performance (severe overfitting)
+- **Numerical Stability:** Adding ε=1e-8 to the denominator prevents division by zero during sparse gradient regions
+- **Total Systemic Alignment:** Computing GCA over *all* trainable parameters (embeddings + transformer layers) captures Variable-Role Binding alignment. Compositional generalization in SCAN/COGS requires embeddings (Variables) and transformer layers (Roles/Functions) to be directionally aligned.
+- **Equation 3 Alignment:** This choice directly implements the GCA definition from the H-Bar paper as the correlation between learning and generalization gradients.
+
+**Implementation:**
+- `compute_gca(grad_id, grad_ood)` in `hbar/engine/signals.py`:
+  ```
+  g_A = Σ(x_i - x̄)(y_i - ȳ) / √(Σ(x_i - x̄)² · Σ(y_i - ȳ)² + ε)
+  ```
+- `compute_dual_gradients(state, hbar_batch)` in `hbar/engine/trainer.py`:
+  - Computes ∇_θ L_train from id_stream and ∇_θ L_comp from ood_stream
+  - Uses `jax.flatten_util.ravel_pytree` to convert gradient pytrees to flat vectors
+- `get_gca_signal(state, hbar_batch)`: JIT-compiled wrapper returning scalar g_A
+- **Analysis Script:** `scripts/analyze_gca_baseline.py` computes g_A over 100 batches (batch_size=32)
+- **Expected Baseline:** g_A ≈ 0.1-0.3 (σ-trap noise floor) given ~63% OOD accuracy
+
+**Consequences:**
+- GCA computation requires two gradient passes per evaluation (ID + OOD), doubling the computational cost of signal extraction
+- The 100-batch analysis with batch_size=32 is optimized for Kaggle T4/P100 memory constraints
+- g_A will serve as the "baseline noise" to beat in Phase 3 H-Bar experiments
+- The signal links directly to Stage 1 estimate (σ̃_A) as one component of multi-signal fusion

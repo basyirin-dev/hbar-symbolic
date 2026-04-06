@@ -260,5 +260,58 @@ to demonstrate the "Illusion of Mastery" failure mode.
 ## Next Steps (Week 2-4)
 
 - Complete Kaggle run and verify "Illusion of Mastery" failure mode
-- Implement multi-signal proxy extraction (GCA, RGA, AC)
+- Implement multi-signal proxy extraction (RGA, AC) — GCA is complete
 - Build ODE integrator for H-Bar dynamics
+
+## GCA Signal (Subtask 5.1)
+
+### Overview
+
+The Gradient-Composition Alignment (GCA) signal $g_A$ is the first H-Bar operative
+signal implemented. It measures the Pearson correlation between the gradient vectors
+of the ID loss ($\nabla_\theta \mathcal{L}_{train}$) and OOD compositional loss
+($\nabla_\theta \mathcal{L}_{comp-batch}$).
+
+### Implementation
+
+**`compute_gca(grad_id, gradient_ood)` in `hbar/engine/signals.py`:**
+```
+g_A = Σ(x_i - x̄)(y_i - ȳ) / √(Σ(x_i - x̄)² Σ(y_i - ȳ)² + ε)
+```
+- Adds epsilon (1e-8) for numerical stability with sparse gradients
+- Returns scalar in range [-1, 1]
+- Includes all trainable parameters (embeddings + transformer layers)
+
+**`compute_dual_gradients(state, hbar_batch)` in `hbar/engine/trainer.py`:**
+- Computes ID gradient from `hbar_batch.id_stream`
+- Computes OOD gradient from `hbar_batch.ood_stream`
+- Flattens both gradients using `jax.flatten_util.ravel_pytree`
+- Returns tuple of (grad_id_flat, grad_ood_flat)
+
+**`get_gca_signal(state, hbar_batch)` in `hbar/engine/trainer.py`:**
+- JIT-compiled wrapper combining dual gradient extraction + GCA computation
+- Returns scalar GCA value directly
+
+### Expected Ranges and Interpretation
+
+| Range | Interpretation |
+|-------|----------------|
+| g_A > 0.7 | Model is "crystallizing" compositional rules |
+| 0.3 < g_A < 0.7 | Partial compositional alignment |
+| 0.0 < g_A < 0.3 | Model in σ-trap (gradient misalignment) |
+| g_A < 0.0 | Learning ID actively harms OOD performance |
+
+### Baseline Expectation
+
+Given the baseline OOD accuracy of ~63%:
+- **Expected GCA: 0.1 to 0.3** — Transformer has self-attention bias but not
+  sufficient for full compositional crystallization
+- This GCA baseline serves as the "noise floor" to beat in Phase 3
+
+### Analysis Script
+
+**`scripts/analyze_gca_baseline.py`:**
+- Loads saved `model_params.msgpack`
+- Computes GCA over 100 batches (batch_size=32 for memory efficiency)
+- Reports mean ± SEM, min, max with interpretation
+- CLI flags: `--params`, `--num-batches`, `--batch-size`, `--domain`, `--seed`

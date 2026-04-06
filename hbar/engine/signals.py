@@ -147,3 +147,55 @@ def compute_representation_norm(
 
     # Average over batch and sequence
     return jnp.mean(norms)
+
+
+def compute_gca(grad_id: jax.Array, grad_ood: jax.Array) -> jax.Array:
+    """Compute Gradient-Composition Alignment (GCA) signal g_A.
+
+    Pearson correlation coefficient between the flattened gradient vectors
+    of the ID loss (∇_θ L_train) and OOD compositional loss (∇_θ L_comp).
+
+    The GCA signal measures the alignment between "learning" and "generalizing"
+    gradients. Per Equation 3 of the H-Bar paper, this quantifies whether the
+    model is learning rules that apply to both in-distribution and
+    out-of-distribution samples.
+
+    Interpretation:
+        - High GCA (>0.7): Model is "crystallizing" compositional rules that
+          generalize well to novel compositions.
+        - Low/Near-Zero GCA (0.0-0.3): ID patterns are unrelated to OOD
+          structure, indicating the model is learning surface statistics.
+        - Negative GCA (<0.0): Learning ID patterns actively harms OOD
+          performance (severe overfitting to surface statistics).
+
+    This computation includes all trainable parameters (embeddings + transformer
+    layers) to measure Total Systemic Alignment. Compositional generalization
+    in SCAN/COGS relies on Variable-Role Binding, which requires alignment
+    between embeddings (Variables) and transformer layers (Roles/Functions).
+
+    Args:
+        grad_id: Flattened gradient vector from ID loss, shape (n_params,).
+        grad_ood: Flattened gradient vector from OOD compositional loss,
+            shape (n_params,).
+
+    Returns:
+        Scalar in [-1, 1] representing the Pearson correlation coefficient
+        between the two gradient vectors.
+    """
+    # Center the gradients (subtract mean)
+    mean_id = jnp.mean(grad_id)
+    mean_ood = jnp.mean(grad_ood)
+
+    id_centered = grad_id - mean_id
+    ood_centered = grad_ood - mean_ood
+
+    # Compute Pearson correlation numerator (covariance-like term)
+    numerator = jnp.sum(id_centered * ood_centered)
+
+    # Compute denominator (product of standard deviations)
+    # Add epsilon for numerical stability with sparse gradients
+    denominator = jnp.sqrt(
+        jnp.sum(id_centered**2) * jnp.sum(ood_centered**2) + 1e-8
+    )
+
+    return numerator / denominator

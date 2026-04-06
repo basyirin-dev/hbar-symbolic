@@ -21,7 +21,7 @@ import jax.numpy as jnp
 import optax
 from flax.training import train_state
 
-from hbar.engine.data_utils import Batch, compute_loss
+from hbar.engine.data_utils import Batch, HBarBatch, compute_loss
 from hbar.engine.evaluator import Evaluator, EvaluationResult
 from hbar.models.config import TransformerConfig
 from hbar.models.transformer import Seq2SeqTransformer
@@ -417,3 +417,94 @@ def load_params(
             rng,
         )
         return state.params
+
+
+def compute_dual_gradients(
+    state: TrainState,
+    hbar_batch: HBarBatch,
+) -> Tuple[jax.Array, jax.Array]:
+    """Compute gradients for ID and OOD streams separately.
+
+    This function performs two forward/backward passes to extract the
+    gradient vectors needed for GCA (Gradient-Composition Alignment)
+    computation:
+    1. ID gradient: ∇_θ L_train from id_stream (in-distribution samples)
+    2. OOD gradient: ∇_θ L_comp from ood_stream (compositional probes)
+
+    The gradients are flattened into vectors using jax.flatten_util.ravel_pytree
+    for Pearson correlation computation. This includes all trainable parameters
+    (embeddings + transformer layers) to measure Total Systemic Alignment.
+
+    Compositional generalization in SCAN/COGS relies on Variable-Role Binding,
+    which requires alignment between embeddings (Variables) and transformer
+    layers (Roles/Functions).
+
+    Args:
+        state: Current training state with parameters.
+        hbar_batch: HBarBatch containing id_stream and ood_stream.
+
+    Returns:
+        Tuple of (flattened_id_grad, flattened_ood_grad), both 1D arrays
+        of shape (n_params,).
+    """
+
+    def loss_fn(params: flax.core.FrozenDict, batch: Batch) -> jax.Array:
+        """Compute cross-entropy loss for a batch.
+
+        Args:
+            params: Model parameters.
+            batch: Batch of training data.
+
+        Returns:
+            Scalar loss value.
+        """
+        logits = state.apply_fn(
+            {"params": params},
+            batch.inputs,
+            batch.decoder_inputs,
+            training=False,
+        )
+        loss = compute_loss(logits, batch.labels)
+        return loss
+
+    # Compute ID gradient (in-distribution)
+    grad_id = jax.grad(loss_fn)(state.params, hbar_batch.id_stream)
+
+    # Compute OOD gradient (compositional probes)
+    grad_ood = jax.grad(loss_fn)(state.params, hbar_batch.ood_stream)
+
+    # Flatten both gradients to 1D vectors for correlation computation
+    grad_id_flat, _ = jax.flatten_util.ravel_pytree(grad_id)
+    grad_ood_flat, _ = jax.flatten_util.ravel_pytree(grad_ood)
+
+    return grad_id_flat, grad_ood_flat
+
+
+@jax.jit
+def get_gca_signal(
+    state: TrainState,
+    hbar_batch: HBarBatch,
+) -> jax.Array:
+    """Compute the GCA (Gradient-Composition Alignment) scalar for a batch.
+
+    This is the core JIT-compiled function that computes the Pearson
+    correlation between ID and OOD gradient vectors. It first extracts
+    the dual gradients and then computes their alignment.
+
+    The GCA signal g_A ∈ [-1, 1] indicates whether the model is learning
+    rules that generalize to novel compositions:
+        - g_A > 0.7: Model is "crystallizing" compositional rules
+        - 0.0 < g_A < 0.3: Model in σ-trap (gradient misalignment)
+        - g_A < 0.0: Learning ID actively harms OOD performance
+
+    Args:
+        state: Current training state with parameters.
+        hbar_batch: HBarBatch containing id_stream and ood_stream.
+
+    Returns:
+        Scalar GCA value in [-1, 1].
+    """
+    from hbar.engine.signals import compute_gca
+
+    grad_id_flat, grad_ood_flat = compute_dual_gradients(state, hbar_batch)
+    return compute_gca(grad_id_flat, grad_ood_flat)
