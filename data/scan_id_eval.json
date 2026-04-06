@@ -1,0 +1,8002 @@
+[
+  {
+    "input": "jump",
+    "output": "I_JUMP"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look twice after walk thrice after turn left",
+    "output": "I_LOOK I_LOOK I_WALK I_WALK I_WALK I_TURN_LEFT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left after walk",
+    "output": "I_TURN_LEFT I_WALK"
+  },
+  {
+    "input": "look and run twice after look",
+    "output": "I_LOOK I_RUN I_RUN I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn right and run and turn left",
+    "output": "I_TURN_RIGHT I_RUN I_TURN_LEFT"
+  },
+  {
+    "input": "look after turn left",
+    "output": "I_LOOK I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run after turn left and turn left",
+    "output": "I_RUN I_TURN_LEFT I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look twice after look twice after turn right",
+    "output": "I_LOOK I_LOOK I_LOOK I_LOOK I_TURN_RIGHT"
+  },
+  {
+    "input": "run twice and walk after look thrice",
+    "output": "I_RUN I_RUN I_WALK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left after walk thrice",
+    "output": "I_TURN_LEFT I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left after walk thrice",
+    "output": "I_TURN_LEFT I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk thrice after run",
+    "output": "I_WALK I_WALK I_WALK I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look twice after walk thrice after turn right",
+    "output": "I_LOOK I_LOOK I_WALK I_WALK I_WALK I_TURN_RIGHT"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right after turn left",
+    "output": "I_TURN_RIGHT I_TURN_LEFT"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk after walk twice and turn right",
+    "output": "I_WALK I_WALK I_WALK I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run after turn left and walk",
+    "output": "I_RUN I_TURN_LEFT I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "run thrice and walk twice after look after turn right",
+    "output": "I_RUN I_RUN I_RUN I_WALK I_WALK I_LOOK I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left after run thrice",
+    "output": "I_TURN_LEFT I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look twice and run thrice and walk twice",
+    "output": "I_LOOK I_LOOK I_RUN I_RUN I_RUN I_WALK I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk after walk",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn right after run thrice",
+    "output": "I_TURN_RIGHT I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run thrice and look thrice and look thrice",
+    "output": "I_RUN I_RUN I_RUN I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice after walk thrice",
+    "output": "I_WALK I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk after turn right and walk",
+    "output": "I_WALK I_TURN_RIGHT I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk after look twice",
+    "output": "I_WALK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right and walk and look twice",
+    "output": "I_TURN_RIGHT I_WALK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk and turn left",
+    "output": "I_WALK I_TURN_LEFT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look thrice and turn left and run thrice after look",
+    "output": "I_LOOK I_LOOK I_LOOK I_TURN_LEFT I_RUN I_RUN I_RUN I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right after turn left after walk",
+    "output": "I_TURN_RIGHT I_TURN_LEFT I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run thrice after turn left",
+    "output": "I_RUN I_RUN I_RUN I_TURN_LEFT"
+  },
+  {
+    "input": "turn left after walk thrice after turn left",
+    "output": "I_TURN_LEFT I_WALK I_WALK I_WALK I_TURN_LEFT"
+  },
+  {
+    "input": "run twice after walk and turn left",
+    "output": "I_RUN I_RUN I_WALK I_TURN_LEFT"
+  },
+  {
+    "input": "turn left and run thrice and run thrice and run",
+    "output": "I_TURN_LEFT I_RUN I_RUN I_RUN I_RUN I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn left after run after turn right",
+    "output": "I_TURN_LEFT I_RUN I_TURN_RIGHT"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right and run thrice and turn right and turn left",
+    "output": "I_TURN_RIGHT I_RUN I_RUN I_RUN I_TURN_RIGHT I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice and walk twice and look after run twice",
+    "output": "I_WALK I_WALK I_WALK I_WALK I_LOOK I_RUN I_RUN"
+  },
+  {
+    "input": "walk thrice after run",
+    "output": "I_WALK I_WALK I_WALK I_RUN"
+  },
+  {
+    "input": "walk and look",
+    "output": "I_WALK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look and walk thrice and look thrice",
+    "output": "I_LOOK I_WALK I_WALK I_WALK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look twice and look and walk thrice",
+    "output": "I_LOOK I_LOOK I_LOOK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look and look",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk twice after turn right",
+    "output": "I_WALK I_WALK I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look after walk after look twice",
+    "output": "I_LOOK I_WALK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look twice and walk twice",
+    "output": "I_LOOK I_LOOK I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn right after turn right and look thrice",
+    "output": "I_TURN_RIGHT I_TURN_RIGHT I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk and walk and walk after run thrice",
+    "output": "I_WALK I_WALK I_WALK I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right after walk",
+    "output": "I_TURN_RIGHT I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left and run after look",
+    "output": "I_TURN_LEFT I_RUN I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk after look thrice after walk thrice and look",
+    "output": "I_WALK I_LOOK I_LOOK I_LOOK I_WALK I_WALK I_WALK I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn right after walk thrice and turn left",
+    "output": "I_TURN_RIGHT I_WALK I_WALK I_WALK I_TURN_LEFT"
+  },
+  {
+    "input": "look thrice after walk thrice",
+    "output": "I_LOOK I_LOOK I_LOOK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run twice and turn left after turn right",
+    "output": "I_RUN I_RUN I_TURN_LEFT I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk and walk and look thrice after run",
+    "output": "I_WALK I_WALK I_LOOK I_LOOK I_LOOK I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk thrice and run and walk",
+    "output": "I_WALK I_WALK I_WALK I_RUN I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run thrice and run and walk thrice",
+    "output": "I_RUN I_RUN I_RUN I_RUN I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run thrice and turn left after look after turn left",
+    "output": "I_RUN I_RUN I_RUN I_TURN_LEFT I_LOOK I_TURN_LEFT"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "run and look thrice and run",
+    "output": "I_RUN I_LOOK I_LOOK I_LOOK I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "turn left and turn left",
+    "output": "I_TURN_LEFT I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look thrice and walk twice",
+    "output": "I_LOOK I_LOOK I_LOOK I_WALK I_WALK"
+  },
+  {
+    "input": "run after look",
+    "output": "I_RUN I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk thrice after turn right and turn right",
+    "output": "I_WALK I_WALK I_WALK I_TURN_RIGHT I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right and run",
+    "output": "I_TURN_RIGHT I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk after turn right after look twice",
+    "output": "I_WALK I_TURN_RIGHT I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk thrice after run thrice",
+    "output": "I_WALK I_WALK I_WALK I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look after look twice after turn right",
+    "output": "I_LOOK I_LOOK I_LOOK I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left and turn right",
+    "output": "I_TURN_LEFT I_TURN_RIGHT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "run twice after walk thrice and run after run",
+    "output": "I_RUN I_RUN I_WALK I_WALK I_WALK I_RUN I_RUN"
+  },
+  {
+    "input": "look after run thrice after turn left",
+    "output": "I_LOOK I_RUN I_RUN I_RUN I_TURN_LEFT"
+  },
+  {
+    "input": "walk twice and walk and run",
+    "output": "I_WALK I_WALK I_WALK I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk and walk",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run after run and run",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look twice after turn left and turn left",
+    "output": "I_LOOK I_LOOK I_TURN_LEFT I_TURN_LEFT"
+  },
+  {
+    "input": "run twice and run",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk after walk and turn right",
+    "output": "I_WALK I_WALK I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk and run",
+    "output": "I_WALK I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look thrice after run",
+    "output": "I_LOOK I_LOOK I_LOOK I_RUN"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk thrice after run and run",
+    "output": "I_WALK I_WALK I_WALK I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look and turn left and turn left",
+    "output": "I_LOOK I_TURN_LEFT I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right after walk",
+    "output": "I_TURN_RIGHT I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left and walk twice and turn right",
+    "output": "I_TURN_LEFT I_WALK I_WALK I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk after turn right after turn right",
+    "output": "I_WALK I_TURN_RIGHT I_TURN_RIGHT"
+  },
+  {
+    "input": "walk and turn right and run",
+    "output": "I_WALK I_TURN_RIGHT I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk thrice after look and look and walk",
+    "output": "I_WALK I_WALK I_WALK I_LOOK I_LOOK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left and look thrice and turn left",
+    "output": "I_TURN_LEFT I_LOOK I_LOOK I_LOOK I_TURN_LEFT"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "turn right after look thrice",
+    "output": "I_TURN_RIGHT I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look after look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run after look",
+    "output": "I_RUN I_LOOK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn left after run thrice and turn right",
+    "output": "I_TURN_LEFT I_RUN I_RUN I_RUN I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look and turn left after walk twice and run",
+    "output": "I_LOOK I_TURN_LEFT I_WALK I_WALK I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look after turn left after run twice",
+    "output": "I_LOOK I_TURN_LEFT I_RUN I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk thrice and turn right and look twice and turn left",
+    "output": "I_WALK I_WALK I_WALK I_TURN_RIGHT I_LOOK I_LOOK I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk thrice after walk twice after look",
+    "output": "I_WALK I_WALK I_WALK I_WALK I_WALK I_LOOK"
+  },
+  {
+    "input": "look twice and turn left and turn right",
+    "output": "I_LOOK I_LOOK I_TURN_LEFT I_TURN_RIGHT"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look and walk and look",
+    "output": "I_LOOK I_WALK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look thrice and walk thrice and walk",
+    "output": "I_LOOK I_LOOK I_LOOK I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run and walk twice",
+    "output": "I_RUN I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right after walk and turn left",
+    "output": "I_TURN_RIGHT I_WALK I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice after walk twice and run thrice",
+    "output": "I_WALK I_WALK I_WALK I_WALK I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn right after walk",
+    "output": "I_TURN_RIGHT I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look twice and turn left",
+    "output": "I_LOOK I_LOOK I_TURN_LEFT"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run and run thrice after walk",
+    "output": "I_RUN I_RUN I_RUN I_RUN I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right after turn left and run",
+    "output": "I_TURN_RIGHT I_TURN_LEFT I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look after walk twice and walk",
+    "output": "I_LOOK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run and run twice after walk thrice",
+    "output": "I_RUN I_RUN I_RUN I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk twice and walk and run thrice",
+    "output": "I_WALK I_WALK I_WALK I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run and look and look",
+    "output": "I_RUN I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk thrice and walk thrice and look",
+    "output": "I_WALK I_WALK I_WALK I_WALK I_WALK I_WALK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look and walk thrice",
+    "output": "I_LOOK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run and run thrice after run thrice and walk",
+    "output": "I_RUN I_RUN I_RUN I_RUN I_RUN I_RUN I_RUN I_WALK"
+  },
+  {
+    "input": "turn right and walk",
+    "output": "I_TURN_RIGHT I_WALK"
+  },
+  {
+    "input": "run and look",
+    "output": "I_RUN I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk after walk after run",
+    "output": "I_WALK I_WALK I_RUN"
+  },
+  {
+    "input": "run and walk after walk thrice",
+    "output": "I_RUN I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look after walk thrice",
+    "output": "I_LOOK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run after look after walk twice and look",
+    "output": "I_RUN I_LOOK I_WALK I_WALK I_LOOK"
+  },
+  {
+    "input": "look thrice and run after walk thrice and run twice",
+    "output": "I_LOOK I_LOOK I_LOOK I_RUN I_WALK I_WALK I_WALK I_RUN I_RUN"
+  },
+  {
+    "input": "walk thrice and turn left and walk thrice",
+    "output": "I_WALK I_WALK I_WALK I_TURN_LEFT I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look and turn right",
+    "output": "I_LOOK I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left after run",
+    "output": "I_TURN_LEFT I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn left and run after walk",
+    "output": "I_TURN_LEFT I_RUN I_WALK"
+  },
+  {
+    "input": "look and walk after run",
+    "output": "I_LOOK I_WALK I_RUN"
+  },
+  {
+    "input": "walk thrice and walk after run twice and turn right",
+    "output": "I_WALK I_WALK I_WALK I_WALK I_RUN I_RUN I_TURN_RIGHT"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run after walk thrice",
+    "output": "I_RUN I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk and walk after run twice",
+    "output": "I_WALK I_WALK I_RUN I_RUN"
+  },
+  {
+    "input": "turn right after turn left",
+    "output": "I_TURN_RIGHT I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look thrice and run after run",
+    "output": "I_LOOK I_LOOK I_LOOK I_RUN I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "turn left and walk",
+    "output": "I_TURN_LEFT I_WALK"
+  },
+  {
+    "input": "run thrice after turn left",
+    "output": "I_RUN I_RUN I_RUN I_TURN_LEFT"
+  },
+  {
+    "input": "walk after turn right",
+    "output": "I_WALK I_TURN_RIGHT"
+  },
+  {
+    "input": "run and run after walk thrice",
+    "output": "I_RUN I_RUN I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look and look after run",
+    "output": "I_LOOK I_LOOK I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run after look",
+    "output": "I_RUN I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice after run after run",
+    "output": "I_RUN I_RUN I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk twice and run twice after look thrice and run",
+    "output": "I_WALK I_WALK I_RUN I_RUN I_LOOK I_LOOK I_LOOK I_RUN"
+  },
+  {
+    "input": "look and look",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk thrice after walk",
+    "output": "I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk thrice and turn left",
+    "output": "I_WALK I_WALK I_WALK I_TURN_LEFT"
+  },
+  {
+    "input": "walk after walk twice and walk",
+    "output": "I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look after turn left after turn right",
+    "output": "I_LOOK I_TURN_LEFT I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look twice after walk after look",
+    "output": "I_LOOK I_LOOK I_WALK I_LOOK"
+  },
+  {
+    "input": "run and look thrice",
+    "output": "I_RUN I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk after walk thrice",
+    "output": "I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right after run twice and look",
+    "output": "I_TURN_RIGHT I_RUN I_RUN I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look and walk thrice after walk and turn left",
+    "output": "I_LOOK I_WALK I_WALK I_WALK I_WALK I_TURN_LEFT"
+  },
+  {
+    "input": "walk thrice and run thrice",
+    "output": "I_WALK I_WALK I_WALK I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left and look thrice",
+    "output": "I_TURN_LEFT I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right after walk thrice after run twice",
+    "output": "I_TURN_RIGHT I_WALK I_WALK I_WALK I_RUN I_RUN"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice after walk thrice and turn right",
+    "output": "I_LOOK I_LOOK I_LOOK I_WALK I_WALK I_WALK I_TURN_RIGHT"
+  },
+  {
+    "input": "look and look",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk thrice after look",
+    "output": "I_WALK I_WALK I_WALK I_LOOK"
+  },
+  {
+    "input": "look and run and run",
+    "output": "I_LOOK I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look after run thrice",
+    "output": "I_LOOK I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "turn right after run twice after run",
+    "output": "I_TURN_RIGHT I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run after turn left after run",
+    "output": "I_RUN I_TURN_LEFT I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice after walk after look thrice",
+    "output": "I_RUN I_RUN I_RUN I_WALK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run thrice and turn left and run after run",
+    "output": "I_RUN I_RUN I_RUN I_TURN_LEFT I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk thrice after run thrice",
+    "output": "I_WALK I_WALK I_WALK I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice after turn right and turn left",
+    "output": "I_WALK I_WALK I_TURN_RIGHT I_TURN_LEFT"
+  },
+  {
+    "input": "walk after run twice",
+    "output": "I_WALK I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run and turn left after walk",
+    "output": "I_RUN I_TURN_LEFT I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk thrice and run twice",
+    "output": "I_WALK I_WALK I_WALK I_RUN I_RUN"
+  },
+  {
+    "input": "run after turn left after turn right and look",
+    "output": "I_RUN I_TURN_LEFT I_TURN_RIGHT I_LOOK"
+  },
+  {
+    "input": "turn right and turn left",
+    "output": "I_TURN_RIGHT I_TURN_LEFT"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look after walk thrice after look",
+    "output": "I_LOOK I_WALK I_WALK I_WALK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk twice after look after look",
+    "output": "I_WALK I_WALK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look twice and look",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk after turn left and run",
+    "output": "I_WALK I_TURN_LEFT I_RUN"
+  },
+  {
+    "input": "run and look thrice after turn left",
+    "output": "I_RUN I_LOOK I_LOOK I_LOOK I_TURN_LEFT"
+  },
+  {
+    "input": "run twice and walk thrice",
+    "output": "I_RUN I_RUN I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn left after walk after turn left",
+    "output": "I_TURN_LEFT I_WALK I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk twice and look twice after walk twice",
+    "output": "I_WALK I_WALK I_LOOK I_LOOK I_WALK I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run after walk thrice after walk",
+    "output": "I_RUN I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run twice and run twice after run twice after walk twice",
+    "output": "I_RUN I_RUN I_RUN I_RUN I_RUN I_RUN I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk and look after run twice",
+    "output": "I_WALK I_LOOK I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk after walk thrice after look",
+    "output": "I_WALK I_WALK I_WALK I_WALK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk and look twice after turn right after turn left",
+    "output": "I_WALK I_LOOK I_LOOK I_TURN_RIGHT I_TURN_LEFT"
+  },
+  {
+    "input": "walk and turn right and look",
+    "output": "I_WALK I_TURN_RIGHT I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look twice and run thrice after run twice after walk",
+    "output": "I_LOOK I_LOOK I_RUN I_RUN I_RUN I_RUN I_RUN I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk and walk twice and look thrice",
+    "output": "I_WALK I_WALK I_WALK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look twice after run twice",
+    "output": "I_LOOK I_LOOK I_RUN I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look after look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk and look",
+    "output": "I_WALK I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right after run twice after run",
+    "output": "I_TURN_RIGHT I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run twice after turn left",
+    "output": "I_RUN I_RUN I_TURN_LEFT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk twice and walk thrice after run thrice",
+    "output": "I_WALK I_WALK I_WALK I_WALK I_WALK I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look and walk thrice",
+    "output": "I_LOOK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look after turn left and look twice",
+    "output": "I_LOOK I_TURN_LEFT I_LOOK I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right and walk and walk after run twice",
+    "output": "I_TURN_RIGHT I_WALK I_WALK I_RUN I_RUN"
+  },
+  {
+    "input": "turn right and run twice",
+    "output": "I_TURN_RIGHT I_RUN I_RUN"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look thrice and turn left and walk thrice",
+    "output": "I_LOOK I_LOOK I_LOOK I_TURN_LEFT I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look after run twice after walk",
+    "output": "I_LOOK I_RUN I_RUN I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk after walk and run",
+    "output": "I_WALK I_WALK I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run thrice and look twice and walk thrice",
+    "output": "I_RUN I_RUN I_RUN I_LOOK I_LOOK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk twice and walk twice",
+    "output": "I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn left after walk twice",
+    "output": "I_TURN_LEFT I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice after turn right after run after look",
+    "output": "I_RUN I_RUN I_TURN_RIGHT I_RUN I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left after turn left",
+    "output": "I_TURN_LEFT I_TURN_LEFT"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look twice after look thrice after run twice",
+    "output": "I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK I_RUN I_RUN"
+  },
+  {
+    "input": "turn right after turn left",
+    "output": "I_TURN_RIGHT I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look twice and run thrice after run",
+    "output": "I_LOOK I_LOOK I_RUN I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run twice and run",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look twice after look thrice and turn left",
+    "output": "I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK I_TURN_LEFT"
+  },
+  {
+    "input": "turn left and look thrice and turn left",
+    "output": "I_TURN_LEFT I_LOOK I_LOOK I_LOOK I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left and look after run after run",
+    "output": "I_TURN_LEFT I_LOOK I_RUN I_RUN"
+  },
+  {
+    "input": "turn right after look and look twice",
+    "output": "I_TURN_RIGHT I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look and turn left and turn right",
+    "output": "I_LOOK I_TURN_LEFT I_TURN_RIGHT"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look thrice and look",
+    "output": "I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look thrice after run and run",
+    "output": "I_LOOK I_LOOK I_LOOK I_RUN I_RUN"
+  },
+  {
+    "input": "walk after walk",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice and walk twice after walk thrice",
+    "output": "I_LOOK I_LOOK I_LOOK I_WALK I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk after look twice",
+    "output": "I_WALK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left and run twice",
+    "output": "I_TURN_LEFT I_RUN I_RUN"
+  },
+  {
+    "input": "run and turn left and run",
+    "output": "I_RUN I_TURN_LEFT I_RUN"
+  },
+  {
+    "input": "turn right and walk twice",
+    "output": "I_TURN_RIGHT I_WALK I_WALK"
+  },
+  {
+    "input": "run twice and look and run",
+    "output": "I_RUN I_RUN I_LOOK I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right after run",
+    "output": "I_TURN_RIGHT I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run thrice after look thrice after run thrice",
+    "output": "I_RUN I_RUN I_RUN I_LOOK I_LOOK I_LOOK I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn right after run and walk",
+    "output": "I_TURN_RIGHT I_RUN I_WALK"
+  },
+  {
+    "input": "walk and look twice",
+    "output": "I_WALK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn left after look",
+    "output": "I_TURN_LEFT I_LOOK"
+  },
+  {
+    "input": "run after look thrice",
+    "output": "I_RUN I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice after run twice",
+    "output": "I_RUN I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk twice after turn left and turn left",
+    "output": "I_WALK I_WALK I_TURN_LEFT I_TURN_LEFT"
+  },
+  {
+    "input": "turn right after run twice",
+    "output": "I_TURN_RIGHT I_RUN I_RUN"
+  },
+  {
+    "input": "walk after turn right and turn left",
+    "output": "I_WALK I_TURN_RIGHT I_TURN_LEFT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run after walk twice and walk",
+    "output": "I_RUN I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn left after run",
+    "output": "I_TURN_LEFT I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk twice after run and turn right and turn right",
+    "output": "I_WALK I_WALK I_RUN I_TURN_RIGHT I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look twice and walk twice",
+    "output": "I_LOOK I_LOOK I_WALK I_WALK"
+  },
+  {
+    "input": "walk after look thrice",
+    "output": "I_WALK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look thrice after run",
+    "output": "I_LOOK I_LOOK I_LOOK I_RUN"
+  },
+  {
+    "input": "run and turn left after turn left",
+    "output": "I_RUN I_TURN_LEFT I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice after turn right and turn left and look",
+    "output": "I_RUN I_RUN I_RUN I_TURN_RIGHT I_TURN_LEFT I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left and run twice after look",
+    "output": "I_TURN_LEFT I_RUN I_RUN I_LOOK"
+  },
+  {
+    "input": "run twice and turn left",
+    "output": "I_RUN I_RUN I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run after walk after look",
+    "output": "I_RUN I_WALK I_LOOK"
+  },
+  {
+    "input": "turn left after walk thrice and look thrice",
+    "output": "I_TURN_LEFT I_WALK I_WALK I_WALK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look thrice and look",
+    "output": "I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run after look and walk thrice",
+    "output": "I_RUN I_LOOK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run after turn right after walk twice",
+    "output": "I_RUN I_TURN_RIGHT I_WALK I_WALK"
+  },
+  {
+    "input": "run after look twice and run",
+    "output": "I_RUN I_LOOK I_LOOK I_RUN"
+  },
+  {
+    "input": "walk twice and look thrice",
+    "output": "I_WALK I_WALK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right after look and look",
+    "output": "I_TURN_RIGHT I_LOOK I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice and run thrice",
+    "output": "I_RUN I_RUN I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk thrice and walk twice",
+    "output": "I_WALK I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk thrice and look twice after walk",
+    "output": "I_WALK I_WALK I_WALK I_LOOK I_LOOK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look twice and walk twice and turn left",
+    "output": "I_LOOK I_LOOK I_WALK I_WALK I_TURN_LEFT"
+  },
+  {
+    "input": "look after run thrice and look thrice and look",
+    "output": "I_LOOK I_RUN I_RUN I_RUN I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right after turn right after turn right",
+    "output": "I_TURN_RIGHT I_TURN_RIGHT I_TURN_RIGHT"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice and run twice after run twice",
+    "output": "I_LOOK I_LOOK I_LOOK I_RUN I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run thrice and run",
+    "output": "I_RUN I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look twice after look twice after look",
+    "output": "I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look and run",
+    "output": "I_LOOK I_RUN"
+  },
+  {
+    "input": "run twice after turn right and turn left after turn left",
+    "output": "I_RUN I_RUN I_TURN_RIGHT I_TURN_LEFT I_TURN_LEFT"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run after look twice and walk thrice",
+    "output": "I_RUN I_LOOK I_LOOK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look twice and turn right",
+    "output": "I_LOOK I_LOOK I_TURN_RIGHT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk thrice and run twice",
+    "output": "I_WALK I_WALK I_WALK I_RUN I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk after look thrice",
+    "output": "I_WALK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look and walk after run thrice",
+    "output": "I_LOOK I_WALK I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk thrice and turn left and turn right after run twice",
+    "output": "I_WALK I_WALK I_WALK I_TURN_LEFT I_TURN_RIGHT I_RUN I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look after turn right",
+    "output": "I_LOOK I_TURN_RIGHT"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "turn left after turn right and walk",
+    "output": "I_TURN_LEFT I_TURN_RIGHT I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right after turn left after walk",
+    "output": "I_TURN_RIGHT I_TURN_LEFT I_WALK"
+  },
+  {
+    "input": "run thrice and look and look",
+    "output": "I_RUN I_RUN I_RUN I_LOOK I_LOOK"
+  },
+  {
+    "input": "run thrice and look twice and run thrice after run thrice",
+    "output": "I_RUN I_RUN I_RUN I_LOOK I_LOOK I_RUN I_RUN I_RUN I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice and turn left after run twice",
+    "output": "I_LOOK I_LOOK I_LOOK I_TURN_LEFT I_RUN I_RUN"
+  },
+  {
+    "input": "turn right after turn right",
+    "output": "I_TURN_RIGHT I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk twice and walk thrice after walk and walk",
+    "output": "I_WALK I_WALK I_WALK I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run after turn right after walk",
+    "output": "I_RUN I_TURN_RIGHT I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look and walk twice and walk thrice after turn left",
+    "output": "I_LOOK I_WALK I_WALK I_WALK I_WALK I_WALK I_TURN_LEFT"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look thrice after walk after look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK I_WALK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run thrice and walk thrice",
+    "output": "I_RUN I_RUN I_RUN I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn left and look twice and turn right",
+    "output": "I_TURN_LEFT I_LOOK I_LOOK I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look after walk and look after run",
+    "output": "I_LOOK I_WALK I_LOOK I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look and walk thrice and run twice",
+    "output": "I_LOOK I_WALK I_WALK I_WALK I_RUN I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run thrice after walk twice",
+    "output": "I_RUN I_RUN I_RUN I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look twice after look after look",
+    "output": "I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left after walk thrice after walk",
+    "output": "I_TURN_LEFT I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk after run thrice and look thrice",
+    "output": "I_WALK I_RUN I_RUN I_RUN I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk twice and turn right and look",
+    "output": "I_WALK I_WALK I_TURN_RIGHT I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right and look",
+    "output": "I_TURN_RIGHT I_LOOK"
+  },
+  {
+    "input": "walk after walk twice and walk thrice after turn left",
+    "output": "I_WALK I_WALK I_WALK I_WALK I_WALK I_WALK I_TURN_LEFT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk and run after look thrice after look thrice",
+    "output": "I_WALK I_RUN I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look thrice after look twice and run and turn right",
+    "output": "I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK I_RUN I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right after look after look thrice",
+    "output": "I_TURN_RIGHT I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left and run thrice",
+    "output": "I_TURN_LEFT I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run twice and turn left and walk twice",
+    "output": "I_RUN I_RUN I_TURN_LEFT I_WALK I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice and turn left",
+    "output": "I_RUN I_RUN I_RUN I_TURN_LEFT"
+  },
+  {
+    "input": "turn left and look",
+    "output": "I_TURN_LEFT I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right and walk",
+    "output": "I_TURN_RIGHT I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run after walk and look",
+    "output": "I_RUN I_WALK I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk thrice after look",
+    "output": "I_WALK I_WALK I_WALK I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk after walk after walk",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left and walk and look thrice",
+    "output": "I_TURN_LEFT I_WALK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk thrice after walk thrice and look",
+    "output": "I_WALK I_WALK I_WALK I_WALK I_WALK I_WALK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn left after look after run",
+    "output": "I_TURN_LEFT I_LOOK I_RUN"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk after run thrice",
+    "output": "I_WALK I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn right and turn right",
+    "output": "I_TURN_RIGHT I_TURN_RIGHT"
+  },
+  {
+    "input": "look after walk",
+    "output": "I_LOOK I_WALK"
+  },
+  {
+    "input": "look after run thrice and look",
+    "output": "I_LOOK I_RUN I_RUN I_RUN I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run and run thrice",
+    "output": "I_RUN I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run and look after turn right",
+    "output": "I_RUN I_LOOK I_TURN_RIGHT"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk thrice after look",
+    "output": "I_WALK I_WALK I_WALK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look and look thrice and look twice and walk",
+    "output": "I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK I_WALK"
+  },
+  {
+    "input": "run after walk",
+    "output": "I_RUN I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk after run twice",
+    "output": "I_WALK I_RUN I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run after run after run twice",
+    "output": "I_RUN I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn right and look twice after turn left",
+    "output": "I_TURN_RIGHT I_LOOK I_LOOK I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look thrice and walk",
+    "output": "I_LOOK I_LOOK I_LOOK I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn right and turn left",
+    "output": "I_TURN_RIGHT I_TURN_LEFT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run twice and walk twice and walk after walk twice",
+    "output": "I_RUN I_RUN I_WALK I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn left after run twice and turn left after look",
+    "output": "I_TURN_LEFT I_RUN I_RUN I_TURN_LEFT I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk thrice and turn right after walk thrice",
+    "output": "I_WALK I_WALK I_WALK I_TURN_RIGHT I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run thrice and walk",
+    "output": "I_RUN I_RUN I_RUN I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run twice after turn right",
+    "output": "I_RUN I_RUN I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left after turn left and walk twice",
+    "output": "I_TURN_LEFT I_TURN_LEFT I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look twice and walk thrice",
+    "output": "I_LOOK I_LOOK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right after turn right and look thrice",
+    "output": "I_TURN_RIGHT I_TURN_RIGHT I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right and run and turn right after walk",
+    "output": "I_TURN_RIGHT I_RUN I_TURN_RIGHT I_WALK"
+  },
+  {
+    "input": "turn right and turn left and walk twice",
+    "output": "I_TURN_RIGHT I_TURN_LEFT I_WALK I_WALK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look after turn left after look after walk thrice",
+    "output": "I_LOOK I_TURN_LEFT I_LOOK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice and run twice after turn left",
+    "output": "I_RUN I_RUN I_RUN I_RUN I_RUN I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice and turn right",
+    "output": "I_WALK I_WALK I_TURN_RIGHT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look twice after look and look",
+    "output": "I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look after walk after walk thrice",
+    "output": "I_LOOK I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk thrice and run",
+    "output": "I_WALK I_WALK I_WALK I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left and turn right",
+    "output": "I_TURN_LEFT I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look after turn left",
+    "output": "I_LOOK I_TURN_LEFT"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look thrice and walk and turn left after run",
+    "output": "I_LOOK I_LOOK I_LOOK I_WALK I_TURN_LEFT I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look after run after turn left",
+    "output": "I_LOOK I_RUN I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run twice after look twice after walk twice",
+    "output": "I_RUN I_RUN I_LOOK I_LOOK I_WALK I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look thrice after walk after turn right",
+    "output": "I_LOOK I_LOOK I_LOOK I_WALK I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look twice after turn left",
+    "output": "I_LOOK I_LOOK I_TURN_LEFT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look thrice after look thrice after run after look",
+    "output": "I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK I_RUN I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run and run after look twice",
+    "output": "I_RUN I_RUN I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk and run twice",
+    "output": "I_WALK I_RUN I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look after run twice",
+    "output": "I_LOOK I_RUN I_RUN"
+  },
+  {
+    "input": "look after look thrice and look twice and look twice",
+    "output": "I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice and look and run after walk twice",
+    "output": "I_RUN I_RUN I_LOOK I_RUN I_WALK I_WALK"
+  },
+  {
+    "input": "run after turn left",
+    "output": "I_RUN I_TURN_LEFT"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice and walk thrice",
+    "output": "I_LOOK I_LOOK I_LOOK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look and walk after walk thrice",
+    "output": "I_LOOK I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look after run after turn right",
+    "output": "I_LOOK I_RUN I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right and look thrice",
+    "output": "I_TURN_RIGHT I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk and look thrice and turn left",
+    "output": "I_WALK I_LOOK I_LOOK I_LOOK I_TURN_LEFT"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look thrice and look twice",
+    "output": "I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run thrice after look twice after look",
+    "output": "I_RUN I_RUN I_RUN I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk and walk after run",
+    "output": "I_WALK I_WALK I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look and look twice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice after run thrice after run thrice",
+    "output": "I_RUN I_RUN I_RUN I_RUN I_RUN I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn right and turn right after run thrice",
+    "output": "I_TURN_RIGHT I_TURN_RIGHT I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run after run",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk after run thrice",
+    "output": "I_WALK I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice after walk thrice after look",
+    "output": "I_RUN I_RUN I_RUN I_WALK I_WALK I_WALK I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look thrice after run thrice",
+    "output": "I_LOOK I_LOOK I_LOOK I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "run thrice after walk after run",
+    "output": "I_RUN I_RUN I_RUN I_WALK I_RUN"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice after turn right",
+    "output": "I_WALK I_WALK I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look after walk",
+    "output": "I_LOOK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look thrice after walk and look twice",
+    "output": "I_LOOK I_LOOK I_LOOK I_WALK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk thrice after walk after walk",
+    "output": "I_WALK I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right after look and turn right",
+    "output": "I_TURN_RIGHT I_LOOK I_TURN_RIGHT"
+  },
+  {
+    "input": "walk and look thrice",
+    "output": "I_WALK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look and walk after run",
+    "output": "I_LOOK I_WALK I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk twice and look and walk",
+    "output": "I_WALK I_WALK I_LOOK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look after turn right after turn right",
+    "output": "I_LOOK I_TURN_RIGHT I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look and look and look twice",
+    "output": "I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left after look twice and turn right",
+    "output": "I_TURN_LEFT I_LOOK I_LOOK I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk after run and run",
+    "output": "I_WALK I_RUN I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk thrice and turn left after walk thrice after walk thrice",
+    "output": "I_WALK I_WALK I_WALK I_TURN_LEFT I_WALK I_WALK I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left after look thrice and turn right",
+    "output": "I_TURN_LEFT I_LOOK I_LOOK I_LOOK I_TURN_RIGHT"
+  },
+  {
+    "input": "look and turn left after run",
+    "output": "I_LOOK I_TURN_LEFT I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right after turn right",
+    "output": "I_TURN_RIGHT I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run twice after turn right after turn right",
+    "output": "I_RUN I_RUN I_TURN_RIGHT I_TURN_RIGHT"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "turn right after look after look thrice",
+    "output": "I_TURN_RIGHT I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run twice and walk after run thrice",
+    "output": "I_RUN I_RUN I_WALK I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk twice after walk",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk and walk",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look and turn right after turn right",
+    "output": "I_LOOK I_TURN_RIGHT I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run thrice after walk thrice after walk twice",
+    "output": "I_RUN I_RUN I_RUN I_WALK I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look thrice and run",
+    "output": "I_LOOK I_LOOK I_LOOK I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice and look after walk after turn left",
+    "output": "I_RUN I_RUN I_RUN I_LOOK I_WALK I_TURN_LEFT"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look twice and run twice and turn right",
+    "output": "I_LOOK I_LOOK I_RUN I_RUN I_TURN_RIGHT"
+  },
+  {
+    "input": "look after run twice and look",
+    "output": "I_LOOK I_RUN I_RUN I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look and look and look",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice after walk thrice after run after look twice",
+    "output": "I_RUN I_RUN I_RUN I_WALK I_WALK I_WALK I_RUN I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right after turn left",
+    "output": "I_TURN_RIGHT I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left after run thrice",
+    "output": "I_TURN_LEFT I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk and walk twice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left and run twice and look and turn right",
+    "output": "I_TURN_LEFT I_RUN I_RUN I_LOOK I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run after look after run twice",
+    "output": "I_RUN I_LOOK I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk and run twice and run thrice",
+    "output": "I_WALK I_RUN I_RUN I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look thrice and turn right",
+    "output": "I_LOOK I_LOOK I_LOOK I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run after walk twice and turn left",
+    "output": "I_RUN I_WALK I_WALK I_TURN_LEFT"
+  },
+  {
+    "input": "look and turn right",
+    "output": "I_LOOK I_TURN_RIGHT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn left after run",
+    "output": "I_TURN_LEFT I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk twice after look and run thrice after run thrice",
+    "output": "I_WALK I_WALK I_LOOK I_RUN I_RUN I_RUN I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice and run after turn left",
+    "output": "I_WALK I_WALK I_RUN I_TURN_LEFT"
+  },
+  {
+    "input": "walk and turn right",
+    "output": "I_WALK I_TURN_RIGHT"
+  },
+  {
+    "input": "look and look thrice and turn left",
+    "output": "I_LOOK I_LOOK I_LOOK I_LOOK I_TURN_LEFT"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look thrice and run twice",
+    "output": "I_LOOK I_LOOK I_LOOK I_RUN I_RUN"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run twice after run",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look after turn left",
+    "output": "I_LOOK I_TURN_LEFT"
+  },
+  {
+    "input": "turn left after run",
+    "output": "I_TURN_LEFT I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look and turn right and run thrice",
+    "output": "I_LOOK I_TURN_RIGHT I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look twice after run thrice and run thrice",
+    "output": "I_LOOK I_LOOK I_RUN I_RUN I_RUN I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look after look thrice after walk twice",
+    "output": "I_LOOK I_LOOK I_LOOK I_LOOK I_WALK I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn left after turn right and run thrice",
+    "output": "I_TURN_LEFT I_TURN_RIGHT I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk after walk after look thrice",
+    "output": "I_WALK I_WALK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look and walk thrice after look",
+    "output": "I_LOOK I_WALK I_WALK I_WALK I_LOOK"
+  },
+  {
+    "input": "run thrice after walk thrice",
+    "output": "I_RUN I_RUN I_RUN I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk after run after run and turn right",
+    "output": "I_WALK I_RUN I_RUN I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left and walk twice",
+    "output": "I_TURN_LEFT I_WALK I_WALK"
+  },
+  {
+    "input": "look and walk twice",
+    "output": "I_LOOK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right after turn right",
+    "output": "I_TURN_RIGHT I_TURN_RIGHT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run after look twice and walk twice",
+    "output": "I_RUN I_LOOK I_LOOK I_WALK I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk after turn left and run",
+    "output": "I_WALK I_TURN_LEFT I_RUN"
+  },
+  {
+    "input": "look twice after walk",
+    "output": "I_LOOK I_LOOK I_WALK"
+  },
+  {
+    "input": "turn left after run",
+    "output": "I_TURN_LEFT I_RUN"
+  },
+  {
+    "input": "turn right after turn right and turn right after turn left",
+    "output": "I_TURN_RIGHT I_TURN_RIGHT I_TURN_RIGHT I_TURN_LEFT"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run thrice and look thrice",
+    "output": "I_RUN I_RUN I_RUN I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right and look thrice after turn left",
+    "output": "I_TURN_RIGHT I_LOOK I_LOOK I_LOOK I_TURN_LEFT"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left and run and run",
+    "output": "I_TURN_LEFT I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right and look after walk",
+    "output": "I_TURN_RIGHT I_LOOK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look and run thrice after run",
+    "output": "I_LOOK I_RUN I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn left and walk thrice and look",
+    "output": "I_TURN_LEFT I_WALK I_WALK I_WALK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look after walk and turn right",
+    "output": "I_LOOK I_WALK I_TURN_RIGHT"
+  },
+  {
+    "input": "walk after walk after turn right after look",
+    "output": "I_WALK I_WALK I_TURN_RIGHT I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run twice and look twice and look after look thrice",
+    "output": "I_RUN I_RUN I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk and look thrice and look twice",
+    "output": "I_WALK I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left and run thrice after look twice",
+    "output": "I_TURN_LEFT I_RUN I_RUN I_RUN I_LOOK I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run thrice and turn right and walk twice",
+    "output": "I_RUN I_RUN I_RUN I_TURN_RIGHT I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk thrice after turn left after look",
+    "output": "I_WALK I_WALK I_WALK I_TURN_LEFT I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk after run",
+    "output": "I_WALK I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run twice and run",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run after run twice and turn left",
+    "output": "I_RUN I_RUN I_RUN I_TURN_LEFT"
+  },
+  {
+    "input": "walk twice and turn left after walk",
+    "output": "I_WALK I_WALK I_TURN_LEFT I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look and turn left and run thrice after turn left",
+    "output": "I_LOOK I_TURN_LEFT I_RUN I_RUN I_RUN I_TURN_LEFT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run thrice and turn right",
+    "output": "I_RUN I_RUN I_RUN I_TURN_RIGHT"
+  },
+  {
+    "input": "look thrice and turn right after turn right after turn left",
+    "output": "I_LOOK I_LOOK I_LOOK I_TURN_RIGHT I_TURN_RIGHT I_TURN_LEFT"
+  },
+  {
+    "input": "turn left and turn left",
+    "output": "I_TURN_LEFT I_TURN_LEFT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run thrice after run and look twice",
+    "output": "I_RUN I_RUN I_RUN I_RUN I_LOOK I_LOOK"
+  },
+  {
+    "input": "run thrice and walk twice",
+    "output": "I_RUN I_RUN I_RUN I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk after run after run thrice",
+    "output": "I_WALK I_RUN I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk twice and turn left and run",
+    "output": "I_WALK I_WALK I_TURN_LEFT I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run thrice and turn left and run after walk",
+    "output": "I_RUN I_RUN I_RUN I_TURN_LEFT I_RUN I_WALK"
+  },
+  {
+    "input": "walk twice and look and look thrice",
+    "output": "I_WALK I_WALK I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk and run thrice",
+    "output": "I_WALK I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run twice and turn left after walk",
+    "output": "I_RUN I_RUN I_TURN_LEFT I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look twice and run thrice after look and run twice",
+    "output": "I_LOOK I_LOOK I_RUN I_RUN I_RUN I_LOOK I_RUN I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run and run twice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look twice after turn right",
+    "output": "I_LOOK I_LOOK I_TURN_RIGHT"
+  },
+  {
+    "input": "walk after look twice and turn right and turn left",
+    "output": "I_WALK I_LOOK I_LOOK I_TURN_RIGHT I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice and turn right",
+    "output": "I_RUN I_RUN I_RUN I_TURN_RIGHT"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk after run twice",
+    "output": "I_WALK I_RUN I_RUN"
+  },
+  {
+    "input": "run twice and run twice",
+    "output": "I_RUN I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look after walk after turn right and run twice",
+    "output": "I_LOOK I_WALK I_TURN_RIGHT I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run after run thrice and run and run twice",
+    "output": "I_RUN I_RUN I_RUN I_RUN I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look thrice and walk thrice after walk thrice",
+    "output": "I_LOOK I_LOOK I_LOOK I_WALK I_WALK I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn right after walk",
+    "output": "I_TURN_RIGHT I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk twice after run twice and walk thrice",
+    "output": "I_WALK I_WALK I_RUN I_RUN I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk after turn right",
+    "output": "I_WALK I_TURN_RIGHT"
+  },
+  {
+    "input": "look twice and run twice",
+    "output": "I_LOOK I_LOOK I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look after walk",
+    "output": "I_LOOK I_WALK"
+  },
+  {
+    "input": "run and run and run",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look and look",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look twice and run twice after run after look",
+    "output": "I_LOOK I_LOOK I_RUN I_RUN I_RUN I_LOOK"
+  },
+  {
+    "input": "walk and run twice after look thrice",
+    "output": "I_WALK I_RUN I_RUN I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run and turn left and walk thrice",
+    "output": "I_RUN I_TURN_LEFT I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "turn left after look",
+    "output": "I_TURN_LEFT I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk twice and look thrice",
+    "output": "I_WALK I_WALK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right and run and walk",
+    "output": "I_TURN_RIGHT I_RUN I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk after look",
+    "output": "I_WALK I_LOOK"
+  },
+  {
+    "input": "walk and look after look thrice",
+    "output": "I_WALK I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look and look and run",
+    "output": "I_LOOK I_LOOK I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk thrice after run after walk thrice",
+    "output": "I_WALK I_WALK I_WALK I_RUN I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right after run twice and look",
+    "output": "I_TURN_RIGHT I_RUN I_RUN I_LOOK"
+  },
+  {
+    "input": "run thrice and look and look",
+    "output": "I_RUN I_RUN I_RUN I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk thrice after turn left",
+    "output": "I_WALK I_WALK I_WALK I_TURN_LEFT"
+  },
+  {
+    "input": "walk after run twice and turn right",
+    "output": "I_WALK I_RUN I_RUN I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right after run",
+    "output": "I_TURN_RIGHT I_RUN"
+  },
+  {
+    "input": "turn right and turn left and run thrice",
+    "output": "I_TURN_RIGHT I_TURN_LEFT I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look and turn right and turn left",
+    "output": "I_LOOK I_TURN_RIGHT I_TURN_LEFT"
+  },
+  {
+    "input": "walk and walk thrice after walk",
+    "output": "I_WALK I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run and look",
+    "output": "I_RUN I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look thrice and run and look and walk",
+    "output": "I_LOOK I_LOOK I_LOOK I_RUN I_LOOK I_WALK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left after walk and walk after walk twice",
+    "output": "I_TURN_LEFT I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run twice after turn left after turn right and walk",
+    "output": "I_RUN I_RUN I_TURN_LEFT I_TURN_RIGHT I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk and turn left and turn left and run",
+    "output": "I_WALK I_TURN_LEFT I_TURN_LEFT I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left and run thrice after turn right",
+    "output": "I_TURN_LEFT I_RUN I_RUN I_RUN I_TURN_RIGHT"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run and run",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run thrice after run twice and turn left",
+    "output": "I_RUN I_RUN I_RUN I_RUN I_RUN I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run after turn left and look thrice",
+    "output": "I_RUN I_TURN_LEFT I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice after look and run twice",
+    "output": "I_RUN I_RUN I_RUN I_LOOK I_RUN I_RUN"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right and turn left",
+    "output": "I_TURN_RIGHT I_TURN_LEFT"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice and turn right and walk thrice after run",
+    "output": "I_LOOK I_LOOK I_LOOK I_TURN_RIGHT I_WALK I_WALK I_WALK I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk after turn left",
+    "output": "I_WALK I_TURN_LEFT"
+  },
+  {
+    "input": "run and walk thrice",
+    "output": "I_RUN I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk and walk",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk after walk",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk after walk after look thrice",
+    "output": "I_WALK I_WALK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right and turn right",
+    "output": "I_TURN_RIGHT I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left and run",
+    "output": "I_TURN_LEFT I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left and run after walk after turn left",
+    "output": "I_TURN_LEFT I_RUN I_WALK I_TURN_LEFT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run and run and walk",
+    "output": "I_RUN I_RUN I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk and run",
+    "output": "I_WALK I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk and look after look thrice",
+    "output": "I_WALK I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run after run twice after look",
+    "output": "I_RUN I_RUN I_RUN I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look and walk",
+    "output": "I_LOOK I_WALK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left and run after look",
+    "output": "I_TURN_LEFT I_RUN I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run twice after walk after turn right",
+    "output": "I_RUN I_RUN I_WALK I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk twice and walk",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run and run thrice after walk twice",
+    "output": "I_RUN I_RUN I_RUN I_RUN I_WALK I_WALK"
+  },
+  {
+    "input": "turn left and run thrice",
+    "output": "I_TURN_LEFT I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk thrice and run and walk thrice",
+    "output": "I_WALK I_WALK I_WALK I_RUN I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run and look and turn left",
+    "output": "I_RUN I_LOOK I_TURN_LEFT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn right and run thrice",
+    "output": "I_TURN_RIGHT I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice after run after turn right",
+    "output": "I_WALK I_WALK I_RUN I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look thrice after walk",
+    "output": "I_LOOK I_LOOK I_LOOK I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left and look after walk after walk",
+    "output": "I_TURN_LEFT I_LOOK I_WALK I_WALK"
+  },
+  {
+    "input": "look twice and walk",
+    "output": "I_LOOK I_LOOK I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look and turn right and run twice",
+    "output": "I_LOOK I_TURN_RIGHT I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look twice after walk thrice",
+    "output": "I_LOOK I_LOOK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice and turn right",
+    "output": "I_LOOK I_LOOK I_LOOK I_TURN_RIGHT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run after run twice and look twice and look thrice",
+    "output": "I_RUN I_RUN I_RUN I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run thrice and turn right and look and turn left",
+    "output": "I_RUN I_RUN I_RUN I_TURN_RIGHT I_LOOK I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run after walk twice",
+    "output": "I_RUN I_WALK I_WALK"
+  },
+  {
+    "input": "walk and walk and run twice",
+    "output": "I_WALK I_WALK I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look after run twice",
+    "output": "I_LOOK I_RUN I_RUN"
+  },
+  {
+    "input": "look after run and walk",
+    "output": "I_LOOK I_RUN I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run after walk after look thrice after turn left",
+    "output": "I_RUN I_WALK I_LOOK I_LOOK I_LOOK I_TURN_LEFT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run twice and turn right",
+    "output": "I_RUN I_RUN I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk and walk thrice and run",
+    "output": "I_WALK I_WALK I_WALK I_WALK I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look and run",
+    "output": "I_LOOK I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look twice after run thrice after turn left and run",
+    "output": "I_LOOK I_LOOK I_RUN I_RUN I_RUN I_TURN_LEFT I_RUN"
+  },
+  {
+    "input": "run and turn left",
+    "output": "I_RUN I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run and walk and look",
+    "output": "I_RUN I_WALK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look after look",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run and look and turn left and look",
+    "output": "I_RUN I_LOOK I_TURN_LEFT I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look and look and turn left",
+    "output": "I_LOOK I_LOOK I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right and run twice after walk",
+    "output": "I_TURN_RIGHT I_RUN I_RUN I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn left after look",
+    "output": "I_TURN_LEFT I_LOOK"
+  },
+  {
+    "input": "turn left and run thrice",
+    "output": "I_TURN_LEFT I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk after look",
+    "output": "I_WALK I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "turn left after look twice and run thrice",
+    "output": "I_TURN_LEFT I_LOOK I_LOOK I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn right after look",
+    "output": "I_TURN_RIGHT I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look after look twice and look twice",
+    "output": "I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "turn right after turn right",
+    "output": "I_TURN_RIGHT I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk and look twice and look",
+    "output": "I_WALK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run thrice and run twice and turn left",
+    "output": "I_RUN I_RUN I_RUN I_RUN I_RUN I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look twice after run thrice and walk",
+    "output": "I_LOOK I_LOOK I_RUN I_RUN I_RUN I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run twice after run",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "run thrice after walk after turn left",
+    "output": "I_RUN I_RUN I_RUN I_WALK I_TURN_LEFT"
+  },
+  {
+    "input": "walk after run twice and look twice after walk",
+    "output": "I_WALK I_RUN I_RUN I_LOOK I_LOOK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run and turn right and look",
+    "output": "I_RUN I_TURN_RIGHT I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run and run twice and run and look thrice",
+    "output": "I_RUN I_RUN I_RUN I_RUN I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look after walk thrice",
+    "output": "I_LOOK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn right after run after walk after look",
+    "output": "I_TURN_RIGHT I_RUN I_WALK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk thrice after look and look thrice",
+    "output": "I_WALK I_WALK I_WALK I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right after run after look",
+    "output": "I_TURN_RIGHT I_RUN I_LOOK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left and walk",
+    "output": "I_TURN_LEFT I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run twice and look thrice",
+    "output": "I_RUN I_RUN I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk twice after run twice",
+    "output": "I_WALK I_WALK I_RUN I_RUN"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk after turn left after look and run twice",
+    "output": "I_WALK I_TURN_LEFT I_LOOK I_RUN I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look after run twice",
+    "output": "I_LOOK I_RUN I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run after look after look",
+    "output": "I_RUN I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run thrice after walk thrice and look twice",
+    "output": "I_RUN I_RUN I_RUN I_WALK I_WALK I_WALK I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "run twice and run thrice",
+    "output": "I_RUN I_RUN I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn left after look thrice and turn right",
+    "output": "I_TURN_LEFT I_LOOK I_LOOK I_LOOK I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "turn left and turn left after turn right",
+    "output": "I_TURN_LEFT I_TURN_LEFT I_TURN_RIGHT"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look thrice after look twice",
+    "output": "I_LOOK I_LOOK I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look and look",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look twice and turn left",
+    "output": "I_LOOK I_LOOK I_TURN_LEFT"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look and run thrice after run",
+    "output": "I_LOOK I_RUN I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look and look",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "walk thrice after turn right",
+    "output": "I_WALK I_WALK I_WALK I_TURN_RIGHT"
+  },
+  {
+    "input": "turn right after run",
+    "output": "I_TURN_RIGHT I_RUN"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "run twice and walk",
+    "output": "I_RUN I_RUN I_WALK"
+  },
+  {
+    "input": "run twice",
+    "output": "I_RUN I_RUN"
+  },
+  {
+    "input": "walk twice after walk twice after run",
+    "output": "I_WALK I_WALK I_WALK I_WALK I_RUN"
+  },
+  {
+    "input": "walk thrice and walk",
+    "output": "I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "look thrice",
+    "output": "I_LOOK I_LOOK I_LOOK"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run thrice",
+    "output": "I_RUN I_RUN I_RUN"
+  },
+  {
+    "input": "look twice",
+    "output": "I_LOOK I_LOOK"
+  },
+  {
+    "input": "run and turn left and walk twice",
+    "output": "I_RUN I_TURN_LEFT I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "turn right and walk thrice",
+    "output": "I_TURN_RIGHT I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "run and turn right after walk twice",
+    "output": "I_RUN I_TURN_RIGHT I_WALK I_WALK"
+  },
+  {
+    "input": "walk",
+    "output": "I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "walk thrice",
+    "output": "I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "turn right after look",
+    "output": "I_TURN_RIGHT I_LOOK"
+  },
+  {
+    "input": "turn left",
+    "output": "I_TURN_LEFT"
+  },
+  {
+    "input": "look after walk and turn right",
+    "output": "I_LOOK I_WALK I_TURN_RIGHT"
+  },
+  {
+    "input": "look",
+    "output": "I_LOOK"
+  },
+  {
+    "input": "walk and run twice",
+    "output": "I_WALK I_RUN I_RUN"
+  },
+  {
+    "input": "walk and run",
+    "output": "I_WALK I_RUN"
+  },
+  {
+    "input": "turn right",
+    "output": "I_TURN_RIGHT"
+  },
+  {
+    "input": "walk twice and walk after walk",
+    "output": "I_WALK I_WALK I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  },
+  {
+    "input": "walk twice",
+    "output": "I_WALK I_WALK"
+  },
+  {
+    "input": "run",
+    "output": "I_RUN"
+  }
+]

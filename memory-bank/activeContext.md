@@ -1,0 +1,264 @@
+# Active Context
+
+## Current Goal
+
+**Implementing baseline training loop** to verify the "Illusion of Mastery" failure mode.
+
+## Current Phase
+
+- **Phase:** 1 (Foundation)
+- **Week:** 1-2
+- **Subtask:** 1.6 - Baseline Verification (In Progress)
+
+## Immediate Objectives (Week 1)
+
+1. ✓ Initialize git repository and project structure
+2. ✓ Set up Python virtual environment with JAX/Flax stack
+3. ✓ Establish Cline rules for functional purity and mathematical rigor
+4. ✓ Create memory bank for project state tracking
+5. ✓ Implement Flax Transformer (2 layer, 4 head, d_model=128)
+6. ✓ Implement JAX-native tokenization and encoding pipeline
+
+## Technical Stack
+
+- **JAX/jaxlib:** High-performance numerical computing with automatic differentiation
+- **Flax:** Neural network library built on JAX with linen module system
+- **Optax:** Gradient processing and optimization library
+- **Chex:** Testing library for JAX (property-based testing, numerical stability)
+- **Distrax:** Probabilistic programming library for JAX
+
+## Implementation Architecture
+
+**Transformer Specification (matching manuscript Section 11.1):**
+- 2 layers, 4 attention heads, d_model = 128
+- Standard seq2seq architecture for SCAN/COGS
+- Purely functional forward passes for jax.jit compilation
+
+**Signal Extraction Requirements:**
+- GCA (Gradient-Composition Alignment): Correlation of ∇L_train and ∇L_comp-batch
+- RGA (Representational-Geometry Alignment): RDM correlation with structural distances
+- AC (Augmentation Consistency): Cosine similarity across structure-preserving augmentations
+
+**ODE Integration:**
+- IMEX Runge-Kutta adaptive-step integrator
+- Coupled system: σ_A, δ_A, α_A, M̂_A, Ξ_A variables
+- Timescale separation: fast (δ, σ, α) vs slow (M̂, Ξ) subsystems
+
+## Verification Workflow
+
+**Trigger:** Any change to `hbar/models/`
+**Action:** Run shape and JIT compatibility tests
+**Command:** `pytest tests/test_model_shapes.py tests/test_extraction_hooks.py -v`
+
+**Tests verify:**
+- Output logits shape: (batch, tgt_seq_len, vocab_size)
+- Intermediates collection contains all expected layer keys
+- Activation shapes: (batch, seq_len, d_model) for all layers
+- JIT compilation works with jax.jit and mutable=['intermediates']
+- Gradient flow through entire model with extraction enabled
+- Purity: same inputs produce identical intermediates (no hidden state)
+- Dropout behavior (deterministic when training=False)
+
+**Trigger:** Any change to `hbar/engine/`
+**Action:** Run encoding pipeline integration tests
+**Command:** `pytest tests/test_encoding_pipeline.py -v`
+
+**Tests verify:**
+- Tokenizer: special tokens, encode/decode, truncation, SCAN vocabulary
+- Masks: padding mask shape/values, causal mask triangularity, combined decoder mask
+- Batch preparation: shapes, decoder input shifting, loss computation
+- Integration: full pipeline forward pass, JIT compilation, gradient flow
+
+**Trigger:** Any change to `hbar/core/`
+**Action:** Run chex test to ensure ODE Jacobian stability (Eq. 24)
+**Command:** `pytest tests/test_ode_stability.py -v`
+
+**Stability Checks:**
+- Jacobian condition number κ(J) < 1000
+- Forward invariance (Proposition 3.2): all variables remain in valid ranges
+- Timescale separation (Proposition 3.3): fast/slow subsystem eigenvalue ratio > 10
+
+## Completed Components
+
+### Transformer Architecture (`hbar/models/`)
+- **config.py**: TransformerConfig (dataclass with all hyperparameters), ActivationsDict
+- **transformer.py**: Complete Encoder-Decoder with Flax `sow`-based activation hooks:
+  - `Embed`: Token embedding + learned positional encodings
+  - `MultiHeadAttention`: Scaled dot-product attention with Q/K/V projections
+  - `TransformerBlock`: Self-attention + cross-attention + MLP with residuals
+  - `Encoder`: Stack of N transformer blocks
+  - `Decoder`: Stack with causal masking for autoregressive decoding
+  - `Seq2SeqTransformer`: Top-level model with `capture_activations` flag
+  - `get_model_representations()`: Functional wrapper for extracting intermediates
+
+### Layer Naming Convention for RGA Engine
+The RGA engine accesses activations via the intermediates collection returned by
+`model.apply(params, src, tgt, mutable=['intermediates'])` or via
+`get_model_representations(params, model, src, tgt)`.
+
+**Intermediates keys and their tensor shapes:**
+
+| Key | Description | Shape |
+|-----|-------------|-------|
+| `embedding` | Encoder embedding (after √d_model scaling) | (batch, src_seq_len, d_model) |
+| `encoder_block_0` | Encoder layer 0 output (after final LayerNorm) | (batch, src_seq_len, d_model) |
+| `encoder_block_1` | Encoder layer 1 output | (batch, src_seq_len, d_model) |
+| `decoder_embedding` | Decoder embedding (after √d_model scaling) | (batch, tgt_seq_len, d_model) |
+| `decoder_block_0` | Decoder layer 0 output (after final LayerNorm) | (batch, tgt_seq_len, d_model) |
+| `decoder_block_1` | Decoder layer 1 output | (batch, tgt_seq_len, d_model) |
+
+**Usage pattern:**
+```python
+# Extract all representations in a single forward pass
+intermediates = get_model_representations(params, model, src, tgt)
+
+# Access specific layer for RGA analysis
+encoder_last = intermediates["encoder_block_1"]  # Shape: (batch, seq_len, d_model)
+decoder_last = intermediates["decoder_block_1"]
+```
+
+**Memory efficiency:** Set `capture_activations=False` (default) during standard
+training to avoid the overhead of sow operations. Only enable extraction during
+evaluation or RGA signal computation phases.
+
+### Encoding Pipeline (`hbar/engine/`)
+- **tokenizer.py**: Word-level tokenizer with SCAN vocabulary
+  - Special tokens: `<PAD>` (0), `<BOS>` (1), `<EOS>` (2), `<UNK>` (3)
+  - `encode()`: Adds BOS/EOS, truncates/pads to max_seq_len, returns JAX array
+  - `decode()`: Converts IDs back to text, skips special tokens
+  - `create_scan_tokenizer()`: Pre-initialized with SCAN command/action vocabulary
+- **encoding.py**: Functional mask generation (JIT-compatible)
+  - `get_padding_mask()`: Shape (batch, 1, 1, seq_len), True for valid tokens
+  - `get_causal_mask()`: Lower triangular mask for decoder self-attention
+  - `get_decoder_mask()`: Combined padding + causal mask
+  - `apply_mask()`: Applies mask to attention scores with -1e9 for masked positions
+- **data_utils.py**: Batch preprocessing for training
+  - `Batch` dataclass (flax.struct): inputs, decoder_inputs, labels, src_mask, tgt_mask
+  - `HBarBatch` dataclass: id_stream, ood_stream, aug_stream (triple-stream batch)
+  - `prepare_batch()`: Converts (input, output) pairs to training-ready Batch
+  - `compute_loss()`: Cross-entropy loss ignoring padding tokens
+  - `compute_accuracy()`: Token-level accuracy over non-padding tokens
+  - `get_hbar_batch()`: Generates triple-stream HBarBatch for signal extraction
+- **augmentation.py**: Structure-preserving augmentation pipeline
+  - `apply_primitive_substitution()`: Swaps primitives (e.g., 'jump' → 'run')
+  - `apply_argument_permutation()`: Swaps sub-command order (e.g., 'jump left and look right' → 'look right and jump left')
+  - `apply_augmentation()`: Randomly chooses between substitution and permutation
+  - `vmap_augment_batch()`: Vectorized augmentation with configurable `permutation_probability` (default 0.5)
+  - `generate_augmentation_keys()`: Creates PRNGKeys for each sample
+  - Supports both SCAN and COGS domains
+- **signals.py**: H-Bar signal computation engine
+  - `compute_augmentation_consistency()`: Computes c_A signal (Equation 5) using cosine similarity
+  - `compute_layer_weighted_ac()`: Weighted AC across multiple layers
+  - `compute_representation_norm()`: Monitors representation magnitude
+
+## Generative Grammar G(d) Structure
+
+The generative grammar $G(d)$ is the core mechanism for producing compositional
+samples and computing H-Bar signals. It maps from a domain specification $d$ to
+a distribution over (input, output) pairs with controlled compositional structure.
+
+**SCAN Grammar (`hbar/benchmarks/scan_grammar.py`):**
+- **Primitives:** jump, run, walk, look → I_JUMP, I_RUN, I_WALK, I_LOOK
+- **Directions:** left, right → I_TURN_LEFT, I_TURN_RIGHT
+- **Modifiers:** twice (×2), thrice (×3)
+- **Conjunctions:** and, after (recursive composition)
+- **CFG Rules:** S → S conjunction S | VP; VP → primitive | turn direction | primitive modifier
+- **Compositional Probes:** `sample_compositional_probe(target='jump')` generates
+  nested structures like "jump around left twice and look thrice"
+
+**COGS Grammar (`hbar/benchmarks/cogs_grammar.py`):**
+- **LogicalForm:** Frozen dataclass with predicate, args, children (tree structure)
+- **Constructions:** active, passive, intransitive, ditransitive, embedded
+- **String representation:** "chase ( agent = dog , patient = cat )"
+- **Tree-Edit Distance:** `get_structural_distance(lf1, lf2)` computes RDMstruct
+
+**GrammarEngine (`hbar/benchmarks/grammar_engine.py`):**
+- Unified interface wrapping both grammars
+- `get_compositional_batch()` → returns `Batch` with recombination-only samples
+- `generate_id_batch()` → returns `Batch` with simple in-distribution samples
+- `compute_rdmstruct()` → pairwise structural distances for RGA
+- Deterministic given `jax.random.PRNGKey`
+
+**H-Bar Signal Integration:**
+- **GCA:** Use `get_compositional_batch()` for gradient alignment computation
+- **RGA:** Use `compute_rdmstruct()` for structural RDM correlation
+- **AC:** Use `sample_compositional_probe()` for structure-preserving augmentations
+
+## Verification Workflow Updates
+
+**Trigger:** Any change to `hbar/engine/augmentation.py` or `hbar/engine/data_utils.py`
+**Action:** Run HBar batch generator tests
+**Command:** `pytest tests/test_hbar_generator.py -v`
+
+**Tests verify:**
+- HBarBatch structure: all three streams present with matching shapes
+- HBarBatch is a valid JAX pytree (can be used with jax.tree_util)
+- All streams have consistent batch_size and max_seq_len
+- Augmentation changes tokens but preserves syntactic structure (masks identical)
+- JIT compatibility: HBarBatch can be passed to jax.jit functions
+- Determinism: same PRNGKey produces identical batches
+- Works for both SCAN and COGS domains
+
+## Evaluation Splits and Ground-Truth σ_A
+
+### SCAN Add-Jump Split
+- **Training (ID):** All commands WITHOUT 'jump' in compounds + isolated 'jump' → 'I_JUMP'
+- **Test (OOD):** All commands where 'jump' appears in a compound structure
+- **Purpose:** Tests if model can compose a known primitive into novel syntactic structures
+- **Zero overlap:** No command (except isolated 'jump') appears in both sets
+
+### COGS Subject-to-Object Split
+- **BIASED_NOUNS:** ['hedgehog', 'porcupine', 'otter']
+- **Training (ID):** Biased nouns only appear in Subject position
+- **Test (OOD):** Biased nouns only appear in Object position
+- **Purpose:** Tests if model learns syntactic roles vs. positional memorization
+
+### Ground-Truth σ_A Calculation (Equation 7)
+```
+σ̂_A = Acc_OOD / Acc_ID
+```
+- **Range:** [0, 1] where 1.0 = perfect compositional generalization
+- **Edge case:** If Acc_ID = 0, return σ̂_A = 0.0 (division-by-zero handling)
+- **Calibration error:** |σ̃_A - σ̂_A| used to update multi-signal fusion weights
+
+### Frozen Evaluation Sets
+- **Size:** 2,000 ID + 2,000 OOD samples per domain
+- **Statistical power:** Enables detection of accuracy differences with p < 0.0001
+- **Reproducibility:** Committed to repository as JSON files in `data/` directory
+- **Files:**
+  - `data/scan_id_eval.json`, `data/scan_ood_eval.json`
+  - `data/cogs_id_eval.json`, `data/cogs_ood_eval.json`
+
+### Evaluator Class (`hbar/engine/evaluator.py`)
+- Loads frozen evaluation sets from `data/` directory
+- `evaluate(params, model)` → `EvaluationResult` with all metrics
+- `calculate_calibration_error(sigma_tilde, sigma_hat)` → float
+- JIT-compiled evaluation step for efficiency
+
+## Baseline Training Configuration
+
+The baseline training loop uses standard Adam optimizer without H-Bar signal modulation
+to demonstrate the "Illusion of Mastery" failure mode.
+
+**Hyperparameters:**
+- **Optimizer:** Adam (learning_rate=1e-3)
+- **Batch Size:** 64
+- **Training Steps:** 5,000
+- **Evaluation Interval:** Every 500 steps
+- **Model:** 2-layer, 4-head Transformer, d_model=128
+
+**Expected Outcome (Illusion of Mastery):**
+- ID Accuracy: >95% (model masters in-distribution patterns)
+- OOD Accuracy: <50% (model fails on novel compositions)
+- σ̂_A: <0.5 (large generalization gap)
+
+**Training Data:**
+- Generated on-the-fly using `GrammarEngine.generate_id_batch()`
+- Only in-distribution samples (no 'jump' in compounds for SCAN Add-Jump split)
+- Ensures the model cannot see test compositions during training
+
+## Next Steps (Week 2-4)
+
+- Complete Kaggle run and verify "Illusion of Mastery" failure mode
+- Implement multi-signal proxy extraction (GCA, RGA, AC)
+- Build ODE integrator for H-Bar dynamics

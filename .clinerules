@@ -1,0 +1,74 @@
+# Cline Rules for H-Bar Symbolic Project
+
+## 1. Functional Purity
+
+All H-Bar ODE logic and Transformer modules must be **stateless**. Use `flax.struct.dataclass` for state and avoid Python side-effects.
+
+- Never use global mutable state in jitted functions
+- All model state must be explicitly passed and returned
+- Use `flax.linen.Module` for neural network components
+- Prefer `jax.tree_util` for state manipulation over manual dictionary handling
+
+## 2. Mathematical Nomenclature
+
+Use exact symbols from the H-Bar paper throughout the codebase:
+
+**Core Knowledge Variables:**
+- `sigma_A` — Schema Coherence: measures consistency of internal representations across compositional transformations
+- `delta_A` — Parametric Depth: quantifies hierarchical depth of learned compositional rules
+- `alpha_A` — Attentional Fidelity: tracks stability of attention mechanisms across novel compositions
+
+**Extended Cognitive Variables (V3.0+):**
+- `M_hat_A` — Self-Model of Schema Coherence: agent's estimate of its own σ_A
+- `Xi_A_P`, `Xi_A_I`, `Xi_A_F` — Executive Control: Planning, Inhibition, Cognitive Flexibility
+- `mu_AB` — Schema Legibility: inter-agent schema communication quality
+- `Psi_A` — Intersection Activation: cross-domain discovery rate
+
+**Estimation Protocol:**
+- `sigma_tilde_A` — Stage 1 training-time operative estimate (multi-signal fusion)
+- `sigma_hat_A` — Stage 2 evaluation-time ground-truth calibration (OOD/ID ratio)
+
+Variable names must match their mathematical counterparts. Do not use abbreviations like `sc`, `pd`, `af` for these core concepts.
+
+## 3. JIT Readiness
+
+All core physics/training steps must be wrapped in `jax.jit`. Do not use incompatible Python types inside jitted functions:
+
+- No standard Python `list` or `dict` as loop carriers — use JAX arrays and `flax.struct.dataclass`
+- No Python `print()` inside jitted functions — use `jax.debug.print()` instead
+- No NumPy operations — use `jax.numpy` exclusively
+- Avoid Python control flow that depends on traced values — use `jax.lax.cond`, `jax.lax.switch`, `jax.lax.fori_loop`
+
+Example pattern:
+```python
+@jax.jit
+def training_step(state, batch):
+    # All operations here must be JAX-compatible
+    ...
+```
+
+## 4. Benchmarking
+
+Every training run must log both **In-Distribution (ID)** and **Out-of-Distribution (OOD)** metrics to track the "Illusion of Mastery" gap.
+
+- Log `id_accuracy` and `ood_accuracy` at every evaluation interval
+- Compute and log `generalization_gap = id_accuracy - ood_accuracy`
+- Track H-Bar signals (`sigma_A`, `delta_A`, `alpha_A`) throughout training
+- Save checkpoints with full evaluation metrics for reproducibility
+
+## 5. Testing Standards
+
+- Use `chex` for property-based testing and numerical stability checks
+- All core functions must have unit tests verifying JIT compatibility
+- Test gradient flow through ODE integrators with `chex.assert_grad`
+- Verify numerical stability under mixed precision with `chex.numeric_test`
+
+## 6. Code Organization
+
+- Core ODE integrators in `hbar/core/`
+- Flax model definitions in `hbar/models/`
+- Signal extraction engine in `hbar/engine/`
+- Optimizer wrappers in `hbar/optim/`
+- Benchmark utilities in `benchmarks/`
+- Experiment scripts in `experiments/`
+- Tests in `tests/` using pytest + chex

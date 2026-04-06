@@ -1,0 +1,33 @@
+# Build artifacts
+build/
+dist/
+__pycache__/
+*.pyc
+*.egg-info/
+.eggs/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Large dataset artifacts
+*.tar.gz
+*.zip
+data/
+datasets/
+checkpoints/
+logs/
+
+# JAX compilation caches
+.jax_cache/
+
+# Experiment outputs
+experiments/results/
+experiments/logs/
