@@ -75,8 +75,8 @@ def load_model_and_params(params_path: str):
         vocab_size=20,
         max_seq_len=50,
         d_model=128,
-        num_heads=4,
-        num_layers=2,
+        n_heads=4,
+        n_layers=2,
         d_ff=512,
         dropout_rate=0.1,
     )
@@ -178,7 +178,7 @@ def main():
     # Load model
     print("Loading model and parameters...")
     model, params, config = load_model_and_params(args.params)
-    print(f"Model loaded: {config.num_layers} layers, {config.num_heads} heads, d_model={config.d_model}")
+    print(f"Model loaded: {config.n_layers} layers, {config.n_heads} heads, d_model={config.d_model}")
 
     # Initialize grammar engine
     engine = GrammarEngine(seed=args.seed)
