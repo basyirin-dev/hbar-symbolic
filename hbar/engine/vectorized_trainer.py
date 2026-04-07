@@ -354,9 +354,11 @@ def run_vectorized_training(
             id_pairs = [evaluator.id_samples[idx] for idx in id_indices]
             ood_pairs = [evaluator.ood_samples[idx] for idx in ood_indices]
 
+            # Use id_pairs as aug_pairs (simplified for vectorized training)
             hbar_batch = prepare_hbar_batch_from_pairs(
                 id_pairs=id_pairs,
                 ood_pairs=ood_pairs,
+                aug_pairs=id_pairs,  # Use ID pairs as augmented pairs
                 tokenizer=evaluator.tokenizer,
                 max_seq_len=evaluator.max_seq_len,
             )
