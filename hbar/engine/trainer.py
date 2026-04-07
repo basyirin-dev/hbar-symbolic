@@ -1369,7 +1369,7 @@ def run_hbar_training(
         })
 
         # Step the ODEs to update HBarState
-        hbar_state = cognitive_manager.step(hbar_state, inputs, dt=1.0)
+        hbar_state = cognitive_manager.step(hbar_state, inputs, hbar_constants, dt=1.0)
 
         # Step 4: Execute train_step using updated σ_A and α_A
         state, total_loss, id_loss, ood_loss, comp_penalty, eff_lr, accel_factor = train_step(
@@ -1606,7 +1606,7 @@ def run_hbar_training_multiplicative(
         })
 
         # Step the ODEs to update HBarState
-        hbar_state = cognitive_manager.step(hbar_state, inputs, dt=1.0)
+        hbar_state = cognitive_manager.step(hbar_state, inputs, hbar_constants, dt=1.0)
 
         # Step 4: Execute train_step using updated σ_A and α_A with multiplicative coupling
         state, total_loss, id_loss, ood_loss, comp_penalty, eff_lr, accel_factor = train_step(
