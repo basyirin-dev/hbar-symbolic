@@ -13,6 +13,7 @@ Key optimizations:
 
 import csv
 import os
+import random
 from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
@@ -24,7 +25,10 @@ import optax
 from flax.training import train_state
 from flax.training.train_state import TrainState
 
-from hbar.engine.data_utils import Batch, HBarBatch, compute_loss, compute_hbar_loss
+from hbar.engine.data_utils import (
+    Batch, HBarBatch, compute_loss, compute_hbar_loss,
+    prepare_hbar_batch_from_pairs
+)
 from hbar.engine.evaluator import Evaluator, EvaluationResult
 from hbar.models.config import TransformerConfig, FusionConfig
 from hbar.models.transformer import Seq2SeqTransformer
@@ -244,7 +248,6 @@ def create_vectorized_train_step(
 
 def run_vectorized_training(
     config: TransformerConfig,
-    grammar_engine: Any,
     evaluator: Evaluator,
     rng: jax.Array,
     n_runs: int = 15,
@@ -264,8 +267,7 @@ def run_vectorized_training(
 
     Args:
         config: TransformerConfig with model hyperparameters.
-        grammar_engine: GrammarEngine for batch generation.
-        evaluator: Evaluator for periodic evaluation.
+        evaluator: Evaluator for periodic evaluation and data access.
         rng: JAX PRNGKey.
         n_runs: Number of parallel training runs. Default 15.
         batch_size: Batch size per model. Default 64.
@@ -341,22 +343,27 @@ def run_vectorized_training(
         rng, step_rng = jax.random.split(rng)
         step_rngs = jax.random.split(step_rng, n_runs)
 
-        # Generate batches for all N runs
-        batch_rngs = jax.random.split(step_rng, n_runs + 1)
+        # Generate batches for all N runs using evaluator's data
         batches = []
         sigma_tildes = []
         for i in range(n_runs):
-            hbar_batch = grammar_engine.generate_hbar_batch(
-                batch_size=batch_size,
-                domain="scan",
-                rng=batch_rngs[i],
+            # Sample random indices from ID and OOD data
+            n_id = len(evaluator.id_samples)
+            n_ood = len(evaluator.ood_samples)
+            id_indices = jax.random.randint(step_rngs[i], (batch_size,), 0, n_id)
+            ood_indices = jax.random.randint(step_rngs[i], (batch_size,), 0, n_ood)
+
+            id_pairs = [evaluator.id_samples[idx] for idx in id_indices]
+            ood_pairs = [evaluator.ood_samples[idx] for idx in ood_indices]
+
+            hbar_batch = prepare_hbar_batch_from_pairs(
+                id_pairs=id_pairs,
+                ood_pairs=ood_pairs,
+                tokenizer=evaluator.tokenizer,
+                max_seq_len=evaluator.max_seq_len,
             )
             batches.append(hbar_batch)
             sigma_tildes.append(all_hbar_states.sigma_A[i])
-
-        # Stack batches into a single batched structure
-        # (This requires batches to have compatible shapes)
-        # For simplicity, we'll process one at a time in the vmapped call
 
         # Get sigma_tildes as array
         sigma_tildes = jnp.array(sigma_tildes)
@@ -416,15 +423,6 @@ def run_vectorized_training(
             n_done = sum(1 for s in crystallization_steps if s >= 0)
             print(f"  Step {step}/{total_steps} - Loss: {avg_loss:.4f}, "
                   f"σ̃_A: {avg_sigma:.4f}, Crystallized: {n_done}/{n_runs}")
-
-        # Periodic evaluation (run evaluator on a subset of models)
-        if step % eval_interval == 0 or step == total_steps:
-            print(f"\nStep {step}/{total_steps} - Evaluating...")
-            # Evaluate first model as representative
-            eval_result = evaluator.evaluate(all_params[0], evaluator.model, batch_size=256)
-            print(f"  Model 0 - ID Acc: {eval_result.acc_id:.4f}, "
-                  f"OOD Acc: {eval_result.acc_ood:.4f}, "
-                  f"σ̂_A: {eval_result.ground_truth_sigma:.4f}")
 
         # Log metrics
         for i, m in enumerate(metrics_list):

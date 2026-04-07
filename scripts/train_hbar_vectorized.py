@@ -31,7 +31,6 @@ from typing import Dict, List, Optional
 import jax
 import jax.numpy as jnp
 
-from hbar.benchmarks.grammar_engine import GrammarEngine
 from hbar.engine.evaluator import Evaluator
 from hbar.engine.vectorized_trainer import run_vectorized_training, VectorizedTrainingResults
 from hbar.models.config import TransformerConfig, FusionConfig
@@ -148,21 +147,11 @@ def main():
         fusion_config=fusion_config,
     )
 
-    # Initialize grammar engine
-    print(f"Initializing grammar engine for {args.domain}...")
-    if args.domain not in ["scan", "cogs"]:
-        raise ValueError(f"Unsupported domain: {args.domain}")
-
-    grammar_engine = GrammarEngine(seed=args.base_seed)
-
     # Initialize evaluator
-    print(f"Initializing evaluator...")
-    rng, eval_rng = jax.random.split(rng)
+    print(f"Initializing evaluator for {args.domain}...")
     evaluator = Evaluator(
-        config=config,
         domain=args.domain,
-        grammar_engine=grammar_engine,
-        rng=eval_rng,
+        data_dir="data",
     )
 
     # Run vectorized training
@@ -172,7 +161,6 @@ def main():
     rng, train_rng = jax.random.split(rng)
     results = run_vectorized_training(
         config=config,
-        grammar_engine=grammar_engine,
         evaluator=evaluator,
         rng=train_rng,
         n_runs=args.n_runs,
