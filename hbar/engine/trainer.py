@@ -219,17 +219,17 @@ def apply_hbar_step(
     # ========================================================
     # Step 3: ODE Integration
     # ========================================================
-    # Create cognitive manager and prepare inputs
+    # Create cognitive manager and prepare metrics
     cognitive_manager = create_manager(constants)
 
-    # Map training metrics to HBarInputs
-    inputs = cognitive_manager.metrics_to_inputs({
+    # Prepare metrics dictionary for ODE stepping
+    metrics = {
         "sigma_tilde": sigma_tilde,
         "sigma_hat": hbar_state.sigma_A,
-    })
+    }
 
-    # Step the ODEs to update HBarState
-    new_hbar_state = cognitive_manager.step(hbar_state, inputs, dt=1.0)
+    # Step the ODEs to update HBarState (internally calls metrics_to_inputs)
+    new_hbar_state = cognitive_manager.step(hbar_state, metrics, constants, dt=1.0)
 
     # ========================================================
     # Step 4: Modulated Loss (Equation 25)
@@ -1361,15 +1361,14 @@ def run_hbar_training(
         # Here we use the ODE state σ_A as the operative estimate
         sigma_tilde = hbar_state.sigma_A
 
-        # Step 3: Prepare H-Bar inputs for ODE stepping
-        # Map training metrics to HBarInputs
-        inputs = cognitive_manager.metrics_to_inputs({
+        # Step 3: Prepare metrics dictionary for ODE stepping
+        metrics = {
             "sigma_tilde": sigma_tilde,
             "sigma_hat": hbar_state.sigma_A,
-        })
+        }
 
-        # Step the ODEs to update HBarState
-        hbar_state = cognitive_manager.step(hbar_state, inputs, hbar_constants, dt=1.0)
+        # Step the ODEs to update HBarState (internally calls metrics_to_inputs)
+        hbar_state = cognitive_manager.step(hbar_state, metrics, hbar_constants, dt=1.0)
 
         # Step 4: Execute train_step using updated σ_A and α_A
         state, total_loss, id_loss, ood_loss, comp_penalty, eff_lr, accel_factor = train_step(
@@ -1599,14 +1598,14 @@ def run_hbar_training_multiplicative(
         # For efficiency, we use a simplified fusion during training
         sigma_tilde = hbar_state.sigma_A
 
-        # Step 3: Prepare H-Bar inputs for ODE stepping
-        inputs = cognitive_manager.metrics_to_inputs({
+        # Step 3: Prepare metrics dictionary for ODE stepping
+        metrics = {
             "sigma_tilde": sigma_tilde,
-            "sigma_hat": hbar_state.sigma_A,  # Use current state as estimate
-        })
+            "sigma_hat": hbar_state.sigma_A,
+        }
 
-        # Step the ODEs to update HBarState
-        hbar_state = cognitive_manager.step(hbar_state, inputs, hbar_constants, dt=1.0)
+        # Step the ODEs to update HBarState (internally calls metrics_to_inputs)
+        hbar_state = cognitive_manager.step(hbar_state, metrics, hbar_constants, dt=1.0)
 
         # Step 4: Execute train_step using updated σ_A and α_A with multiplicative coupling
         state, total_loss, id_loss, ood_loss, comp_penalty, eff_lr, accel_factor = train_step(
