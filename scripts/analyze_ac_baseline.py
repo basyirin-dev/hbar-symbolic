@@ -31,7 +31,7 @@ from hbar.benchmarks.grammar_engine import GrammarEngine
 from hbar.engine.data_utils import get_hbar_batch
 from hbar.engine.signals import compute_gca
 from hbar.engine.trainer import TrainState, compute_dual_gradients, get_ac_signal
-from hbar.engine.tokenizer import create_scan_tokenizer, create_cogs_tokenizer
+from hbar.engine.tokenizer import create_scan_tokenizer
 from hbar.models.config import TransformerConfig
 from hbar.models.transformer import Seq2SeqTransformer
 
@@ -66,7 +66,7 @@ def analyze_signals(args):
     if args.domain == "scan":
         tokenizer = create_scan_tokenizer()
     else:
-        tokenizer = create_cogs_tokenizer()
+        raise ValueError(f"Unsupported domain: {args.domain}. Only 'scan' is currently supported.")
 
     # Model config
     config = TransformerConfig(
