@@ -138,7 +138,7 @@ def extract_bos_representations(
 
     # Extract representations
     intermediates = get_model_representations(
-        params, model, inputs, decoder_inputs, src_mask, tgt_mask
+        params, model, inputs, decoder_inputs
     )
 
     # Get BOS token representation from final encoder layer
