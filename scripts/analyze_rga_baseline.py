@@ -71,8 +71,12 @@ def parse_args():
 
 def load_model_and_params(params_path: str):
     """Load model architecture and trained parameters."""
+    # Get actual vocabulary size from tokenizer
+    tokenizer = create_scan_tokenizer()
+    vocab_size = len(tokenizer.word2id)
+
     config = TransformerConfig(
-        vocab_size=20,
+        vocab_size=vocab_size,
         max_seq_len=50,
         d_model=128,
         n_heads=4,
