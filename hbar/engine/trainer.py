@@ -975,7 +975,7 @@ def create_hbar_train_step() -> Callable:
             return total_loss, (id_loss, ood_loss)
 
         # Compute loss and gradients
-        total_loss, (id_loss, ood_loss), grads = jax.value_and_grad(
+        (total_loss, (id_loss, ood_loss)), grads = jax.value_and_grad(
             loss_fn, has_aux=True
         )(state.params)
 
@@ -1123,7 +1123,7 @@ def create_hbar_train_step_multiplicative() -> Callable:
             return total_loss, (id_loss, ood_loss)
 
         # Compute loss and gradients
-        total_loss, (id_loss, ood_loss), grads = jax.value_and_grad(
+        (total_loss, (id_loss, ood_loss)), grads = jax.value_and_grad(
             loss_fn, has_aux=True
         )(state.params)
 
