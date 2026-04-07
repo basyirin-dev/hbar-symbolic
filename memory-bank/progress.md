@@ -319,7 +319,24 @@ The baseline confirmed the "Illusion of Mastery" pattern with a clear ~29% gener
 - **RDM_rep:** Pairwise cosine distances between BOS token representations (final encoder layer)
 - **RDM_struct:** For SCAN — normalized Levenshtein distance on action sequences; For COGS — tree-edit distance on logical forms
 - **Alignment:** Spearman rank correlation (captures monotonic relationships, not just linear)
-- **Expected baseline RGA:** Low (~0.1-0.3) confirming geometric disorganization
+
+**Baseline RGA Results (Kaggle GPU T4, 100 compositional probes, SCAN domain):**
+- **Mean RGA (r_A):** 0.0604
+- **Interpretation:** LOW RGA — Model's representations are geometrically disorganized relative to grammar structure
+
+**Complete Stage 1 Signal Profile (All 3 Signals):**
+
+| Signal | Baseline Value | Interpretation |
+|--------|----------------|----------------|
+| g_A (GCA) | -0.0235 ± 0.0075 (SEM) | ✗ NEGATIVE — Learning ID harms OOD |
+| c_A (AC) | 0.9901 ± 0.0004 (SEM) | ✓ HIGH — Strong invariance |
+| r_A (RGA) | 0.0604 | ✗ LOW — Geometric disorganization |
+
+**Triple-Signal σ-Trap Signature Confirmed:**
+The pattern **High AC (0.99) + Negative GCA (-0.02) + Low RGA (0.06)** confirms the classic σ-trap:
+- **High AC**: Shallow invariance from Transformer self-attention mechanisms
+- **Negative GCA**: Broken gradient geometry for compositional rules
+- **Low RGA**: Representations are geometrically disorganized relative to grammar structure
 
 ### Subtask 5.2: Deliverables
 **Status:** Pending

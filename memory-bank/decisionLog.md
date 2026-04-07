@@ -464,10 +464,26 @@ Based on the baseline signal profile, the H-Bar framework predicts:
 - Use BOS token representation from final encoder layer as the sentence-level summary
 - The BOS token accumulates cross-attention from all positions, acting as a compressed representation of the full input
 
-**Expected Baseline RGA:** Low (~0.1-0.3), confirming geometric disorganization in the σ-trap
+**Baseline RGA Results (Kaggle GPU T4, 100 compositional probes, SCAN domain):**
+- **Mean RGA (r_A):** 0.0604
+- **Interpretation:** LOW RGA — Model's representations are geometrically disorganized relative to grammar structure
 
 **Consequences:**
 - RGA computation requires O(N²) pairwise distance calculations, limiting practical N to ~100-200 probes
 - The Spearman correlation range [-1, 1] provides clear interpretation: positive = aligned, negative = anti-aligned
 - RGA complements GCA and AC by measuring representational geometry rather than gradient alignment or augmentation invariance
 - The triple-signal profile (GCA, AC, RGA) provides a comprehensive diagnostic of the σ-trap
+
+### Complete Stage 1 Signal Profile (All 3 Signals)
+
+| Signal | Baseline Value | Interpretation |
+|--------|----------------|----------------|
+| g_A (GCA) | -0.0235 ± 0.0075 | ✗ NEGATIVE — Learning ID harms OOD |
+| c_A (AC) | 0.9901 ± 0.0004 | ✓ HIGH — Strong invariance |
+| r_A (RGA) | 0.0604 | ✗ LOW — Geometric disorganization |
+
+**Triple-Signal σ-Trap Signature Confirmed:**
+The pattern **High AC (0.99) + Negative GCA (-0.02) + Low RGA (0.06)** confirms the classic σ-trap:
+- **High AC**: Shallow invariance from Transformer self-attention mechanisms
+- **Negative GCA**: Broken gradient geometry for compositional rules
+- **Low RGA**: Representations are geometrically disorganized relative to grammar structure

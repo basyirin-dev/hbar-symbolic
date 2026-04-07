@@ -458,11 +458,13 @@ The three H-Bar signals together provide a comprehensive diagnostic of the σ-tr
 
 | Signal | Baseline Value | Interpretation |
 |--------|----------------|----------------|
-| g_A (GCA) | -0.0249 ± 0.0076 | ✗ NEGATIVE — Learning ID harms OOD |
+| g_A (GCA) | -0.0235 ± 0.0075 | ✗ NEGATIVE — Learning ID harms OOD |
 | c_A (AC) | 0.9901 ± 0.0004 | ✓ HIGH — Strong invariance |
-| r_A (RGA) | Expected: 0.1-0.3 | ? LOW — Geometric disorganization |
+| r_A (RGA) | 0.0604 | ✗ LOW — Geometric disorganization |
 
-**Triple-Signal σ-Trap Signature:**
+**Triple-Signal σ-Trap Signature Confirmed:**
 - **High AC** + **Negative GCA** + **Low RGA** = Classic σ-trap
 - The model has shallow invariance (high AC) but broken gradient geometry (negative GCA) and disorganized representations (low RGA)
 - All three signals must improve for true compositional generalization
+
+**Key Insight:** The pattern confirms that Transformer self-attention provides token-level consistency (AC ≈ 0.99) without compositional structure. The gradients are misaligned with compositional rules (GCA < 0), and the representational geometry does not reflect the grammar structure (RGA ≈ 0.06). This is the hallmark of the σ-trap — surface-level competence masking deep structural failure.
