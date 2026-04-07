@@ -1421,7 +1421,7 @@ def run_hbar_training(
             })
 
             # Check for phase transition
-            phase_info = cognitive_manager.check_phase_transition(hbar_state)
+            phase_info = cognitive_manager.check_phase_transition(hbar_state, inputs, hbar_constants)
 
             # Compute acceleration metrics for logging
             kappa_alpha_val = config.fusion_config.kappa_alpha if config.fusion_config else 2.0
@@ -1658,7 +1658,7 @@ def run_hbar_training_multiplicative(
             })
 
             # Check for phase transition
-            phase_info = cognitive_manager.check_phase_transition(hbar_state)
+            phase_info = cognitive_manager.check_phase_transition(hbar_state, inputs, hbar_constants)
 
             # Compute acceleration metrics for logging
             kappa_alpha_val = config.fusion_config.kappa_alpha if config.fusion_config else 2.0
