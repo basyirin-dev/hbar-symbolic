@@ -19,6 +19,7 @@ import flax.struct
 import jax
 import jax.numpy as jnp
 import optax
+from flax.training import train_state
 from flax.training.train_state import TrainState
 
 from hbar.engine.data_utils import Batch, HBarBatch, compute_loss
