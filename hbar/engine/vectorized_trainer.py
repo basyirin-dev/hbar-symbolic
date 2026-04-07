@@ -104,43 +104,64 @@ def prepare_pretokenized_data(
     max_seq_len = evaluator.max_seq_len
     tokenizer = evaluator.tokenizer
 
-    # Generate large pool of ID samples
-    print(f"Generating {n_id_samples} ID samples...")
+    # Use GrammarEngine's batch generation methods
+    print(f"Generating {n_id_samples} ID samples in batches...")
     id_pairs = []
-    for _ in range(n_id_samples):
-        seed = random.randint(0, 2**31 - 1)
-        engine = GrammarEngine(seed=seed)
-        pair = engine.generate_id_pair(domain=domain)
-        id_pairs.append(pair)
+    engine = GrammarEngine(seed=random.randint(0, 2**31 - 1))
+    remaining = n_id_samples
+    while remaining > 0:
+        current_batch = min(batch_size * 4, remaining)  # Generate in larger chunks
+        batch = engine.generate_id_batch(
+            batch_size=current_batch,
+            domain=domain,
+        )
+        # Extract pairs from batch - we need to convert back to pairs
+        # Since generate_id_batch returns a Batch object, we'll use it directly
+        # For pre-tokenization, we just need to collect the batch data
+        id_pairs.append(batch)
+        remaining -= current_batch
+
+    # Concatenate all ID batches
+    print(f"Concatenating {len(id_pairs)} ID batches...")
+    id_inputs = jnp.concatenate([b.inputs for b in id_pairs], axis=0)[:n_id_samples]
+    id_decoder_inputs = jnp.concatenate([b.decoder_inputs for b in id_pairs], axis=0)[:n_id_samples]
+    id_labels = jnp.concatenate([b.labels for b in id_pairs], axis=0)[:n_id_samples]
+    id_src_mask = jnp.concatenate([b.src_mask for b in id_pairs], axis=0)[:n_id_samples]
+    id_tgt_mask = jnp.concatenate([b.tgt_mask for b in id_pairs], axis=0)[:n_id_samples]
 
     # Generate large pool of OOD samples
-    print(f"Generating {n_ood_samples} OOD samples...")
+    print(f"Generating {n_ood_samples} OOD samples in batches...")
     ood_pairs = []
-    for _ in range(n_ood_samples):
-        seed = random.randint(0, 2**31 - 1)
-        engine = GrammarEngine(seed=seed)
-        pair = engine.get_compositional_pair(domain=domain)
-        ood_pairs.append(pair)
+    engine = GrammarEngine(seed=random.randint(0, 2**31 - 1))
+    remaining = n_ood_samples
+    while remaining > 0:
+        current_batch = min(batch_size * 4, remaining)
+        batch = engine.get_compositional_batch(
+            batch_size=current_batch,
+            domain=domain,
+        )
+        ood_pairs.append(batch)
+        remaining -= current_batch
 
-    # Tokenize ID samples
-    print("Tokenizing ID samples...")
-    id_batch = prepare_batch(id_pairs, tokenizer, max_seq_len)
-
-    # Tokenize OOD samples
-    print("Tokenizing OOD samples...")
-    ood_batch = prepare_batch(ood_pairs, tokenizer, max_seq_len)
+    # Concatenate all OOD batches
+    print(f"Concatenating {len(ood_pairs)} OOD batches...")
+    ood_inputs = jnp.concatenate([b.inputs for b in ood_pairs], axis=0)[:n_ood_samples]
+    ood_decoder_inputs = jnp.concatenate([b.decoder_inputs for b in ood_pairs], axis=0)[:n_ood_samples]
+    ood_labels = jnp.concatenate([b.labels for b in ood_pairs], axis=0)[:n_ood_samples]
+    ood_src_mask = jnp.concatenate([b.src_mask for b in ood_pairs], axis=0)[:n_ood_samples]
+    ood_tgt_mask = jnp.concatenate([b.tgt_mask for b in ood_pairs], axis=0)[:n_ood_samples]
 
     return PreTokenizedData(
-        id_inputs=id_batch.inputs,
-        id_decoder_inputs=id_batch.decoder_inputs,
-        id_labels=id_batch.labels,
-        id_src_mask=id_batch.src_mask,
-        id_tgt_mask=id_batch.tgt_mask,
-        ood_inputs=ood_batch.inputs,
-        ood_decoder_inputs=ood_batch.decoder_inputs,
-        ood_labels=ood_batch.labels,
-        ood_src_mask=ood_batch.src_mask,
-        ood_tgt_mask=ood_batch.tgt_mask,
+        id_inputs=id_inputs,
+        id_decoder_inputs=id_decoder_inputs,
+        id_labels=id_labels,
+        id_src_mask=id_src_mask,
+        id_tgt_mask=id_tgt_mask,
+        ood_inputs=ood_inputs,
+        ood_decoder_inputs=ood_decoder_inputs,
+        ood_labels=ood_labels,
+        ood_src_mask=ood_src_mask,
+        ood_tgt_mask=ood_tgt_mask,
     )
 
 
