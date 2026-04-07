@@ -236,7 +236,7 @@ def apply_hbar_step(
     # ========================================================
     # L_total = L_task + lambda_sigma * (1 - sigma_A) * L_comp
 
-    def loss_fn(params: flax.core.FrozenDict) -> Tuple[jax.Array, jax.Array, jax.Array]:
+    def loss_fn(params: flax.core.FrozenDict) -> Tuple[jax.Array, Tuple[jax.Array, jax.Array]]:
         """Compute H-Bar modulated loss."""
         # Forward pass on ID stream
         logits_id = train_state.apply_fn(
@@ -270,12 +270,12 @@ def apply_hbar_step(
         id_loss = compute_loss(logits_id, hbar_batch.id_stream.labels)
         ood_loss = compute_loss(logits_ood, hbar_batch.ood_stream.labels)
 
-        return total_loss, id_loss, ood_loss
+        return total_loss, (id_loss, ood_loss)
 
     # ========================================================
     # Step 5 & 6: Backward Pass + Acceleration (Equation 26)
     # ========================================================
-    (total_loss, id_loss, ood_loss), grads = jax.value_and_grad(
+    total_loss, (id_loss, ood_loss), grads = jax.value_and_grad(
         loss_fn, has_aux=True
     )(train_state.params)
 
@@ -931,14 +931,14 @@ def create_hbar_train_step() -> Callable:
                 - acceleration_factor: (1 + κ_α · α_A)
         """
 
-        def loss_fn(params: flax.core.FrozenDict) -> Tuple[jax.Array, jax.Array, jax.Array]:
+        def loss_fn(params: flax.core.FrozenDict) -> Tuple[jax.Array, Tuple[jax.Array, jax.Array]]:
             """Compute H-Bar modulated loss.
 
             Args:
                 params: Model parameters.
 
             Returns:
-                Tuple of (total_loss, id_loss, ood_loss).
+                Tuple of (total_loss, (id_loss, ood_loss)).
             """
             # Forward pass on ID stream
             logits_id = state.apply_fn(
@@ -972,10 +972,10 @@ def create_hbar_train_step() -> Callable:
             id_loss = compute_loss(logits_id, hbar_batch.id_stream.labels)
             ood_loss = compute_loss(logits_ood, hbar_batch.ood_stream.labels)
 
-            return total_loss, id_loss, ood_loss
+            return total_loss, (id_loss, ood_loss)
 
         # Compute loss and gradients
-        (total_loss, id_loss, ood_loss), grads = jax.value_and_grad(
+        total_loss, (id_loss, ood_loss), grads = jax.value_and_grad(
             loss_fn, has_aux=True
         )(state.params)
 
@@ -1079,14 +1079,14 @@ def create_hbar_train_step_multiplicative() -> Callable:
                 - acceleration_factor: (1 + κ_α · α_A)
         """
 
-        def loss_fn(params: flax.core.FrozenDict) -> Tuple[jax.Array, jax.Array, jax.Array]:
+        def loss_fn(params: flax.core.FrozenDict) -> Tuple[jax.Array, Tuple[jax.Array, jax.Array]]:
             """Compute H-Bar modulated loss with multiplicative coupling.
 
             Args:
                 params: Model parameters.
 
             Returns:
-                Tuple of (total_loss, id_loss, ood_loss).
+                Tuple of (total_loss, (id_loss, ood_loss)).
             """
             # Forward pass on ID stream
             logits_id = state.apply_fn(
@@ -1120,10 +1120,10 @@ def create_hbar_train_step_multiplicative() -> Callable:
             id_loss = compute_loss(logits_id, hbar_batch.id_stream.labels)
             ood_loss = compute_loss(logits_ood, hbar_batch.ood_stream.labels)
 
-            return total_loss, id_loss, ood_loss
+            return total_loss, (id_loss, ood_loss)
 
         # Compute loss and gradients
-        (total_loss, id_loss, ood_loss), grads = jax.value_and_grad(
+        total_loss, (id_loss, ood_loss), grads = jax.value_and_grad(
             loss_fn, has_aux=True
         )(state.params)
 
