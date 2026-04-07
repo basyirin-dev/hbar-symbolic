@@ -1313,7 +1313,7 @@ def run_hbar_training(
     hbar_state = init_hbar_state(hbar_constants)
 
     # Create cognitive manager for ODE integration
-    cognitive_manager = create_manager(hbar_constants)
+    cognitive_manager = create_manager()
 
     # Create CSV logger with H-Bar specific columns
     log_path = os.path.join(log_dir, log_filename)
@@ -1561,7 +1561,7 @@ def run_hbar_training_multiplicative(
     hbar_state = init_hbar_state(hbar_constants)
 
     # Create cognitive manager for ODE integration
-    cognitive_manager = create_manager(hbar_constants)
+    cognitive_manager = create_manager()
 
     # Create CSV logger with H-Bar specific columns
     log_path = os.path.join(log_dir, log_filename)
