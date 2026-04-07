@@ -107,6 +107,7 @@ def create_vectorized_train_step(
     config: TransformerConfig,
     n_runs: int,
     lambda_sigma: float = 0.5,
+    learning_rate: float = 1e-3,
 ) -> Callable:
     """Create a vectorized training step that updates N models in parallel.
 
@@ -194,7 +195,7 @@ def create_vectorized_train_step(
         )
 
         # Apply gradients using optimizer
-        optimizer = optax.adam(learning_rate=config.get("lr", 1e-3))
+        optimizer = optax.adam(learning_rate=learning_rate)
         updates, new_opt_state = optimizer.update(scaled_grads, opt_state)
         new_params = optax.apply_updates(params, updates)
 
@@ -283,9 +284,6 @@ def run_vectorized_training(
     """
     from hbar.core.dynamics import HBarConstants, init_hbar_state
 
-    # Update config with learning rate
-    config = config.replace(lr=learning_rate)
-
     # Split RNG for N runs
     rng, init_rng = jax.random.split(rng)
     run_rngs = jax.random.split(init_rng, n_runs)
@@ -313,7 +311,7 @@ def run_vectorized_training(
     )
 
     # Create vectorized training step
-    train_step = create_vectorized_train_step(config, n_runs, lambda_sigma)
+    train_step = create_vectorized_train_step(config, n_runs, lambda_sigma, learning_rate)
 
     # Create CSV logger
     log_path = os.path.join(log_dir, log_filename)
