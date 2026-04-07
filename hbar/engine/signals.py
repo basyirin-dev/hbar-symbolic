@@ -149,6 +149,30 @@ def compute_representation_norm(
     return jnp.mean(norms)
 
 
+def compute_ac_from_batch(
+    original_representations: Dict[str, jax.Array],
+    augmented_representations: Dict[str, jax.Array],
+    layer: str = "encoder_block_1",
+) -> jax.Array:
+    """Compute AC signal c_A directly from representation dictionaries.
+
+    This is a convenience wrapper around `compute_augmentation_consistency`
+    that explicitly extracts representations from the encoder layer for
+    the H-BarBatch workflow.
+
+    Args:
+        original_representations: Dict of activation tensors from original batch.
+        augmented_representations: Dict of activation tensors from augmented batch.
+        layer: The layer key to use for computing similarity.
+
+    Returns:
+        Scalar value in [0, 1] representing mean cosine similarity.
+    """
+    return compute_augmentation_consistency(
+        original_representations, augmented_representations, layer
+    )
+
+
 def compute_gca(grad_id: jax.Array, grad_ood: jax.Array) -> jax.Array:
     """Compute Gradient-Composition Alignment (GCA) signal g_A.
 

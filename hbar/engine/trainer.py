@@ -508,3 +508,57 @@ def get_gca_signal(
 
     grad_id_flat, grad_ood_flat = compute_dual_gradients(state, hbar_batch)
     return compute_gca(grad_id_flat, grad_ood_flat)
+
+
+def get_ac_signal(
+    state: TrainState,
+    hbar_batch: HBarBatch,
+    model: Seq2SeqTransformer,
+    layer: str = "encoder_block_1",
+) -> jax.Array:
+    """Compute the AC (Augmentation Consistency) scalar for a batch.
+
+    This function extracts encoder representations from the ID stream and
+    augmented stream, then computes the cosine similarity between them.
+    Unlike GCA, AC is computed from forward-pass activations rather than
+    gradients, measuring representational invariance.
+
+    The AC signal c_A in [0, 1] indicates how invariant the model's internal
+    representations are to structure-preserving augmentations:
+        - c_A > 0.8: Strong structural invariance (compositional schema encoded)
+        - 0.5 < c_A < 0.8: Moderate invariance (partial structure capture)
+        - c_A < 0.5: Weak invariance (representations drift significantly)
+
+    This function wraps `get_model_representations` + `compute_ac_from_batch`.
+    It is NOT jit-compiled by default since we use intermediates (sow).
+    Use externally with jax.jit if needed.
+
+    Args:
+        state: Current training state with parameters.
+        hbar_batch: HBarBatch containing id_stream and aug_stream.
+        model: Seq2SeqTransformer model instance.
+        layer: The encoder layer key to use.
+
+    Returns:
+        Scalar AC value in [0, 1].
+    """
+    from hbar.models.transformer import get_model_representations
+    from hbar.engine.signals import compute_ac_from_batch
+
+    # Forward pass on ID stream (original)
+    orig_repr = get_model_representations(
+        state.params,
+        model,
+        hbar_batch.id_stream.inputs,
+        hbar_batch.id_stream.decoder_inputs,
+    )
+
+    # Forward pass on Aug stream (structure-preserved perturbation)
+    aug_repr = get_model_representations(
+        state.params,
+        model,
+        hbar_batch.aug_stream.inputs,
+        hbar_batch.aug_stream.decoder_inputs,
+    )
+
+    return compute_ac_from_batch(orig_repr, aug_repr, layer)
