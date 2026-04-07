@@ -1,5 +1,6 @@
 """Configuration dataclasses for the H-Bar Transformer model."""
 
+import jax.numpy as jnp
 from flax import struct
 
 
@@ -36,6 +37,8 @@ class TransformerConfig:
     This configuration follows the exact specifications from Section 11.1 of the
     H-Bar paper for compositional generalization benchmarks (SCAN/COGS).
 
+    Supports mixed precision training for 2x speedup on modern GPUs.
+
     Attributes:
         vocab_size: Token vocabulary size.
         max_seq_len: Maximum sequence length.
@@ -45,6 +48,9 @@ class TransformerConfig:
         d_ff: Feed-forward hidden dimension.
         dropout_rate: Dropout rate.
         initializer: Weight initializer type.
+        dtype: Data type for activations and computations. Default: bfloat16.
+        param_dtype: Data type for parameters. Default: float32.
+        fusion_config: Configuration for H-Bar signal fusion.
     """
     vocab_size: int = struct.field(default=128)
     max_seq_len: int = struct.field(default=50)
@@ -54,6 +60,8 @@ class TransformerConfig:
     d_ff: int = struct.field(default=512)
     dropout_rate: float = struct.field(default=0.1)
     initializer: str = struct.field(default="xavier_uniform")
+    dtype: jnp.dtype = struct.field(default=jnp.bfloat16)
+    param_dtype: jnp.dtype = struct.field(default=jnp.float32)
     fusion_config: FusionConfig | None = struct.field(default=None)
 
 

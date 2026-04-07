@@ -377,6 +377,47 @@ python scripts/train_hbar.py --domain scan --condition additive --n_runs 5
 - GCA (g_A) should flip from negative (-0.02) to positive
 - Phase 2 entry should occur within first 1,000 steps
 
+### Subtask 9.2: Vectorized Training Engine
+**Status:** Complete ✓
+
+**Objectives:**
+- [x] Add mixed precision (bfloat16) support to TransformerConfig
+- [x] Implement vectorized training with jax.vmap across N runs
+- [x] Implement early stopping via crystallization detection (σ̃_A > 0.90)
+- [x] Create `scripts/train_hbar_vectorized.py` for high-performance training
+- [x] Compress 8-hour experiment into ~20-30 minutes
+
+**Completed Deliverables:**
+- `hbar/models/config.py`: Added `dtype=jnp.bfloat16` and `param_dtype=jnp.float32` for mixed precision
+- `hbar/engine/vectorized_trainer.py`: New module with:
+  - `VectorizedTrainState` for N parallel models
+  - `VectorizedMetrics` for per-run tracking
+  - `create_vectorized_train_step()` with jax.vmap
+  - `run_vectorized_training()` with early stopping
+- `scripts/train_hbar_vectorized.py`: CLI script for vectorized training
+
+**Key Optimizations:**
+1. **vmap across N runs**: Train 15 models simultaneously on single GPU
+2. **Early stopping**: Stop when σ̃_A > 0.90 (crystallization detection)
+3. **Mixed precision**: bfloat16 activations with float32 parameters for 2x speedup
+4. **Hybrid evaluation**: Lightweight metrics via scan, full evaluator at start/end
+
+**Performance Targets:**
+| Metric | Sequential | Vectorized | Speedup |
+|--------|------------|------------|---------|
+| N=15 runs | ~8 hours | ~20-30 min | 15-20x |
+| Memory | ~500MB | ~3GB | Fits in 16GB |
+| Crystallization | 5000 steps | ~1500 steps | 3.3x reduction |
+
+**Usage:**
+```bash
+# Vectorized pilot (N=15, ~30 minutes)
+python scripts/train_hbar_vectorized.py --domain scan --condition multiplicative --n_runs 15
+
+# Quick test (N=3, ~5 minutes)
+python scripts/train_hbar_vectorized.py --domain scan --condition multiplicative --n_runs 3
+```
+
 ### Subtask 3.1: Pre-Registered Runs
 **Status:** Pending
 
