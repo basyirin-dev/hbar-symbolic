@@ -9,7 +9,7 @@ H-Bar signal extraction, containing ID, OOD, and augmentation streams.
 """
 
 from dataclasses import dataclass
-from typing import Sequence, Optional
+from typing import Sequence, Optional, Dict
 
 import flax.struct
 import jax
@@ -375,3 +375,168 @@ def prepare_hbar_batch_from_pairs(
         ood_stream=ood_stream,
         aug_stream=aug_stream,
     )
+
+
+@flax.struct.dataclass
+class HBarSignals:
+    """Container for all H-Bar operative signals.
+
+    This dataclass holds the three operative signals (GCA, RGA, AC) and
+    the fused schema coherence estimate σ̃_A. It provides methods for
+    logging and diagnostic checks.
+
+    The signals are computed during training/evaluation and used to:
+    1. Monitor the model's position relative to the σ-trap
+    2. Determine Phase 2 entry (crystallization) via is_crystallized
+    3. Calibrate fusion weights in Stage 2 evaluation
+
+    Attributes:
+        g_a: Gradient-Composition Alignment signal (range: [-1, 1]).
+        r_a: Representational-Geometry Alignment signal (range: [-1, 1]).
+        c_a: Augmentation Consistency signal (range: [0, 1]).
+        sigma_tilde: Fused schema coherence estimate (range: [0, 1]).
+        target_sigma_critical: Threshold for Phase 2 entry (default: 0.5).
+    """
+
+    g_a: jax.Array
+    r_a: jax.Array
+    c_a: jax.Array
+    sigma_tilde: jax.Array
+    target_sigma_critical: float = flax.struct.field(default=0.5)
+
+    def to_dict(self) -> Dict[str, float]:
+        """Flatten signals for logging (CSV, Weights & Biases).
+
+        Converts all signal values to Python floats for serialization.
+        Includes the is_crystallized flag for Phase 2 entry detection.
+
+        Returns:
+            Dictionary with keys: g_a, r_a, c_a, sigma_tilde,
+            is_crystallized, target_sigma_critical.
+        """
+        return {
+            "g_a": float(self.g_a),
+            "r_a": float(self.r_a),
+            "c_a": float(self.c_a),
+            "sigma_tilde": float(self.sigma_tilde),
+            "is_crystallized": float(self.is_crystallized),
+            "target_sigma_critical": self.target_sigma_critical,
+        }
+
+    @property
+    def is_crystallized(self) -> bool:
+        """Check if model has entered Phase 2 (crystallization).
+
+        Returns True if σ̃_A > σ_critical, indicating the model has
+        transitioned from Phase 1 (memorization) to Phase 2 (compositional
+        schema crystallization).
+
+        This is the primary indicator for Phase 2 entry in H-Bar experiments.
+
+        Returns:
+            True if sigma_tilde > target_sigma_critical, False otherwise.
+        """
+        return bool(self.sigma_tilde > self.target_sigma_critical)
+
+
+def compute_hbar_loss(
+    logits_id: jax.Array,
+    labels_id: jax.Array,
+    logits_ood: jax.Array,
+    labels_ood: jax.Array,
+    sigma_A: jax.Array,
+    lambda_sigma: float = 0.5,
+    pad_token_id: int = PAD_TOKEN_ID,
+) -> jax.Array:
+    """Compute the H-Bar modulated loss (Equation 25).
+
+    The total loss combines standard task loss on in-distribution data with
+    a compositional penalty term that is modulated by the current schema
+    coherence level:
+
+        L_total = L_task + λ_σ · (1 - σ_A) · L_comp
+
+    The (1 - σ_A) term acts as "Compositional Pressure": when schema
+    coherence is low, the penalty for poor compositional performance is
+    high, forcing gradients to prioritize structural rules. As σ_A → 1,
+    the pressure vanishes because the model has crystallized compositional
+    rules.
+
+    Args:
+        logits_id: Model logits for ID stream, shape (batch, seq_len, vocab_size).
+        labels_id: Target labels for ID stream, shape (batch, seq_len).
+        logits_ood: Model logits for OOD stream, shape (batch, seq_len, vocab_size).
+        labels_ood: Target labels for OOD stream, shape (batch, seq_len).
+        sigma_A: Current schema coherence estimate, scalar in [0, 1].
+        lambda_sigma: Maximum compositional penalty weight (default: 0.5).
+        pad_token_id: Token ID to ignore in loss computation.
+
+    Returns:
+        Scalar total loss value.
+    """
+    # Compute task loss on ID stream
+    L_task = compute_loss(logits_id, labels_id, pad_token_id)
+
+    # Compute compositional loss on OOD stream
+    L_comp = compute_loss(logits_ood, labels_ood, pad_token_id)
+
+    # Compute compositional pressure weight: (1 - σ_A)
+    # When σ_A is low, pressure is high; when σ_A → 1, pressure → 0
+    compositional_pressure = 1.0 - sigma_A
+
+    # Total modulated loss (Additive coupling - Condition B)
+    L_total = L_task + lambda_sigma * compositional_pressure * L_comp
+
+    return L_total
+
+
+def compute_hbar_loss_multiplicative(
+    logits_id: jax.Array,
+    labels_id: jax.Array,
+    logits_ood: jax.Array,
+    labels_ood: jax.Array,
+    sigma_A: jax.Array,
+    lambda_sigma: float = 0.5,
+    pad_token_id: int = PAD_TOKEN_ID,
+) -> jax.Array:
+    """Compute the H-Bar modulated loss with multiplicative coupling (Condition C).
+
+    The total loss uses multiplicative coupling between task loss and
+    compositional penalty:
+
+        L_total = L_task · (1 + λ_σ · (1 - σ_A) · L_comp)
+
+    This formulation creates a more aggressive training dynamic compared to
+    the additive version. When task loss is high, the compositional penalty
+    is amplified, creating stronger pressure to learn compositional rules.
+    As the model improves (L_task decreases), the penalty naturally diminishes.
+
+    The multiplicative coupling can lead to faster "crystallization" but may
+    be more prone to gradient instability if not carefully tuned.
+
+    Args:
+        logits_id: Model logits for ID stream, shape (batch, seq_len, vocab_size).
+        labels_id: Target labels for ID stream, shape (batch, seq_len).
+        logits_ood: Model logits for OOD stream, shape (batch, seq_len, vocab_size).
+        labels_ood: Target labels for OOD stream, shape (batch, seq_len).
+        sigma_A: Current schema coherence estimate, scalar in [0, 1].
+        lambda_sigma: Maximum compositional penalty weight (default: 0.5).
+        pad_token_id: Token ID to ignore in loss computation.
+
+    Returns:
+        Scalar total loss value.
+    """
+    # Compute task loss on ID stream
+    L_task = compute_loss(logits_id, labels_id, pad_token_id)
+
+    # Compute compositional loss on OOD stream
+    L_comp = compute_loss(logits_ood, labels_ood, pad_token_id)
+
+    # Compute compositional pressure weight: (1 - σ_A)
+    # When σ_A is low, pressure is high; when σ_A → 1, pressure → 0
+    compositional_pressure = 1.0 - sigma_A
+
+    # Total modulated loss (Multiplicative coupling - Condition C)
+    L_total = L_task * (1.0 + lambda_sigma * compositional_pressure * L_comp)
+
+    return L_total

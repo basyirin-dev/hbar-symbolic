@@ -70,13 +70,17 @@
 - Integration: full pipeline forward pass, JIT compilation, gradient flow
 
 **Trigger:** Any change to `hbar/core/`
-**Action:** Run chex test to ensure ODE Jacobian stability (Eq. 24)
-**Command:** `pytest tests/test_ode_stability.py -v`
+**Action:** Run ODE engine tests for stability and correctness
+**Command:** `pytest tests/test_ode_engine.py -v`
 
 **Stability Checks:**
-- Jacobian condition number κ(J) < 1000
+- Jacobian condition number κ(J) < 1000 (Eq. 24)
 - Forward invariance (Proposition 3.2): all variables remain in valid ranges
 - Timescale separation (Proposition 3.3): fast/slow subsystem eigenvalue ratio > 10
+- Convergence to schema-coherent equilibrium under positive inputs
+- σ-trap simulation under high AI-bypass risk
+- JIT and gradient compatibility through integrator
+- Adaptive step size error control
 
 ## Completed Components
 
@@ -468,3 +472,599 @@ The three H-Bar signals together provide a comprehensive diagnostic of the σ-tr
 - All three signals must improve for true compositional generalization
 
 **Key Insight:** The pattern confirms that Transformer self-attention provides token-level consistency (AC ≈ 0.99) without compositional structure. The gradients are misaligned with compositional rules (GCA < 0), and the representational geometry does not reflect the grammar structure (RGA ≈ 0.06). This is the hallmark of the σ-trap — surface-level competence masking deep structural failure.
+
+## Signal Fusion (Subtask 6.2)
+
+### Overview
+
+The fused H-Bar signal σ̃_A combines the three operative signals (GCA, RGA, AC) into a single schema coherence estimate via Equation 6:
+
+```
+σ̃_A = w_g · max(0, g_A) + w_r · max(0, r_A) + w_c · c_A
+```
+
+### Implementation
+
+**`fuse_hbar_signals(g_A, r_A, c_A, weights)` in `hbar/engine/signals.py`:**
+- Applies `max(0, x)` rectifiers to g_A and r_A (negative alignment → zero contribution)
+- Computes weighted sum with default weights: w_g=0.4, w_r=0.35, w_c=0.25
+- Clips result to [0, 1] range
+
+**Why additive (not multiplicative)?** The additive form allows individual signals to "tug" the model out of the σ-trap even if others are near zero. For example, if GCA is high but RGA is low, the model can still achieve moderate σ̃_A. A multiplicative form would collapse to near-zero if any signal is low.
+
+**Why max(0, x) rectifiers?** Negative GCA/RGA indicates active harm to generalization. Rather than subtracting from the fused signal (which could produce negative σ̃_A), we treat negative alignment as zero coherence. This ensures σ̃_A remains in [0, 1] and provides a clear "floor" at zero.
+
+**`FusionConfig` in `hbar/models/config.py`:**
+- Configurable weights: w_gca, w_rga, w_ac (default: 0.4, 0.35, 0.25)
+- `target_sigma_critical`: Threshold for Phase 2 entry (default: 0.5)
+
+**`HBarSignals` in `hbar/engine/data_utils.py`:**
+- Container dataclass for all signals: g_a, r_a, c_a, sigma_tilde
+- `to_dict()` method for logging to CSV/Weights & Biases
+- `is_crystallized` property: returns True if σ̃_A > σ_critical
+
+### Baseline Starting Point
+
+Using the baseline signal profile, we calculate the starting σ̃_A:
+
+| Signal | Value | Contribution to σ̃_A |
+|--------|-------|---------------------|
+| g_A = -0.0249 | max(0, -0.0249) × 0.4 | **0.0** |
+| r_A = 0.0604 | 0.0604 × 0.35 | **0.02114** |
+| c_A = 0.9901 | 0.9901 × 0.25 | **0.24753** |
+| **σ̃_A (baseline)** | | **≈ 0.2686** |
+
+**Key Finding:** The baseline σ̃_A ≈ 0.27 is far below σ_critical = 0.5. The model must approximately **double** its fused signal to enter Phase 2 (crystallization).
+
+**Interpretation:**
+- GCA contributes **nothing** (negative → rectified to zero)
+- RGA contributes minimally (low alignment)
+- AC carries the entire signal (high invariance from self-attention)
+
+This confirms the σ-trap: the model relies entirely on shallow invariance (AC) without true compositional structure (GCA, RGA). The H-Bar optimizer must push GCA from negative to positive (>0.7) to achieve Phase 2 entry.
+
+## Schema-Attention Coupling (Subtask 7.2)
+
+### Overview
+
+The schema-attention coupling is the core mechanism that explains why the σ-trap persists. The key insight is that schema coherence growth (σ̇_A) is **gated** by attentional fidelity (α_A). Without sufficient attention, schema coherence cannot grow regardless of the quality of training signals.
+
+### Mathematical Formulation
+
+**Equation 28 (Schema Coherence Dynamics):**
+```
+σ̇_A = ρ · P_A · α_A · (1 - σ_A) - η_σ · Ω_AI · σ_A
+       ──────── growth ────────   ──── suppression ────
+```
+
+**Equation 29 (Attentional Fidelity Dynamics):**
+```
+α̇_A = γ · C_A · (1 - α_A) - η_α · R_surface · α_A
+       ────── drive ──────   ──────── suppression ────────
+```
+
+**Key Variables:**
+- **P_A (Principled Structure Availability):** Measures how much the training curriculum exposes compositional rules vs surface patterns
+- **C_A (Training Signal Strength):** Drives attentional fidelity growth, computed from [BOS] token representation stability
+- **Ω_AI (AI-Bypass Risk):** High values indicate the model achieves accuracy via surface statistics
+- **R_surface (Surface Reward Signal):** High values indicate rewards for superficial pattern matching
+
+### The σ-Trap Mechanism
+
+The coupling creates a "double bind" that traps the model:
+
+1. **Phase 1 (Asymmetric Initialization):**
+   - α_A is low (suppressed by high surface rewards R_surface)
+   - Since σ̇_A growth = ρ · P_A · α_A · (1 - σ_A), if α_A ≈ 0, then growth ≈ 0
+   - σ_A cannot increase regardless of P_A magnitude
+   - The model is stuck at σ_A ≈ 0.27 (baseline starting point)
+
+2. **Attentional Gate:**
+   - α_A acts as a multiplicative gate on schema growth
+   - Even with perfect training signals (P_A = 1.0), if α_A = 0.1, effective growth is reduced by 90%
+   - This explains why standard training fails: the attentional gate is closed
+
+3. **Surface Reward Suppression:**
+   - High R_surface (from 99% ID accuracy) actively suppresses α_A
+   - The model is rewarded for surface pattern matching, not compositional rules
+   - This creates a feedback loop: high ID accuracy → high R_surface → low α_A → low σ_A growth
+
+### Implementation
+
+**`HBarInputs` dataclass in `hbar/core/dynamics.py`:**
+```python
+@flax.struct.dataclass
+class HBarInputs:
+    sigma_tilde: jax.Array   # Fused signal σ̃_A ∈ [0, 1]
+    sigma_hat: jax.Array     # Ground-truth σ̂_A = Acc_OOD / Acc_ID
+    P_A: jax.Array           # Principled structure availability ∈ [0, 1]
+    C_A: jax.Array           # Training signal strength ∈ [0, 1]
+    Omega_AI: jax.Array      # AI-bypass risk ∈ [0, 1]
+    R_surface: jax.Array     # Surface reward signal ∈ [0, 1]
+    domain_frontier: jax.Array  # Curriculum difficulty ∈ [0, 1]
+```
+
+**`analyze_coupling_sensitivity()` diagnostic function:**
+```python
+def analyze_coupling_sensitivity(state, inputs, constants) -> Dict[str, jax.Array]:
+    """Analyze schema-attention coupling sensitivity."""
+    return {
+        "coupled_growth_potential": γ_σ · P_A · α_A · (1 - σ_A),
+        "attentional_gate_strength": α_A,
+        "schema_growth_capacity": (1 - σ_A),
+        "effective_drive": P_A · α_A,
+        "suppression_pressure": η_σ · Ω_AI,
+        "net_sigma_dot": growth - suppression,
+        "is_attention_limited": α_A < 0.3,  # Phase 1 state
+    }
+```
+
+**`CognitiveManager` class in `hbar/core/state_manager.py`:**
+- Bridges training metrics and ODE dynamics
+- `metrics_to_inputs()`: Maps training metrics to HBarInputs
+- `get_modulators()`: Extracts training modulators (schema_loss_weight, lr_modulator)
+- `check_phase_transition()`: Detects Phase 1 → Phase 2 transition
+
+### Test Coverage
+
+**`TestSurfaceRewardSuppression` in `tests/test_ode_engine.py`:**
+- `test_surface_reward_suppression`: Verifies α_A stays low under high R_surface
+- `test_sigma_trap_attention_gate`: Verifies σ_A growth ≈ 0 when α_A ≈ 0
+
+### Phase 2 Entry (Crystallization)
+
+Phase 2 entry occurs when:
+1. σ_A > σ_critical (default: 0.5)
+2. Crystallization potential: α_A · C_A > 0.5
+
+The `compute_crystallization_potential()` function tracks readiness for Phase 2:
+```python
+def compute_crystallization_potential(state, inputs) -> jax.Array:
+    return state.alpha_A * inputs.C_A
+```
+
+### Training Implications
+
+The coupling reveals the intervention strategy:
+1. **First, boost α_A:** Reduce surface rewards (R_surface) or increase training signal (C_A)
+2. **Then, σ_A can grow:** Once α_A > 0.3, the attentional gate opens
+3. **Phase 2 crystallization:** When both σ_A > 0.5 and α_A · C_A > 0.5
+
+This explains why the H-Bar optimizer must modulate both the loss function (to reduce surface rewards) and the learning rate (to boost attentional signal) simultaneously.
+
+## Compositional Pressure Loss (Subtask 8.1)
+
+### Overview
+
+The Compositional Pressure mechanism implements Equation 25 of the H-Bar paper, creating a dynamic training loss that automatically adjusts the penalty for poor compositional performance based on the current schema coherence level:
+
+```
+L_total = L_task + λ_σ · (1 - σ_A) · L_comp
+```
+
+where:
+- **L_task**: Standard cross-entropy loss on in-distribution (ID) data
+- **L_comp**: Compositional loss on out-of-distribution (OOD) probes
+- **λ_σ**: Maximum compositional penalty weight (default: 0.5)
+- **σ_A**: Current schema coherence estimate ∈ [0, 1]
+- **(1 - σ_A)**: The "Compositional Pressure" term
+
+### The Compositional Pressure Mechanism
+
+The key insight is that the (1 - σ_A) term creates an **automatic curriculum**:
+
+| σ_A Value | Compositional Pressure (1 - σ_A) | Training Behavior |
+|-----------|----------------------------------|-------------------|
+| σ_A ≈ 0 (low coherence) | ≈ 1.0 (maximum) | Strong gradient push on OOD stream — model must learn compositional rules |
+| σ_A ≈ 0.5 (moderate) | ≈ 0.5 (half) | Balanced training between ID mastery and OOD generalization |
+| σ_A ≈ 1 (high coherence) | ≈ 0.0 (vanishing) | Focus shifts to ID refinement — compositional rules crystallized |
+
+This creates a self-regulating training dynamic:
+1. **Early training (σ_A low):** High pressure forces the model to prioritize OOD performance
+2. **Mid training (σ_A increasing):** Pressure gradually decreases as compositional rules emerge
+3. **Late training (σ_A → 1):** Pressure vanishes — model has crystallized compositional schema
+
+### Implementation
+
+**`compute_hbar_loss()` in `hbar/engine/data_utils.py`:**
+```python
+def compute_hbar_loss(
+    logits_id: jax.Array,
+    labels_id: jax.Array,
+    logits_ood: jax.Array,
+    labels_ood: jax.Array,
+    sigma_A: jax.Array,
+    lambda_sigma: float = 0.5,
+    pad_token_id: int = PAD_TOKEN_ID,
+) -> jax.Array:
+    """Compute the H-Bar modulated loss (Equation 25)."""
+    L_task = compute_loss(logits_id, labels_id, pad_token_id)
+    L_comp = compute_loss(logits_ood, labels_ood, pad_token_id)
+    compositional_pressure = 1.0 - sigma_A
+    L_total = L_task + lambda_sigma * compositional_pressure * L_comp
+    return L_total
+```
+
+**`create_hbar_train_step()` in `hbar/engine/trainer.py`:**
+- JIT-compiled training step that accepts HBarBatch (dual-stream)
+- Performs forward pass on both ID and OOD streams
+- Computes modulated loss using current σ_A from HBarState
+- Returns (new_state, total_loss, id_loss, ood_loss, compositional_penalty)
+
+**`run_hbar_training()` in `hbar/engine/trainer.py`:**
+- Full training loop integrating ODE dynamics with neural network training
+- Per-step workflow:
+  1. Generate HBarBatch (ID + OOD streams)
+  2. Compute operative estimate σ̃_A via signal fusion
+  3. Step the ODEs via CognitiveManager.step to update HBarState
+  4. Execute train_step using the updated σ_A from HBarState
+  5. Log the Compositional Penalty Weight λ_σ · (1 - σ_A)
+
+**`HBarTrainingMetrics` dataclass:**
+- Tracks step, train_loss, id_loss, ood_loss, id_accuracy, ood_accuracy
+- Includes sigma_tilde, sigma_ode, alpha_A, compositional_penalty, lambda_sigma
+- Enables detailed analysis of training dynamics
+
+### Test Coverage
+
+**`tests/test_modulated_loss.py` — 7 tests:**
+
+1. **TestModulatedLossSigmaOne:**
+   - `test_sigma_one_no_penalty`: When σ_A = 1.0, total_loss = task_loss
+   - `test_sigma_one_gradient_only_from_task`: Gradients only from ID stream
+
+2. **TestModulatedLossSigmaZero:**
+   - `test_sigma_zero_max_penalty`: When σ_A = 0.0, L_total = L_task + λ_σ · L_comp
+   - `test_sigma_zero_penalty_increases_loss`: Total loss > task loss alone
+
+3. **TestModulatedLossGradientFlow:**
+   - `test_gradient_depends_on_sigma`: Gradient scaling matches (1 - σ_A) factor
+   - `test_jit_compatible`: Loss compiles with jax.jit
+   - `test_edge_case_sigma_out_of_bounds`: Handles σ_A slightly outside [0, 1]
+
+### Training Dynamics Prediction
+
+The Compositional Pressure mechanism predicts distinct training phases:
+
+**Phase 1 (σ_A < σ_critical ≈ 0.5):**
+- High compositional pressure (1 - σ_A > 0.5)
+- Strong gradient signal on OOD stream
+- Model is forced to learn compositional rules
+- OOD accuracy should increase rapidly
+
+**Phase 2 (σ_A > σ_critical):**
+- Low compositional pressure (1 - σ_A < 0.5)
+- Focus shifts to refining ID performance
+- Compositional schema has crystallized
+- Both ID and OOD accuracy remain high
+
+**Key Difference from Baseline:**
+- Baseline: No OOD signal during training → σ-trap (ID=92%, OOD=63%)
+- H-Bar: Continuous OOD pressure modulated by σ_A → predicted ID>90%, OOD>85%
+
+### Integration with ODE System
+
+The compositional pressure loss is tightly coupled with the ODE dynamics:
+
+1. **σ_A from ODE → Loss modulation:** The ODE state σ_A directly controls the penalty weight
+2. **Loss gradients → ODE inputs:** Training metrics (Acc_ID, Acc_OOD) feed back into ODE via HBarInputs
+3. **Closed-loop system:** The ODE integrates training signals to update σ_A, which modulates the loss
+
+This creates a **self-regulating cognitive system** where the model's internal state (σ_A) controls its own training dynamics, implementing the core H-Bar hypothesis of endogenous schema coherence regulation.
+
+## Attentional Acceleration (Subtask 8.2)
+
+### Overview
+
+The Attentional Acceleration mechanism implements Equation 26 of the H-Bar paper, creating a positive feedback loop where high attentional fidelity (α_A) accelerates learning, which in turn reinforces schema coherence growth:
+
+```
+η_effective = η_base · (1 + κ_α · α_A)
+```
+
+where:
+- **η_base**: Base learning rate (default: 1e-3)
+- **κ_α**: Attentional acceleration coefficient (default: 2.0 from FusionConfig)
+- **α_A**: Current attentional fidelity from ODE state ∈ [0, 1]
+
+### The Attentional Acceleration Mechanism
+
+The key insight is that attentional fidelity should modulate learning speed:
+
+| α_A Value | Acceleration Factor (1 + κ_α · α_A) | Effective LR | Interpretation |
+|-----------|-------------------------------------|--------------|----------------|
+| α_A ≈ 0 (suppressed) | ≈ 1.0 (no acceleration) | η_base | Phase 1: Surface rewards suppress attention |
+| α_A ≈ 0.5 (moderate) | ≈ 2.0 (2× speedup) | 2 × η_base | Transition: Attentional fidelity increasing |
+| α_A ≈ 1 (crystallized) | ≈ 3.0 (3× speedup) | 3 × η_base | Phase 2: Full attentional acceleration |
+
+This creates a **positive feedback loop**:
+1. **Early training (α_A low):** Surface rewards suppress attention → slow learning
+2. **Phase 2 entry (α_A increasing):** Attentional burst → accelerated learning
+3. **Crystallization (α_A → 1):** Maximum acceleration → rapid schema refinement
+
+### Implementation
+
+**`compute_attentional_lr()` in `hbar/engine/trainer.py`:**
+```python
+def compute_attentional_lr(
+    base_lr: float,
+    kappa_alpha: float,
+    alpha_A: jax.Array,
+) -> Tuple[jax.Array, jax.Array]:
+    """Compute effective learning rate with attentional acceleration (Eq. 26)."""
+    acceleration_factor = 1.0 + kappa_alpha * alpha_A
+    effective_lr = base_lr * acceleration_factor
+    return effective_lr, acceleration_factor
+```
+
+**`create_hbar_train_step()` refactored for gradient scaling:**
+- The acceleration is implemented via gradient scaling (mathematically equivalent to LR modulation)
+- `scaled_grads = grads * acceleration_factor`
+- This is more efficient in JAX/Optax than recreating the optimizer state each step
+- The gradient scaling approach: `θ_new = θ - η_base · (1 + κ_α · α_A) · g`
+
+**Updated `HBarTrainingMetrics`:**
+- Added `effective_learning_rate`: η_base · (1 + κ_α · α_A)
+- Added `acceleration_factor`: (1 + κ_α · α_A)
+
+**Updated `run_hbar_training()`:**
+- Computes acceleration metrics at each evaluation checkpoint
+- Logs `effective_learning_rate` and `acceleration_factor` to CSV
+- Enables tracking of the "Attentional Burst" during Phase 2 entry
+
+### Test Coverage
+
+**`tests/test_attentional_lr.py` — 7 tests:**
+
+1. **TestAttentionalLR.test_alpha_zero_no_acceleration:**
+   - When α_A = 0.0, acceleration_factor = 1.0, effective_lr = base_lr
+
+2. **TestAttentionalLR.test_alpha_one_max_acceleration:**
+   - When α_A = 1.0 and κ_α = 2.0, acceleration_factor = 3.0, effective_lr = 3 × base_lr
+
+3. **TestAttentionalLR.test_gradient_scaling_produces_larger_changes:**
+   - Verifies parameter changes are 3× larger when α_A = 1.0 vs α_A = 0.0
+   - Squared change ratio = 9.0 (since change scales with acceleration_factor)
+
+4. **TestAttentionalLR.test_jit_compilation_works:**
+   - Verifies JIT compatibility with various α_A values
+
+5. **TestAttentionalLR.test_intermediate_alpha_values:**
+   - Verifies linear scaling: α_A = 0.25 → factor = 1.5, α_A = 0.75 → factor = 2.5
+
+6. **TestAttentionalLR.test_different_kappa_alpha_values:**
+   - Verifies correct scaling with κ_α = 0.0, 1.0, 5.0
+
+7. **TestAttentionalLR.test_attentional_burst_prediction:**
+   - Simulates Phase 1 (α_A = 0.1) → Phase 2 (α_A = 0.8) transition
+   - Verifies acceleration increases by at least 2× during crystallization
+
+### Training Dynamics Prediction
+
+The Attentional Acceleration mechanism predicts a distinct "Attentional Burst" signature:
+
+**Phase 1 (α_A < 0.3):**
+- Acceleration factor ≈ 1.0-1.6
+- Learning proceeds at base rate
+- Surface rewards suppress attentional fidelity
+
+**Phase 2 Entry (α_A > 0.5):**
+- Acceleration factor rapidly increases to 2.0-3.0
+- "Attentional Burst" marks the transition
+- Accelerated learning reinforces schema coherence
+
+**Key Prediction:**
+The acceleration factor should show a sharp increase at Phase 2 entry, providing an observable signature of crystallization in training logs.
+
+### Integration with Compositional Pressure
+
+The two mechanisms work together:
+
+1. **Compositional Pressure (Eq. 25):** Modulates the loss based on σ_A
+   - Low σ_A → high penalty on OOD loss → forces compositional learning
+
+2. **Attentional Acceleration (Eq. 26):** Modulates the learning rate based on α_A
+   - Low α_A → slow learning → prevents premature convergence
+   - High α_A → fast learning → accelerates crystallization
+
+Together, they create a **dual-modulation system**:
+- When both σ_A and α_A are low: High pressure, slow learning → exploration phase
+- When σ_A increases: Pressure decreases → exploitation phase
+- When α_A increases: Learning accelerates → crystallization phase
+
+This implements the H-Bar hypothesis that compositional generalization requires both schema coherence (σ_A) and attentional fidelity (α_A) to develop in tandem.
+
+## H-Bar Integrated Training Controller (Subtask 8.3)
+
+### Overview
+
+The H-Bar Integrated Training Controller is the "Architectural Glue" of the H-Bar framework. It bundles the Flax `TrainState` (neural weights) and the ODE `HBarState` (cognitive state) into a single unified Pytree, enabling the entire H-Bar training step—including signal extraction, ODE integration, and modulated backprop—to be handled by a single `jax.jit` function call.
+
+### HBarTrainState Dataclass
+
+**`HBarTrainState` in `hbar/engine/trainer.py`:**
+```python
+@flax.struct.dataclass
+class HBarTrainState:
+    train_state: TrainState          # Standard Flax TrainState (params, optimizer)
+    hbar_state: Any                  # HBarState (7 ODE variables)
+    constants: Any                   # HBarConstants (11 dynamical parameters)
+    fusion_config: FusionConfig      # Signal fusion weights
+```
+
+Using `flax.struct.dataclass` ensures automatic Pytree registration, enabling:
+- `jax.jit(apply_hbar_step)` compilation
+- `jax.lax.scan(apply_hbar_step, initial_state, batches)` for massive speedups
+- `flax.serialization.to_bytes()` for saving cognitive state + weights together
+
+### The 7-Step Training Sequence (Algorithm 3.2)
+
+**`apply_hbar_step()` in `hbar/engine/trainer.py`:**
+
+1. **Signal Extraction:** Compute GCA (g_A), RGA (r_A), AC (c_A)
+2. **Fusion:** Compute σ̃_A via `fuse_hbar_signals()` (Equation 6)
+3. **ODE Integration:** Evolve HBarState via `CognitiveManager.step()`
+4. **Modulated Loss:** Compute L_total using new σ_A (Equation 25)
+5. **Backward Pass:** Compute gradients via `jax.grad()`
+6. **Acceleration:** Apply gradient scaling based on α_A (Equation 26)
+7. **Weight Update:** Apply scaled gradients via `state.apply_gradients()`
+
+### Initialization Utility
+
+**`init_hbar_train_state()` in `hbar/engine/trainer.py`:**
+- Initializes standard Flax TrainState with Adam optimizer
+- Initializes HBarState at baseline starting point (σ_A ≈ 0.27)
+- Bundles HBarConstants and FusionConfig
+- Returns unified HBarTrainState
+
+### Key Architecture Insight
+
+The unified HBarTrainState enables the entire training loop to be compiled into a single XLA operation:
+```python
+final_state, metrics_history = jax.lax.scan(apply_hbar_step, initial_state, batches)
+```
+This is the "JAX way" to do training — significantly faster than a Python for loop because the entire 5,000-step trajectory is compiled into a single XLA operation.
+
+### Serialization
+
+Since this is a research project, being able to save the HBarTrainState is vital. When you save the model, you aren't just saving weights; you are saving the **Cognitive State** of the agent at that moment (its current σ_A, α_A, etc.).
+
+### Test Coverage
+
+**`tests/test_hbar_optimizer.py` — 8 tests:**
+
+1. **TestHBarTrainStateEvolution:**
+   - `test_neural_weights_change_after_steps`: Verifies parameters update
+   - `test_sigma_A_changes_after_steps`: Verifies ODE state evolves
+   - `test_both_states_update_together`: Verifies unified update
+
+2. **TestHBarTrainStateSerialization:**
+   - `test_serialization_roundtrip`: Save/load via flax.serialization
+   - `test_serialization_preserves_params`: Parameters identical after roundtrip
+
+3. **TestGhostGradients:**
+   - `test_gradients_flow_through_ode_integration`: No blocked gradients
+   - `test_jit_compilation_of_apply_hbar_step`: JIT compatibility
+
+4. **TestHBarTrainStatePytree:**
+   - `test_hbar_train_state_is_pytree`: Flatten/unflatten works
+   - `test_hbar_train_state_can_be_jax_transformed`: jax.tree_map works
+
+### Integration with Existing Training Loop
+
+After this subtask, the `train_baseline.py` and future `train_hbar.py` will look nearly identical. The only difference will be that the H-Bar version uses `apply_hbar_step` instead of a standard SGD step. This "Clean API" makes Phase 3 (large-scale runs) much easier to manage.
+
+## H-Bar Experimental Runs (Subtask 9.1)
+
+### Overview
+
+Subtask 9.1 implements the formal H-Bar training runs for **Condition B (Additive)** and **Condition C (Multiplicative)**. These interventions are designed to bridge the ~30% generalization gap found in the baseline and reach near-perfect (95-99%) OOD accuracy predicted by the H-Bar paper.
+
+### Loss Coupling Conditions
+
+**Condition B (Additive) — Equation 25:**
+```
+L_total = L_task + λ_σ · (1 - σ_A) · L_comp
+```
+- Standard additive penalty formulation
+- More stable, predictable training dynamics
+- Linear penalty scaling with compositional pressure
+
+**Condition C (Multiplicative):**
+```
+L_total = L_task · (1 + λ_σ · (1 - σ_A) · L_comp)
+```
+- Multiplicative coupling between task loss and compositional penalty
+- More aggressive training dynamics
+- When task loss is high, the compositional penalty is amplified
+- May lead to faster "crystallization" but potentially more gradient instability
+
+### Key Differences
+
+| Aspect | Additive (B) | Multiplicative (C) |
+|--------|--------------|-------------------|
+| **Formula** | L_task + penalty | L_task × (1 + penalty) |
+| **Stability** | More stable | Potentially unstable |
+| **Crystallization** | Gradual | Faster, more aggressive |
+| **Gradient behavior** | Predictable | Can spike when L_task high |
+
+### Implementation
+
+**`compute_hbar_loss_multiplicative()` in `hbar/engine/data_utils.py`:**
+```python
+def compute_hbar_loss_multiplicative(
+    logits_id, labels_id, logits_ood, labels_ood,
+    sigma_A, lambda_sigma=0.5, pad_token_id=PAD_TOKEN_ID
+) -> jax.Array:
+    """Multiplicative coupling: L_total = L_task · (1 + λ_σ(1-σ_A)L_comp)"""
+    L_task = compute_loss(logits_id, labels_id, pad_token_id)
+    L_comp = compute_loss(logits_ood, labels_ood, pad_token_id)
+    compositional_pressure = 1.0 - sigma_A
+    L_total = L_task * (1.0 + lambda_sigma * compositional_pressure * L_comp)
+    return L_total
+```
+
+**`create_hbar_train_step_multiplicative()` in `hbar/engine/trainer.py`:**
+- JIT-compiled training step with multiplicative loss coupling
+- Same gradient scaling for attentional acceleration (Equation 26)
+- Returns (new_state, total_loss, id_loss, ood_loss, compositional_penalty, effective_lr, acceleration_factor)
+
+**`run_hbar_training_multiplicative()` in `hbar/engine/trainer.py`:**
+- Full training loop for Condition C
+- Same structure as additive version but uses multiplicative loss
+
+### Training Script
+
+**`scripts/train_hbar.py`:**
+```bash
+# Single run (Condition C - default)
+python scripts/train_hbar.py --domain scan --condition multiplicative
+
+# Pilot study (N=15)
+python scripts/train_hbar.py --domain scan --condition multiplicative --n_runs 15
+
+# Condition B (additive)
+python scripts/train_hbar.py --domain scan --condition additive --n_runs 5
+```
+
+**Arguments:**
+- `--condition`: `additive` or `multiplicative` (default: multiplicative)
+- `--n_runs`: Number of independent runs with different seeds
+- `--lambda-sigma`: Maximum compositional penalty weight (default: 0.5)
+- Standard training args: `--batch-size`, `--total-steps`, `--learning-rate`, `--seed`
+
+**Outputs:**
+- `hbar_{condition}_run_{n}_metrics.csv`: Per-run training metrics
+- `pilot_results_summary.csv`: Aggregated results across all runs
+- `model_params_{condition}_run_{n}.msgpack`: Saved model parameters
+
+### Expected Outcomes
+
+Based on the H-Bar paper predictions:
+
+| Metric | Baseline | H-Bar Target |
+|--------|----------|--------------|
+| **ID Accuracy** | 91.9% | >90% |
+| **OOD Accuracy** | 63.0% | >90% |
+| **σ̂_A** | 0.685 | >0.9 |
+| **GCA (g_A)** | -0.02 | +0.4 (positive) |
+| **Phase 2 Entry** | Never | <1,000 steps |
+
+### Pilot Study (N=15)
+
+Before committing to the full N=120 runs, the pilot study verifies:
+1. **Effect size:** Confirm OOD accuracy >90% and σ̂_A >0.9
+2. **GCA flip:** Verify g_A transitions from negative to positive
+3. **Phase 2 entry:** Check if crystallization occurs within first 1,000 steps
+4. **Stability:** Ensure training doesn't diverge (especially for multiplicative)
+
+**Estimated time:** ~4 hours for N=15 (15 min per run)
+
+### Verification Criteria
+
+After pilot completion, check `pilot_results_summary.csv`:
+- If **OOD Accuracy > 90%** and **σ̂_A > 0.9**: H-Bar effect confirmed
+- If **Mean GCA is positive** (vs baseline -0.02): Learning geometry fixed
+- If **Phase 2 entry detected**: Crystallization achieved
+
+These criteria validate proceeding to the full N=120 pre-registered runs.

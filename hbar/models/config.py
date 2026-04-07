@@ -4,6 +4,32 @@ from flax import struct
 
 
 @struct.dataclass
+class FusionConfig:
+    """Configuration for H-Bar signal fusion (Equation 6).
+
+    These weights control how the three operative signals (GCA, RGA, AC)
+    are combined into the fused schema coherence estimate σ̃_A.
+
+    The default weights (w_gca=0.4, w_rga=0.35, w_ac=0.25) are from the
+    H-Bar paper and sum to 1.0 for normalized contribution.
+
+    Attributes:
+        w_gca: Weight for Gradient-Composition Alignment (g_A). Default: 0.4
+        w_rga: Weight for Representational-Geometry Alignment (r_A). Default: 0.35
+        w_ac: Weight for Augmentation Consistency (c_A). Default: 0.25
+        target_sigma_critical: Threshold for Phase 2 entry (crystallization).
+            Default: 0.5 (based on baseline analysis showing σ̃_A ≈ 0.2686,
+            requiring approximately 2x improvement for Phase 2 entry).
+    """
+
+    w_gca: float = struct.field(default=0.4)
+    w_rga: float = struct.field(default=0.35)
+    w_ac: float = struct.field(default=0.25)
+    target_sigma_critical: float = struct.field(default=0.5)
+    kappa_alpha: float = struct.field(default=2.0)
+
+
+@struct.dataclass
 class TransformerConfig:
     """Configuration for the H-Bar Transformer.
 
@@ -28,6 +54,7 @@ class TransformerConfig:
     d_ff: int = struct.field(default=512)
     dropout_rate: float = struct.field(default=0.1)
     initializer: str = struct.field(default="xavier_uniform")
+    fusion_config: FusionConfig | None = struct.field(default=None)
 
 
 @struct.dataclass

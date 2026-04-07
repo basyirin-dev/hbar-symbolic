@@ -427,3 +427,61 @@ def compute_rga_from_representations(
     """
     rdm_rep = compute_rdm_representational(representations, method)
     return compute_rga(rdm_rep, structural_distances)
+
+
+def fuse_hbar_signals(
+    g_A: jax.Array,
+    r_A: jax.Array,
+    c_A: jax.Array,
+    weights: Dict[str, float] | None = None,
+) -> jax.Array:
+    """Compute fused H-Bar signal σ̃_A via Equation 6.
+
+    σ̃_A = w_g · max(0, g_A) + w_r · max(0, r_A) + w_c · c_A
+
+    The max(0, x) rectifiers ensure negative alignment signals do not
+    contribute to schema coherence — they are treated as zero coherence.
+    This is critical because negative GCA/RGA indicates active harm to
+    generalization, which should not reduce the fused signal below zero.
+
+    The additive form (vs multiplicative) allows individual signals to
+    "tug" the model out of the σ-trap even if others are near zero. For
+    example, if GCA is high but RGA is low, the model can still achieve
+    moderate σ̃_A. A multiplicative form would collapse if any signal is low.
+
+    Args:
+        g_A: Gradient-Composition Alignment signal (range: [-1, 1]).
+        r_A: Representational-Geometry Alignment signal (range: [-1, 1]).
+        c_A: Augmentation Consistency signal (range: [0, 1]).
+        weights: Dictionary with keys 'w_g', 'w_r', 'w_c'. If None,
+            uses default weights from H-Bar paper: w_g=0.4, w_r=0.35, w_c=0.25.
+
+    Returns:
+        Scalar value in [0, 1] representing the fused schema coherence estimate.
+
+    Example:
+        >>> # Baseline σ-trap signals
+        >>> g_A = jnp.array(-0.0249)  # Negative GCA
+        >>> r_A = jnp.array(0.0604)   # Low RGA
+        >>> c_A = jnp.array(0.9901)   # High AC
+        >>> sigma_tilde = fuse_hbar_signals(g_A, r_A, c_A)
+        >>> # Result: ≈ 0.2686 (far below σ_critical ≈ 0.5)
+    """
+    # Default weights from H-Bar paper
+    if weights is None:
+        weights = {"w_g": 0.4, "w_r": 0.35, "w_c": 0.25}
+
+    w_g = weights.get("w_g", 0.4)
+    w_r = weights.get("w_r", 0.35)
+    w_c = weights.get("w_c", 0.25)
+
+    # Apply rectifiers: max(0, x) for g_A and r_A
+    # Negative alignment should not contribute to schema coherence
+    g_A_rectified = jnp.maximum(0.0, g_A)
+    r_A_rectified = jnp.maximum(0.0, r_A)
+
+    # Compute weighted sum (Equation 6)
+    sigma_tilde = w_g * g_A_rectified + w_r * r_A_rectified + w_c * c_A
+
+    # Clip to [0, 1] range for interpretability
+    return jnp.clip(sigma_tilde, 0.0, 1.0)
