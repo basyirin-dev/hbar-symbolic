@@ -274,13 +274,15 @@ def create_compiled_train_step(
         ood_loss = compute_loss(logits_ood, batch.ood_stream.labels)
 
         # Compute gradients
+        dropout_rng = carry.rng[0]  # Use first run's rng for dropout
         def loss_fn(p):
-            # Recompute forward pass for gradients
+            # Recompute forward pass for gradients (with dropout RNG)
             all_logits_g = model.apply(
                 {"params": p},
                 all_inputs,
                 all_decoder_inputs,
                 training=True,
+                rngs={"dropout": dropout_rng},
             )
             logits_id_g = all_logits_g[:n]
             logits_ood_g = all_logits_g[n:2*n]
