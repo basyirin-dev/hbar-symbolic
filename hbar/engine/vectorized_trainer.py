@@ -118,6 +118,7 @@ def create_vectorized_train_step(
         config: TransformerConfig with model hyperparameters.
         n_runs: Number of parallel training runs.
         lambda_sigma: Maximum compositional penalty weight.
+        learning_rate: Learning rate for Adam optimizer.
 
     Returns:
         A JIT-compiled function that takes (params, opt_state, step, hbar_states,
@@ -395,21 +396,21 @@ def run_vectorized_training(
                 ))
             else:
                 new_p, new_o, new_h, metrics = train_step(
-                    jax.tree_map(lambda x: x[i:i+1], all_params),
-                    jax.tree_map(lambda x: x[i:i+1], all_opt_states),
-                    jax.tree_map(lambda x: x[i:i+1], all_hbar_states),
+                    jax.tree_util.tree_map(lambda x: x[i:i+1], all_params),
+                    jax.tree_util.tree_map(lambda x: x[i:i+1], all_opt_states),
+                    jax.tree_util.tree_map(lambda x: x[i:i+1], all_hbar_states),
                     batches[i],
                     sigma_tildes[i:i+1],
                     step_rngs[i:i+1],
                 )
-                new_params_list.append(jax.tree_map(lambda x: x[0], new_p))
-                new_opt_states_list.append(jax.tree_map(lambda x: x[0], new_o))
-                new_hbar_states_list.append(jax.tree_map(lambda x: x[0], new_h))
+                new_params_list.append(jax.tree_util.tree_map(lambda x: x[0], new_p))
+                new_opt_states_list.append(jax.tree_util.tree_map(lambda x: x[0], new_o))
+                new_hbar_states_list.append(jax.tree_util.tree_map(lambda x: x[0], new_h))
                 metrics_list.append(metrics)
 
-        all_params = jax.tree_map(lambda *args: jnp.stack(args), *new_params_list)
-        all_opt_states = jax.tree_map(lambda *args: jnp.stack(args), *new_opt_states_list)
-        all_hbar_states = jax.tree_map(lambda *args: jnp.stack(args), *new_hbar_states_list)
+        all_params = jax.tree_util.tree_map(lambda *args: jnp.stack(args), *new_params_list)
+        all_opt_states = jax.tree_util.tree_map(lambda *args: jnp.stack(args), *new_opt_states_list)
+        all_hbar_states = jax.tree_util.tree_map(lambda *args: jnp.stack(args), *new_hbar_states_list)
 
         # Check for crystallization
         for i in range(n_runs):
@@ -448,8 +449,8 @@ def run_vectorized_training(
     print(f"  Results saved to {log_path}")
 
     # Convert params to list of dicts
-    final_params = [jax.tree_map(lambda x: x[i], all_params) for i in range(n_runs)]
-    final_hbar_states = [jax.tree_map(lambda x: x[i], all_hbar_states) for i in range(n_runs)]
+    final_params = [jax.tree_util.tree_map(lambda x: x[i], all_params) for i in range(n_runs)]
+    final_hbar_states = [jax.tree_util.tree_map(lambda x: x[i], all_hbar_states) for i in range(n_runs)]
 
     return VectorizedTrainingResults(
         final_params=final_params,
