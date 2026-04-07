@@ -31,7 +31,7 @@ from typing import Dict, List, Optional
 import jax
 import jax.numpy as jnp
 
-from hbar.benchmarks.scan_grammar import SCAN
+from hbar.benchmarks.scan_grammar import SCANGrammar
 from hbar.benchmarks.grammar_engine import GrammarEngine
 from hbar.engine.data_utils import get_default_config
 from hbar.engine.evaluator import Evaluator
@@ -153,7 +153,7 @@ def main():
     # Initialize grammar engine
     print(f"Initializing grammar engine for {args.domain}...")
     if args.domain == "scan":
-        grammar = SCAN()
+        grammar = SCANGrammar()
     else:
         raise ValueError(f"Unsupported domain: {args.domain}")
 
