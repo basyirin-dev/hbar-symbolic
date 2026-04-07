@@ -290,22 +290,80 @@ class GrammarEngine:
         """Compute structural distance between two logical forms.
 
         This computes the RDMstruct for RGA signal extraction.
-        Only applicable for COGS domain (SCAN actions are flat sequences).
+
+        For COGS: Uses tree-edit distance on logical form trees.
+        For SCAN: Uses normalized Levenshtein distance on action sequences.
 
         Args:
-            lf1: First logical form string.
-            lf2: Second logical form string.
-            domain: Must be 'cogs' for structural distance.
+            lf1: First logical form string (or action sequence for SCAN).
+            lf2: Second logical form string (or action sequence for SCAN).
+            domain: The domain ('scan' or 'cogs').
 
         Returns:
             Normalized structural distance in [0, 1].
-
-        Raises:
-            ValueError: If domain is not 'cogs'.
         """
-        if domain != "cogs":
-            raise ValueError("Structural distance is only available for COGS domain")
-        return self.cogs_grammar.get_structural_distance(lf1, lf2)
+        if domain == "scan":
+            return self._scan_structural_distance(lf1, lf2)
+        else:
+            return self.cogs_grammar.get_structural_distance(lf1, lf2)
+
+    def _scan_structural_distance(
+        self,
+        action1: str,
+        action2: str,
+    ) -> float:
+        """Compute structural distance between two SCAN action sequences.
+
+        Uses normalized Levenshtein (edit) distance on the action sequence
+        tokens. This captures the structural similarity between commands
+        based on their action outcomes.
+
+        For example:
+        - "I_JUMP" vs "I_JUMP" → distance = 0
+        - "I_JUMP" vs "I_RUN" → distance = 1
+        - "I_JUMP I_JUMP" vs "I_JUMP I_JUMP I_JUMP" → distance = 1/3
+
+        Args:
+            action1: First action sequence (e.g., "I_JUMP I_TURN_LEFT").
+            action2: Second action sequence.
+
+        Returns:
+            Normalized edit distance in [0, 1].
+        """
+        # Tokenize action sequences
+        tokens1 = action1.split()
+        tokens2 = action2.split()
+
+        # Compute Levenshtein distance
+        m, n = len(tokens1), len(tokens2)
+
+        if m == 0:
+            return 1.0 if n > 0 else 0.0
+        if n == 0:
+            return 1.0
+
+        # Create distance matrix
+        dp = [[0] * (n + 1) for _ in range(m + 1)]
+
+        for i in range(m + 1):
+            dp[i][0] = i
+        for j in range(n + 1):
+            dp[0][j] = j
+
+        for i in range(1, m + 1):
+            for j in range(1, n + 1):
+                if tokens1[i - 1] == tokens2[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1]
+                else:
+                    dp[i][j] = 1 + min(
+                        dp[i - 1][j],      # deletion
+                        dp[i][j - 1],      # insertion
+                        dp[i - 1][j - 1],  # substitution
+                    )
+
+        # Normalize by max length
+        max_len = max(m, n)
+        return dp[m][n] / max_len
 
     def compute_rdmstruct(
         self,

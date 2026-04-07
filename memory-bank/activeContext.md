@@ -321,3 +321,148 @@ This is the baseline noise floor to beat in Phase 3. The GCA regularizer should 
 - Computes GCA over 100 batches (batch_size=32 for memory efficiency)
 - Reports mean ± SEM, min, max with interpretation
 - CLI flags: `--params`, `--num-batches`, `--batch-size`, `--domain`, `--seed`
+
+## AC Signal (Subtask 5.2)
+
+### Overview
+
+The Augmentation Consistency (AC) signal $c_A$ measures the representational invariance of the model under structure-preserving augmentations. It computes the cosine similarity between encoder representations of the original input and its augmented version (where primitives are swapped but syntactic structure is preserved).
+
+### Implementation
+
+**`compute_augmentation_consistency(reps_id, reps_aug, layer, mask)` in `hbar/engine/signals.py`:**
+```
+c_A = (cos_sim + 1) / 2  # mapped from [-1, 1] to [0, 1]
+```
+- Uses cosine similarity between final encoder layer representations
+- Masks out padding positions
+- Returns scalar in range [0, 1] where 1.0 = perfect invariance
+
+**`compute_ac_from_batch(state, hbar_batch, model)` in `hbar/engine/signals.py`:**
+- Wrapper that extracts representations from HBarBatch streams
+- Calls `compute_augmentation_consistency` on id_stream and aug_stream
+
+**`get_ac_signal(state, hbar_batch, model)` in `hbar/engine/trainer.py`:**
+- JIT-compiled wrapper combining representation extraction + AC computation
+- Returns scalar AC value directly
+
+### Expected Ranges and Interpretation
+
+| Range | Interpretation |
+|-------|----------------|
+| c_A > 0.8 | Strong invariance — compositional schema well-encoded |
+| 0.5 < c_A < 0.8 | Moderate invariance — partial structural capture |
+| c_A < 0.5 | Low invariance — representations drift under augmentation |
+
+### Baseline Results (Kaggle GPU T4, 100 batches, batch_size=32)
+
+| Metric | Value |
+|--------|-------|
+| **Mean AC (c_A)** | **0.9901 ± 0.0004 (SEM)** |
+| Std Deviation | 0.0044 |
+| Min AC | 0.9759 |
+| Max AC | 0.9978 |
+
+**Interpretation: EXTREMELY HIGH AC (≈0.99)** indicates near-perfect representational invariance under augmentation. However, this must be interpreted alongside GCA:
+
+**Combined Signal Analysis (GCA + AC):**
+
+| Signal | Value | Interpretation |
+|--------|-------|----------------|
+| g_A (GCA) | -0.0249 ± 0.0076 | ✗ NEGATIVE — Learning ID harms OOD |
+| c_A (AC) | 0.9901 ± 0.0004 | ✓ HIGH — Strong invariance |
+| r(g_A, c_A) | 0.2133 | Weak coupling |
+
+**Key Insight: σ-Trap Confirmed**
+
+The pattern AC >> GCA (0.99 >> -0.02) confirms the σ-trap signature:
+- **High AC** reflects shallow invariance from self-attention mechanisms
+- **Negative GCA** reveals broken gradient geometry for compositional rules
+- **Weak correlation** (r=0.21) shows they capture different failure aspects
+
+This is the characteristic pattern where Transformer self-attention provides token-level consistency (high AC) but the gradient geometry is misaligned with compositional generalization (negative GCA).
+
+### Analysis Script
+
+**`scripts/analyze_ac_baseline.py`:**
+- Loads saved `model_params.msgpack`
+- Computes both GCA and AC over 100 batches (batch_size=32)
+- Reports mean ± SEM for both signals
+- Computes Pearson correlation r(g_A, c_A)
+- Includes H-Bar Phase 2 prediction check
+- CLI flags: `--params`, `--num-batches`, `--batch-size`, `--domain`, `--seed`
+
+### H-Bar Phase 3 Prediction
+
+Based on the baseline signal profile (g_A = -0.02, c_A = 0.99), the H-Bar framework predicts:
+
+**σ_critical Threshold:**
+- The model must achieve σ_A > σ_critical ≈ 0.7–0.8 to enter Phase 2
+- This requires pushing g_A from -0.02 to >0.7 through H-Bar signal modulation
+- The large gap between AC (0.99) and GCA (-0.02) indicates significant schema reorganization needed
+
+**Phase 2 Entry Criteria:**
+- g_A must transition from negative to positive (>0.7)
+- AC should remain high (>0.8) while GCA increases
+- The correlation r(g_A, c_A) should strengthen as true compositional rules crystallize
+
+## RGA Signal (Subtask 6.1)
+
+### Overview
+
+The Representational-Geometry Alignment (RGA) signal $r_A$ measures whether the model's internal representation geometry aligns with the structural geometry of the grammar. Per Equation 4 of the H-Bar paper, RGA quantifies if items with similar grammatical structure are represented similarly in the model's latent space.
+
+### Implementation
+
+**`compute_rdm_representational(representations, method)` in `hbar/engine/signals.py`:**
+- Computes N×N pairwise distance matrix from activation vectors
+- Supports cosine, euclidean, and correlation distance metrics
+- Default: cosine distance (1 - cosine_similarity)
+
+**`compute_rga(rdm_rep, rdm_struct)` in `hbar/engine/signals.py`:**
+- Extracts upper triangle from both RDMs (excluding diagonal)
+- Computes **Spearman rank correlation** between flattened vectors
+- Returns scalar in [-1, 1]
+
+**`_rank_data(data)` in `hbar/engine/signals.py`:**
+- JAX-compatible ranking with average tie handling
+- Required for Spearman correlation computation
+
+**Structural Distance for SCAN (`_scan_structural_distance` in `grammar_engine.py`):**
+- Normalized Levenshtein (edit) distance on action sequence tokens
+- Example: "I_JUMP" vs "I_JUMP I_JUMP" → distance = 1/2
+
+**Structural Distance for COGS:**
+- Tree-edit distance on LogicalForm trees (already implemented)
+
+### Expected Ranges and Interpretation
+
+| Range | Interpretation |
+|-------|----------------|
+| r_A > 0.5 | Moderate-high alignment — representations reflect grammar structure |
+| 0.2 < r_A < 0.5 | Low-moderate alignment — weak structural correspondence |
+| r_A < 0.2 | Low alignment — representations geometrically disorganized |
+
+### Analysis Script
+
+**`scripts/analyze_rga_baseline.py`:**
+- Loads saved `model_params.msgpack`
+- Generates N=100 compositional probes
+- Extracts BOS token representations from final encoder layer
+- Computes RGA = Spearman(RDM_rep, RDM_struct)
+- CLI flags: `--params`, `--num-probes`, `--domain`, `--seed`
+
+### Complete Stage 1 Signal Profile
+
+The three H-Bar signals together provide a comprehensive diagnostic of the σ-trap:
+
+| Signal | Baseline Value | Interpretation |
+|--------|----------------|----------------|
+| g_A (GCA) | -0.0249 ± 0.0076 | ✗ NEGATIVE — Learning ID harms OOD |
+| c_A (AC) | 0.9901 ± 0.0004 | ✓ HIGH — Strong invariance |
+| r_A (RGA) | Expected: 0.1-0.3 | ? LOW — Geometric disorganization |
+
+**Triple-Signal σ-Trap Signature:**
+- **High AC** + **Negative GCA** + **Low RGA** = Classic σ-trap
+- The model has shallow invariance (high AC) but broken gradient geometry (negative GCA) and disorganized representations (low RGA)
+- All three signals must improve for true compositional generalization

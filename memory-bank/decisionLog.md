@@ -385,3 +385,89 @@ return jax.vmap(swap_token)(token_ids)
 - The 100-batch analysis with batch_size=32 is optimized for Kaggle T4/P100 memory constraints
 - g_A will serve as the "baseline noise" to beat in Phase 3 H-Bar experiments
 - The signal links directly to Stage 1 estimate (σ̃_A) as one component of multi-signal fusion
+
+### Decision 17: Baseline AC Profile and σ_critical Prediction
+**Date:** 2026-04-07
+**Status:** Accepted
+
+**Context:** What does the combined GCA + AC signal profile reveal about the model's position relative to the σ-trap, and what σ_critical threshold is needed for Phase 2 entry?
+
+**Decision:** Document the baseline AC profile and predict the σ_critical threshold based on the observed signal pattern.
+
+**Baseline Signal Profile (Kaggle GPU T4, 100 batches):**
+
+| Signal | Value | Interpretation |
+|--------|-------|----------------|
+| g_A (GCA) | -0.0249 ± 0.0076 | ✗ NEGATIVE — Learning ID harms OOD |
+| c_A (AC) | 0.9901 ± 0.0004 | ✓ HIGH — Strong invariance |
+| r(g_A, c_A) | 0.2133 | Weak coupling |
+
+**Key Finding: σ-Trap Confirmed**
+
+The pattern AC >> GCA (0.99 >> -0.02) is the characteristic σ-trap signature:
+- **High AC** reflects shallow invariance from Transformer self-attention mechanisms
+- **Negative GCA** reveals broken gradient geometry for compositional rules
+- **Weak correlation** (r=0.21) shows they capture different aspects of the failure mode
+
+**σ_critical Threshold Prediction:**
+
+Based on the baseline signal profile, the H-Bar framework predicts:
+
+1. **Phase 2 Entry Threshold:** σ_A > σ_critical ≈ 0.7–0.8
+   - The model must achieve this threshold to transition from Phase 1 (memorization) to Phase 2 (compositional schema crystallization)
+
+2. **Required Signal Transformation:**
+   - g_A must transition from -0.02 to >0.7 (a shift of ~0.72)
+   - AC should remain high (>0.8) while GCA increases
+   - The correlation r(g_A, c_A) should strengthen as true compositional rules crystallize
+
+3. **H-Bar Regularizer Effect:**
+   - The GCA-based regularizer must push gradient alignment from negative to positive
+   - This requires explicit schema-targeting loss (Eq. 25) and learning rate modulation (Eq. 26)
+   - The large gap between AC and GCA indicates significant schema reorganization is needed
+
+**Consequences:**
+- The baseline establishes the "floor" that H-Bar experiments must exceed
+- Phase 3 experiments should monitor the g_A trajectory toward 0.7+
+- The σ_critical threshold of ~0.7–0.8 provides a clear target for Phase 2 entry
+- The weak AC-GCA correlation suggests these signals capture complementary aspects of compositional learning
+
+### Decision 18: Spearman Rank Correlation for RGA Signal (r_A)
+**Date:** 2026-04-07
+**Status:** Accepted
+
+**Context:** How to compute the Representational-Geometry Alignment (RGA) signal that measures whether the model's internal representation geometry aligns with the structural geometry of the grammar?
+
+**Decision:** Use **Spearman rank correlation** between the upper triangles of the representational RDM (RDM_rep) and structural RDM (RDM_struct), rather than Pearson correlation.
+
+**Rationale:**
+- **Monotonic Relationships:** Spearman correlation captures monotonic (not just linear) relationships between representational and structural distances. The mapping from grammatical structure to neural representations may be non-linear.
+- **Scale Invariance:** Spearman is invariant to monotonic transformations of the distance scales, making it robust to differences in the absolute scale of RDM_rep vs RDM_struct.
+- **Outlier Robustness:** Rank-based correlation is more robust to outliers in the RDM values, which can occur due to anomalous representations or structural distances.
+- **Neuroscience Precedent:** RSA (Representational Similarity Analysis) in computational neuroscience typically uses Spearman correlation for comparing RDMs (Kriegeskorte et al., 2008).
+- **Equation 4 Alignment:** The H-Bar paper specifies RDM correlation without specifying the correlation type; Spearman is the more conservative and robust choice.
+
+**Implementation:**
+- `compute_rdm_representational(representations, method)` — Computes N×N pairwise cosine distance matrix from BOS token representations
+- `compute_rga(rdm_rep, rdm_struct)` — Extracts upper triangle and computes Spearman rank correlation
+- `_rank_data(data)` — JAX-compatible ranking with average tie handling
+
+**Structural Distance for SCAN:**
+- Normalized Levenshtein (edit) distance on action sequence tokens
+- Example: "I_JUMP" vs "I_JUMP I_JUMP" → distance = 0.5
+- Captures the structural similarity between commands based on their action outcomes
+
+**Structural Distance for COGS:**
+- Tree-edit distance on LogicalForm trees (already implemented)
+
+**BOS Token as Sentence Summary:**
+- Use BOS token representation from final encoder layer as the sentence-level summary
+- The BOS token accumulates cross-attention from all positions, acting as a compressed representation of the full input
+
+**Expected Baseline RGA:** Low (~0.1-0.3), confirming geometric disorganization in the σ-trap
+
+**Consequences:**
+- RGA computation requires O(N²) pairwise distance calculations, limiting practical N to ~100-200 probes
+- The Spearman correlation range [-1, 1] provides clear interpretation: positive = aligned, negative = anti-aligned
+- RGA complements GCA and AC by measuring representational geometry rather than gradient alignment or augmentation invariance
+- The triple-signal profile (GCA, AC, RGA) provides a comprehensive diagnostic of the σ-trap

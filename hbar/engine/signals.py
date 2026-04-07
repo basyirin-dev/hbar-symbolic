@@ -223,3 +223,207 @@ def compute_gca(grad_id: jax.Array, grad_ood: jax.Array) -> jax.Array:
     )
 
     return numerator / denominator
+
+
+def compute_rdm_representational(
+    representations: jax.Array,
+    method: str = "cosine",
+) -> jax.Array:
+    """Compute Representational Dissimilarity Matrix (RDM) from activation vectors.
+
+    Given N activation vectors (e.g., BOS token representations from the final
+    encoder layer), computes the pairwise distances to form an N×N RDM.
+
+    The RDM captures the geometric structure of the model's internal representation
+    space. Per the H-Bar paper, this should align with the structural RDM of the
+    grammar if the model has learned compositional rules.
+
+    Args:
+        representations: Array of shape (N, d_model) containing activation vectors.
+            Typically the BOS token representation from the final encoder layer,
+            which acts as a sentence-level summary.
+        method: Distance metric to use. Options:
+            - "cosine": 1 - cosine_similarity (default)
+            - "euclidean": Euclidean distance
+            - "correlation": 1 - Pearson correlation
+
+    Returns:
+        N×N symmetric distance matrix with zeros on the diagonal.
+    """
+    N = representations.shape[0]
+
+    if method == "cosine":
+        # Normalize vectors
+        norms = jnp.linalg.norm(representations, axis=-1, keepdims=True)
+        norms = jnp.maximum(norms, 1e-8)  # Avoid division by zero
+        normed = representations / norms
+
+        # Cosine similarity matrix
+        sim_matrix = normed @ normed.T  # (N, N)
+
+        # Clip to [-1, 1] for numerical stability
+        sim_matrix = jnp.clip(sim_matrix, -1.0, 1.0)
+
+        # Convert to distance: 1 - similarity
+        rdm = 1.0 - sim_matrix
+
+    elif method == "euclidean":
+        # Pairwise Euclidean distances
+        diff = representations[:, jnp.newaxis, :] - representations[jnp.newaxis, :, :]
+        rdm = jnp.sqrt(jnp.sum(diff**2, axis=-1))
+
+    elif method == "correlation":
+        # 1 - Pearson correlation
+        mean = jnp.mean(representations, axis=-1, keepdims=True)
+        centered = representations - mean
+
+        norm = jnp.linalg.norm(centered, axis=-1, keepdims=True)
+        norm = jnp.maximum(norm, 1e-8)
+        normed = centered / norm
+
+        corr_matrix = normed @ normed.T
+        corr_matrix = jnp.clip(corr_matrix, -1.0, 1.0)
+
+        rdm = 1.0 - corr_matrix
+
+    else:
+        raise ValueError(f"Unknown distance method: {method}")
+
+    return rdm
+
+
+def compute_rga(
+    rdm_rep: jax.Array,
+    rdm_struct: jax.Array,
+) -> jax.Array:
+    """Compute Representational-Geometry Alignment (RGA) signal r_A.
+
+    Measures the alignment between the model's representational RDM and the
+    structural RDM of the grammar using Spearman rank correlation.
+
+    Per Equation 4 of the H-Bar paper, RGA quantifies whether the model's
+    internal geometry reflects the compositional structure of the grammar.
+    High RGA indicates that items with similar grammatical structure are
+    represented similarly in the model's latent space.
+
+    Args:
+        rdm_rep: N×N representational dissimilarity matrix from the model.
+        rdm_struct: N×N structural dissimilarity matrix from the grammar.
+            Should be normalized to the same scale as rdm_rep.
+
+    Returns:
+        Scalar in [-1, 1] representing the Spearman rank correlation between
+        the upper triangles of the two RDMs.
+    """
+    # Extract upper triangle (excluding diagonal) to avoid redundancy
+    # and self-similarity
+    N = rdm_rep.shape[0]
+    mask = jnp.triu(jnp.ones((N, N), dtype=bool), k=1)
+
+    rep_flat = rdm_rep[mask]
+    struct_flat = rdm_struct[mask]
+
+    # Compute Spearman rank correlation
+    # Rank the values
+    rep_rank = _rank_data(rep_flat)
+    struct_rank = _rank_data(struct_flat)
+
+    # Compute Pearson correlation on ranks (Spearman)
+    mean_rep = jnp.mean(rep_rank)
+    mean_struct = jnp.mean(struct_rank)
+
+    rep_centered = rep_rank - mean_rep
+    struct_centered = struct_rank - mean_struct
+
+    numerator = jnp.sum(rep_centered * struct_centered)
+    denominator = jnp.sqrt(
+        jnp.sum(rep_centered**2) * jnp.sum(struct_centered**2) + 1e-8
+    )
+
+    return numerator / denominator
+
+
+def _rank_data(data: jax.Array) -> jax.Array:
+    """Compute ranks for an array of values (handles ties with average rank).
+
+    This is a JAX-compatible implementation of scipy.stats.rankdata with
+    method='average' for tie handling.
+
+    Args:
+        data: 1D array of values to rank.
+
+    Returns:
+        1D array of ranks (float) with average ranks for ties.
+    """
+    # Get sorted indices
+    sort_idx = jnp.argsort(data)
+
+    # Create ranks (1-indexed)
+    n = len(data)
+    ranks = jnp.arange(1, n + 1, dtype=jnp.float32)
+
+    # Assign ranks in original order
+    ranks_sorted = ranks[sort_idx]
+
+    # Handle ties by averaging ranks for equal values
+    # Sort data values in the same order
+    sorted_data = data[sort_idx]
+
+    # Find tie groups
+    # A tie occurs when consecutive sorted values are equal
+    is_tie = jnp.concatenate([
+        jnp.array([False]),
+        sorted_data[:-1] == sorted_data[1:]
+    ])
+
+    # For each tie group, compute average rank
+    if jnp.any(is_tie):
+        # Find start and end of each tie group
+        tie_start = jnp.where(~is_tie, size=n, fill_value=n)[0]
+        tie_end = jnp.where(~is_tie, size=n, fill_value=n)[0]
+
+        # Simple approach: use scipy-like ranking
+        # For each unique value, assign average rank
+        unique_vals, counts = jnp.unique(sorted_data, return_counts=True)
+
+        # Compute cumulative sum to get positions
+        cumsum = jnp.concatenate([
+            jnp.array([0]),
+            jnp.cumsum(counts)
+        ])
+
+        # Average rank for each unique value
+        avg_ranks = (cumsum[:-1] + cumsum[1:]) / 2.0 + 1.0
+
+        # Map back to original positions
+        val_to_rank = {float(v): float(r) for v, r in zip(unique_vals, avg_ranks)}
+        avg_ranks_sorted = jnp.array([val_to_rank[float(v)] for v in sorted_data])
+
+        # Unsort to original order
+        unsort_idx = jnp.argsort(sort_idx)
+        return avg_ranks_sorted[unsort_idx]
+    else:
+        # No ties, just unsort
+        unsort_idx = jnp.argsort(sort_idx)
+        return ranks_sorted[unsort_idx]
+
+
+def compute_rga_from_representations(
+    representations: jax.Array,
+    structural_distances: jax.Array,
+    method: str = "cosine",
+) -> jax.Array:
+    """Compute RGA signal directly from representations and structural distances.
+
+    This is a convenience wrapper that combines RDM computation and RGA calculation.
+
+    Args:
+        representations: Array of shape (N, d_model) containing activation vectors.
+        structural_distances: N×N structural dissimilarity matrix from the grammar.
+        method: Distance metric for RDM_rep ("cosine", "euclidean", "correlation").
+
+    Returns:
+        Scalar in [-1, 1] representing the Spearman rank correlation.
+    """
+    rdm_rep = compute_rdm_representational(representations, method)
+    return compute_rga(rdm_rep, structural_distances)

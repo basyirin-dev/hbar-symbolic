@@ -151,12 +151,12 @@ The baseline confirmed the "Illusion of Mastery" pattern with a clear ~29% gener
 ## Phase 2: Core H-Bar Engine (Weeks 5-8)
 
 ### Subtask 2.1: Multi-Signal Proxy Extraction
-**Status:** Partially Complete (1/4 signals implemented)
+**Status:** Partially Complete (3/4 signals implemented)
 
 **Objectives:**
 - [x] Implement GCA (Gradient-Composition Alignment) — Complete
-- [ ] Implement RGA (Representational-Geometry Alignment)
-- [ ] Implement AC (Augmentation Consistency)
+- [x] Implement RGA (Representational-Geometry Alignment) — Complete
+- [x] Implement AC (Augmentation Consistency) — Complete
 - [ ] Build multi-signal fusion: sigma_tilde_A = w_g*g_A + w_r*r_A + w_c*c_A
 
 **Completed Deliverables (GCA):**
@@ -251,6 +251,75 @@ The baseline confirmed the "Illusion of Mastery" pattern with a clear ~29% gener
 - [ ] Draft methodology and results sections
 - [ ] Format to NeurIPS/ICLR template
 - [ ] Submit to arXiv
+
+### Subtask 5.1: GCA Signal Implementation
+**Status:** Complete ✓
+
+**Objectives:**
+- [x] Implement `compute_gca` in `hbar/engine/signals.py`
+- [x] Implement `compute_dual_gradients` in `hbar/engine/trainer.py`
+- [x] Implement `get_gca_signal` helper in `hbar/engine/trainer.py`
+- [x] Create `scripts/analyze_gca_baseline.py` analysis script
+- [x] Document GCA signal in `memory-bank/activeContext.md`
+- [x] Run baseline GCA analysis on Kaggle
+
+**Completed Deliverables:**
+- `hbar/engine/signals.py`: `compute_gca(grad_id, grad_ood)` with ε=1e-8 stability
+- `hbar/engine/trainer.py`: Dual gradient extraction with `jax.flatten_util.ravel_pytree`
+- `scripts/analyze_gca_baseline.py`: 100-batch GCA analysis with mean ± SEM reporting
+
+**Baseline GCA Results (Kaggle GPU T4, 100 batches, batch_size=32):**
+- **Mean GCA (g_A):** -0.0235 ± 0.0075 (SEM)
+- **Std Deviation:** 0.0753
+- **Min GCA:** -0.1753
+- **Max GCA:** 0.1727
+- **Interpretation:** NEGATIVE GCA confirms σ-trap — learning ID patterns actively harms OOD performance
+
+### Subtask 5.2: AC Signal Implementation
+**Status:** Complete ✓
+
+**Objectives:**
+- [x] Implement `compute_ac_from_batch()` in `hbar/engine/signals.py`
+- [x] Implement `get_ac_signal()` in `hbar/engine/trainer.py`
+- [x] Create `scripts/analyze_ac_baseline.py` (combined GCA + AC analysis)
+- [x] Document baseline AC profile in memory bank
+
+**Completed Deliverables:**
+- `hbar/engine/signals.py`: `compute_ac_from_batch()` wrapper for AC computation
+- `hbar/engine/trainer.py`: `get_ac_signal()` — extracts encoder representations from id_stream and aug_stream
+- `scripts/analyze_ac_baseline.py`: Combined analysis script with GCA + AC correlation
+
+**Baseline AC Results (Kaggle GPU T4, 100 batches, batch_size=32):**
+
+| Metric | Value |
+|--------|-------|
+| **Mean AC (c_A)** | **0.9901 ± 0.0004 (SEM)** |
+| Std Deviation | 0.0044 |
+| Min AC | 0.9759 |
+| Max AC | 0.9978 |
+
+**Interpretation:** EXTREMELY HIGH AC (≈0.99) indicates strong representational invariance under augmentation. However, combined with negative GCA (-0.02), this confirms the σ-trap: self-attention provides token-level consistency without compositional rules.
+
+### Subtask 6.1: RGA Signal Implementation
+**Status:** Complete ✓
+
+**Objectives:**
+- [x] Implement `compute_rdm_representational()` in `hbar/engine/signals.py`
+- [x] Implement `compute_rga()` with Spearman rank correlation
+- [x] Implement SCAN structural distance (Levenshtein on action sequences)
+- [x] Create `scripts/analyze_rga_baseline.py` analysis script
+- [x] Document baseline RGA profile in memory bank
+
+**Completed Deliverables:**
+- `hbar/engine/signals.py`: `compute_rdm_representational()` (cosine/euclidean/correlation distances), `compute_rga()` (Spearman correlation on RDM upper triangles), `_rank_data()` (JAX-compatible ranking with tie handling)
+- `hbar/benchmarks/grammar_engine.py`: `_scan_structural_distance()` using normalized Levenshtein distance on action sequence tokens
+- `scripts/analyze_rga_baseline.py`: RGA analysis with BOS token representations from final encoder layer
+
+**RGA Implementation Details:**
+- **RDM_rep:** Pairwise cosine distances between BOS token representations (final encoder layer)
+- **RDM_struct:** For SCAN — normalized Levenshtein distance on action sequences; For COGS — tree-edit distance on logical forms
+- **Alignment:** Spearman rank correlation (captures monotonic relationships, not just linear)
+- **Expected baseline RGA:** Low (~0.1-0.3) confirming geometric disorganization
 
 ### Subtask 5.2: Deliverables
 **Status:** Pending
