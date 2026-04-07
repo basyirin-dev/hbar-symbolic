@@ -223,14 +223,10 @@ def apply_hbar_step(
     cognitive_manager = create_manager(constants)
 
     # Map training metrics to HBarInputs
-    inputs = cognitive_manager.metrics_to_inputs(
-        sigma_tilde=sigma_tilde,
-        sigma_hat=hbar_state.sigma_A,  # Use current state as estimate
-        id_accuracy=1.0,  # Will be updated at evaluation
-        ood_accuracy=0.0,  # Will be updated at evaluation
-        step=0,  # Step count not needed for single step
-        total_steps=1,
-    )
+    inputs = cognitive_manager.metrics_to_inputs({
+        "sigma_tilde": sigma_tilde,
+        "sigma_hat": hbar_state.sigma_A,
+    })
 
     # Step the ODEs to update HBarState
     new_hbar_state = cognitive_manager.step(hbar_state, inputs, dt=1.0)
@@ -1367,14 +1363,10 @@ def run_hbar_training(
 
         # Step 3: Prepare H-Bar inputs for ODE stepping
         # Map training metrics to HBarInputs
-        inputs = cognitive_manager.metrics_to_inputs(
-            sigma_tilde=sigma_tilde,
-            sigma_hat=hbar_state.sigma_A,  # Use current state as estimate
-            id_accuracy=1.0,  # Will be updated at evaluation
-            ood_accuracy=0.0,  # Will be updated at evaluation
-            step=step,
-            total_steps=total_steps,
-        )
+        inputs = cognitive_manager.metrics_to_inputs({
+            "sigma_tilde": sigma_tilde,
+            "sigma_hat": hbar_state.sigma_A,
+        })
 
         # Step the ODEs to update HBarState
         hbar_state = cognitive_manager.step(hbar_state, inputs, dt=1.0)
@@ -1424,14 +1416,10 @@ def run_hbar_training(
             print(f"  σ̂_A:          {eval_result.ground_truth_sigma:.4f}")
 
             # Update cognitive manager with evaluation results
-            inputs = cognitive_manager.metrics_to_inputs(
-                sigma_tilde=hbar_state.sigma_A,
-                sigma_hat=eval_result.ground_truth_sigma,
-                id_accuracy=eval_result.acc_id,
-                ood_accuracy=eval_result.acc_ood,
-                step=step,
-                total_steps=total_steps,
-            )
+            inputs = cognitive_manager.metrics_to_inputs({
+                "sigma_tilde": hbar_state.sigma_A,
+                "sigma_hat": eval_result.ground_truth_sigma,
+            })
 
             # Check for phase transition
             phase_info = cognitive_manager.check_phase_transition(hbar_state)
@@ -1612,14 +1600,10 @@ def run_hbar_training_multiplicative(
         sigma_tilde = hbar_state.sigma_A
 
         # Step 3: Prepare H-Bar inputs for ODE stepping
-        inputs = cognitive_manager.metrics_to_inputs(
-            sigma_tilde=sigma_tilde,
-            sigma_hat=hbar_state.sigma_A,
-            id_accuracy=1.0,
-            ood_accuracy=0.0,
-            step=step,
-            total_steps=total_steps,
-        )
+        inputs = cognitive_manager.metrics_to_inputs({
+            "sigma_tilde": sigma_tilde,
+            "sigma_hat": hbar_state.sigma_A,  # Use current state as estimate
+        })
 
         # Step the ODEs to update HBarState
         hbar_state = cognitive_manager.step(hbar_state, inputs, dt=1.0)
@@ -1669,14 +1653,10 @@ def run_hbar_training_multiplicative(
             print(f"  σ̂_A:          {eval_result.ground_truth_sigma:.4f}")
 
             # Update cognitive manager with evaluation results
-            inputs = cognitive_manager.metrics_to_inputs(
-                sigma_tilde=hbar_state.sigma_A,
-                sigma_hat=eval_result.ground_truth_sigma,
-                id_accuracy=eval_result.acc_id,
-                ood_accuracy=eval_result.acc_ood,
-                step=step,
-                total_steps=total_steps,
-            )
+            inputs = cognitive_manager.metrics_to_inputs({
+                "sigma_tilde": hbar_state.sigma_A,
+                "sigma_hat": eval_result.ground_truth_sigma,
+            })
 
             # Check for phase transition
             phase_info = cognitive_manager.check_phase_transition(hbar_state)
