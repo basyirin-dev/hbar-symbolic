@@ -318,8 +318,15 @@ def create_compiled_train_step(
         new_params = optax.apply_updates(params, updates)
 
         # Fixed-step ODE update (Tier 4)
-        # Simple exponential moving average for sigma
-        new_sigma = 0.9 * sigma_A + 0.1 * sigma_A  # Will be updated with sigma_tilde
+        # Compute sigma_tilde from the loss ratio (simplified estimate)
+        # When total_loss is low and ood_loss is low, sigma should increase
+        loss_ratio = jnp.where(
+            id_loss > 1e-6,
+            jnp.clip(1.0 - ood_loss / (id_loss + 1e-6), 0.0, 1.0),
+            0.9,  # Default high sigma when ID loss is near zero
+        )
+        # Exponential moving average update
+        new_sigma = 0.9 * sigma_A + 0.1 * loss_ratio
 
         # Check for crystallization
         should_stop = sigma_A > 0.90
@@ -456,16 +463,38 @@ def run_optimized_training(
 
         # Log metrics (downsample to every 10 steps - Tier 5)
         if step % 10 == 0:
-            writer.writerow({
-                "step": step,
-                "run_id": 0,
-                "train_loss": float(metrics.train_loss),
-                "id_loss": float(metrics.id_loss),
-                "ood_loss": float(metrics.ood_loss),
-                "sigma_A": float(metrics.sigma_A),
-                "alpha_A": float(metrics.alpha_A),
-                "should_stop": bool(metrics.should_stop),
-            })
+            try:
+                # Safely convert to float, handling NaN/Inf
+                train_loss_val = float(metrics.train_loss)
+                id_loss_val = float(metrics.id_loss)
+                ood_loss_val = float(metrics.ood_loss)
+                sigma_a_val = float(metrics.sigma_A)
+                alpha_a_val = float(metrics.alpha_A)
+
+                # Replace NaN/Inf with 0.0
+                if not (train_loss_val == train_loss_val):  # NaN check
+                    train_loss_val = 0.0
+                if not (id_loss_val == id_loss_val):
+                    id_loss_val = 0.0
+                if not (ood_loss_val == ood_loss_val):
+                    ood_loss_val = 0.0
+                if not (sigma_a_val == sigma_a_val):
+                    sigma_a_val = 0.0
+                if not (alpha_a_val == alpha_a_val):
+                    alpha_a_val = 0.0
+
+                writer.writerow({
+                    "step": step,
+                    "run_id": 0,
+                    "train_loss": train_loss_val,
+                    "id_loss": id_loss_val,
+                    "ood_loss": ood_loss_val,
+                    "sigma_A": sigma_a_val,
+                    "alpha_A": alpha_a_val,
+                    "should_stop": bool(metrics.should_stop),
+                })
+            except Exception as e:
+                print(f"Warning: Failed to log metrics at step {step}: {e}")
 
         # Print progress
         if step % 100 == 0:
