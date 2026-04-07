@@ -33,7 +33,6 @@ import jax.numpy as jnp
 
 from hbar.benchmarks.scan_grammar import SCANGrammar
 from hbar.benchmarks.grammar_engine import GrammarEngine
-from hbar.engine.data_utils import get_default_config
 from hbar.engine.evaluator import Evaluator
 from hbar.engine.vectorized_trainer import run_vectorized_training, VectorizedTrainingResults
 from hbar.models.config import TransformerConfig, FusionConfig
