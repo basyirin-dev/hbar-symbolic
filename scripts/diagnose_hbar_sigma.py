@@ -94,8 +94,8 @@ def run_diagnostic(
     # Initialize evaluator
     print(f"\nInitializing evaluator for {domain}...")
     evaluator = Evaluator(domain=domain)
-    print(f"  ID samples: {len(evaluator.id_pairs)}")
-    print(f"  OOD samples: {len(evaluator.ood_pairs)}")
+    print(f"  ID samples: {len(evaluator.id_samples)}")
+    print(f"  OOD samples: {len(evaluator.ood_samples)}")
 
     # Initialize config
     config = TransformerConfig(
